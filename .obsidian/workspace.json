@@ -1,0 +1,225 @@
+{
+  "main": {
+    "id": "9a1d2e36966b29b1",
+    "type": "split",
+    "children": [
+      {
+        "id": "ef963b31bfc0ad8a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e0619305e40694a8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "大模型基础知识点.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "大模型基础知识点"
+            }
+          },
+          {
+            "id": "6e34c38de51bbe78",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "飞天闪客知识点.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "飞天闪客知识点"
+            }
+          },
+          {
+            "id": "3b8aec7583dea288",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "大模型基础知识点.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "大模型基础知识点"
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f1f9665a386640c8",
+    "type": "split",
+    "children": [
+      {
+        "id": "118dd7e8d8d90fda",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ba3249ecece8f778",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "f8273136fec0f8c0",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "4d60033b0e7bfa31",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "cd28e5e35c043f96",
+    "type": "split",
+    "children": [
+      {
+        "id": "dd2cc0ba4ef4d2c3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "385a148d0daf2d68",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "飞天闪客知识点.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "飞天闪客知识点 的反向链接列表"
+            }
+          },
+          {
+            "id": "247240843130d373",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "飞天闪客知识点.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "飞天闪客知识点 的出链列表"
+            }
+          },
+          {
+            "id": "739ceb53c17c2614",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "aa652974b29c57c4",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "a9b48659a5d41f7c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "飞天闪客知识点.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "飞天闪客知识点 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "ba3249ecece8f778",
+  "lastOpenFiles": [
+    "创建链接.md",
+    "欢迎.md",
+    "飞天闪客知识点.md",
+    "Pasted image 20260628213259.png",
+    "浅谈transformer.md",
+    "大模型技术概念.md",
+    "大模型基础知识点.md"
+  ]
+}

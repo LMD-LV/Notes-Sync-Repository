@@ -1,0 +1,8 @@
+# 工具配置目录（不同步）
+.claude/
+
+# 系统文件
+.DS_Store
+._.DS_Store
+._*
+Thumbs.db
