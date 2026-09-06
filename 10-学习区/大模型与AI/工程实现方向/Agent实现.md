@@ -97,6 +97,11 @@ Function Call 是一次性的「单步调用」，LLM 判断需要调用一个�
 - 然后是 **MCP Client（客户端）** ，它住在 Host 里面，负责跟 MCP Server 通信。你可以把它理解为"翻译官"，Host 想要什么能力，Client 就去跟对应的 Server 沟通。
 - 最后是 **MCP Server（服务端）** ，它负责对外暴露具体的工具能力和数据资源。比如有一个 GitHub MCP Server，它能提供"搜索代码""创建 Issue""查看 PR"等工具。一个 Slack MCP Server 能提供"发送消息""搜索频道"等工具。
 
+传输层(自 LangChain 笔记并入,2026-09-06):
+- SSE: 基于 http 实现的长连接协议
+- STDIO: 在客户端执行本地的应用程序
+- 接入 mcp 服务, 目前只要接入一个配置文件
+
 
 
 ### Agent常见的工作模式

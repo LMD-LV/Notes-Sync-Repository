@@ -70,9 +70,6 @@ Time Travel时间回溯
 
 
 
-MCP工作机制
-SSE, 基于http实现的长连接协议
-STDIO 在客户端执行本地的应用程序
-接入mcp服务, 目前只要接入一个配置文件
+MCP 传输层(SSE/STDIO)与工作机制 → 已并入 [[Agent实现]] 的 MCP 协议节
 
 
