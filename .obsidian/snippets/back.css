@@ -1,0 +1,53 @@
+/*.markdown-preview-view::after {  This was the previous line*/  
+.workspace-split.mod-root .view-content::after {
+  content: "";
+  position: fixed;
+  background-image: url(https://unsplash.com/photos/a-fox-rests-in-tall-grass-at-dawn-Rl7SZ19fgRQ);
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(5px) brightness(60%) saturate(50%);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.markdown-preview-view {
+  z-index: 1;
+}
+
+/* 关系图谱界面 */
+.workspace-leaf-content[data-type="graph"] .view-content {
+  z-index: 0;
+}
+.theme-light .workspace-leaf-content[data-type="graph"] .view-content::after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  background-image: url( https://unsplash.com/photos/sunlight-shines-through-ancient-mossy-tree-branches-HHRckNv-gK8);
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(2px) brightness(100%) saturate(50%);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.theme-dark .workspace-leaf-content[data-type="graph"] .view-content::after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  background-image: url(https://w.wallhaven.cc/full/pk/wallhaven-pk8pzj.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(2px) brightness(40%) saturate(60%);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.CodeMirror-foldgutter {
+width:0
+}

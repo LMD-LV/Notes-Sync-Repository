@@ -1,0 +1,16 @@
+-   作用，接受，处理，响应，web中的控制器，运行在服务端
+-   web-inf 下为受保护资源，不允许客户端直接访问
+-   servlet不是实际存在的文件，所以配置映射路径访问，servletname，servletclass，urlpattern（支持通配）
+-   webservlet注释的方式使用
+-   生命周期为 构造对象，初始化，处理服务，销毁， 单例对象，多线程
+-   通过load on startup 配置容器实例时的顺序，1-5已经被使用
+-   servlet，genericservlet，httpservlet
+-   servletconfig，servletcontext（应用域）
+-   请求域，会话域，应用域
+-   httpservletRequest，response
+-   请求转发-request实现（服务器内部处理，一次请求，请求响应对象可以被继续传递，可以访问被保护的资源，不能请求项目外资源）.getrequestdispatcher
+-   请求重定向-resopnse实现（服务端响应客户端302和路径，客户端至少发送两次请求，无法传递对象，不可以访问受保护资源，可以访问外部资源）sendredirect
+-   web中的过滤器，是在访问所有的资源之前（创建request，response之后调用），也可以在响应之前，过滤器支持通过 1，映射路径 2，通配符匹配后缀名称 3，别名过滤。
+-   过滤器的代码的执行的顺序是，首先在响应之前执行过滤器的代码，然后过滤器放行执行servlet的代码，然后执行过滤器放行后的代码，如果是算子链条也是按照这样的顺序串起来
+-   当session被destroy的时候会删除所有的属性,对于请求域来讲，请求转发正常，但是重定向会导致对象无法传输导致监听器销毁
+-   session对象有钝化（存储到磁盘），活化的情况

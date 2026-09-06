@@ -1,0 +1,10 @@
+# Obsidian 工作区缓存(个人界面状态,不需要版本管理)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.obsidian/plugins/*/data.json
+
+# 垃圾桶与系统文件
+.trash/
+.DS_Store
+Thumbs.db
