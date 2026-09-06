@@ -10,7 +10,7 @@ source: 个人总结
 
 集合: 存储同一数据类型多个元素对象的容器
 
-\*数组和集合的区别: 1.容器长度可变性:数组:一旦创建,长度不可改变
+* 数组和集合的区别: 1.容器长度可变性:数组:一旦创建,长度不可改变
 
 集合:可以改变的
 
@@ -28,75 +28,75 @@ source: 个人总结
 
 Collection接口:
 
-\* List接口:
+* List接口:
 
-\* ArrayList类
+* ArrayList类
 
-\* Vector类
+* Vector类
 
-\* LinkedList类
+* LinkedList类
 
-\* Set接口:
+* Set接口:
 
-\* HashSet类
+* HashSet类
 
-\* LinkedHashSet类
+* LinkedHashSet类
 
-\* TreeSet类
+* TreeSet类
 
-\* Map接口
+* Map接口
 
-\* HashMap类
+* HashMap类
 
-\* LinkedHashMap类
+* LinkedHashMap类
 
-\* TreeMap类
+* TreeMap类
 
-\* Hashtable类
+* Hashtable类
 
-\* Properties类
+* Properties类
 
 ​  
 
 Collection接口
 
-\* 接口的位置
+* 接口的位置
 
-\* java.util
+* java.util
 
-\* 接口的特点
+* 接口的特点
 
-\* 是单列集合的顶级接口
+* 是单列集合的顶级接口
 
-\* 接口的方法
+* 接口的方法
 
-\* boolean add(E e)
+* boolean add(E e)
 
-\* 确保此 collection 包含指定的元素（可选操作）。
+* 确保此 collection 包含指定的元素（可选操作）。
 
-\* void clear()
+* void clear()
 
-\* 移除此 collection 中的所有元素（可选操作）。
+* 移除此 collection 中的所有元素（可选操作）。
 
-\* boolean contains(Object o)
+* boolean contains(Object o)
 
-\* 如果此 collection 包含指定的元素，则返回 true。
+* 如果此 collection 包含指定的元素，则返回 true。
 
-\* boolean isEmpty()
+* boolean isEmpty()
 
-\* 如果此 collection 不包含元素，则返回 true。
+* 如果此 collection 不包含元素，则返回 true。
 
-\* Iterator<E> iterator()
+* Iterator<E> iterator()
 
-\* 返回在此 collection 的元素上进行迭代的迭代器。
+* 返回在此 collection 的元素上进行迭代的迭代器。
 
-\* boolean remove(Object o)
+* boolean remove(Object o)
 
-\* 从此 collection 中移除指定元素的单个实例，如果存在的话（可选操作）。
+* 从此 collection 中移除指定元素的单个实例，如果存在的话（可选操作）。
 
-\* int size()
+* int size()
 
-\* 返回此 collection 中的元素数。
+* 返回此 collection 中的元素数。
 
   
 
@@ -110,33 +110,33 @@ Collection集合的面试题:
 
 Collection集合第一种遍历方式:Iterator迭代器
 
-\*
+* 
 
-\* Iterator接口
+* Iterator接口
 
-\* 接口的位置
+* 接口的位置
 
-\* java.util
+* java.util
 
-\* 接口的特点
+* 接口的特点
 
-\* 针对Collection接口进行迭代的迭代器工具接口
+* 针对Collection接口进行迭代的迭代器工具接口
 
-\* 接口的方法
+* 接口的方法
 
-\* boolean hasNext()
+* boolean hasNext()
 
-\* 如果仍有元素可以迭代，则返回 true
+* 如果仍有元素可以迭代，则返回 true
 
-\* E next()
+* E next()
 
-\* 返回迭代的下一个元素。
+* 返回迭代的下一个元素。
 
-\* void remove()
+* void remove()
 
-\* 从迭代器指向的 collection 中移除迭代器返回的最后一个元素（可选操作）。
+* 从迭代器指向的 collection 中移除迭代器返回的最后一个元素（可选操作）。
 
-\*
+* 
 
 Iterator迭代器的注意事项:
 
@@ -160,11 +160,11 @@ Collection集合第二种遍历方式:增强for(JDK5.0新特性)
 
 格式:
 
-\* for (容器中元素的数据类型 元素名 : 容器名 ) {
+* for (容器中元素的数据类型 元素名 : 容器名 ) {
 
-\*
+* 
 
-\* }
+* }
 
 ​  
 
@@ -250,69 +250,69 @@ Collection集合第四种遍历方式:Stream流
 
 #### List接口
 
-\* 接口的位置
+* 接口的位置
 
-\* java.util
+* java.util
 
-\* 接口的特点
+* 接口的特点
 
-\* 1.List集合是有序的集合
+* 1.List集合是有序的集合
 
-\* 集合的有序性:存储元素的顺序和获取元素的顺序一致
+* 集合的有序性:存储元素的顺序和获取元素的顺序一致
 
-\* 集合的无序性:存储元素的顺序和获取元素的数据不一致
+* 集合的无序性:存储元素的顺序和获取元素的数据不一致
 
-\* 2.List集合是有整数索引的集合
+* 2.List集合是有整数索引的集合
 
-\* 3.List集合是可以存储重复元素
+* 3.List集合是可以存储重复元素
 
-\* 4.List集合中的索引实现方式共有4种
+* 4.List集合中的索引实现方式共有4种
 
-\* 数组结构
+* 数组结构
 
-\* 链表结构
+* 链表结构
 
-\* 栈结构
+* 栈结构
 
-\* 队列结构
+* 队列结构
 
-\* 5.List集合含有特有的迭代器ListIterator
+* 5.List集合含有特有的迭代器ListIterator
 
-\* 接口的方法
+* 接口的方法
 
-\* void add(int index,E element)
+* void add(int index,E element)
 
-\* 在列表的指定位置插入指定元素（可选操作）。
+* 在列表的指定位置插入指定元素（可选操作）。
 
-\* E get(int index)
+* E get(int index)
 
-\* 返回列表中指定位置的元素。
+* 返回列表中指定位置的元素。
 
-\* int indexOf(Object o)
+* int indexOf(Object o)
 
-\* 返回此列表中第一次出现的指定元素的索引；如果此列表不包含该元素，则返回 -1。
+* 返回此列表中第一次出现的指定元素的索引；如果此列表不包含该元素，则返回 -1。
 
-\* int lastIndexOf(Object o)
+* int lastIndexOf(Object o)
 
-\* 返回此列表中最后出现的指定元素的索引；如果列表不包含此元素，则返回 -1。
+* 返回此列表中最后出现的指定元素的索引；如果列表不包含此元素，则返回 -1。
 
-\* ListIterator<E> listIterator()
+* ListIterator<E> listIterator()
 
-\* 返回此列表元素的列表迭代器（按适当顺序）。
+* 返回此列表元素的列表迭代器（按适当顺序）。
 
-\* E remove(int index)
+* E remove(int index)
 
-\* 移除列表中指定位置的元素（可选操作）。将所有的后续元素向左移动（将其索引减 1）。
+* 移除列表中指定位置的元素（可选操作）。将所有的后续元素向左移动（将其索引减 1）。
 
-\* E set(int index,E element)
+* E set(int index,E element)
 
-\* 用指定元素替换列表中指定位置的元素（可选操作）。
+* 用指定元素替换列表中指定位置的元素（可选操作）。
 
-\* List<E> subList(int fromIndex,int toIndex)
+* List<E> subList(int fromIndex,int toIndex)
 
-\* 返回列表中指定的 fromIndex（包括 ）和 toIndex（不包括）之间的部分视图。
+* 返回列表中指定的 fromIndex（包括 ）和 toIndex（不包括）之间的部分视图。
 
-\*/
+* /
 
 ​  
 
@@ -330,351 +330,351 @@ List集合的6种遍历方式:1.迭代器 2.增强for 3.forEach() 4.Stream流 5.
 
 ArrayList类
 
-\* 类的位置
+* 类的位置
 
-\* java.util
+* java.util
 
-\* 类的特点
+* 类的特点
 
-\* 1.ArrayList集合底层的数据结构是"数组结构"
+* 1.ArrayList集合底层的数据结构是"数组结构"
 
-\* 数组结构的特点(相比链表结构):
+* 数组结构的特点(相比链表结构):
 
-\* 查询效率高,增删效率低
+* 查询效率高,增删效率低
 
-\* 2.ArrayList集合可以存储null元素,在获取元素的时候需要进行元素的非空校验,防止空指针异常
+* 2.ArrayList集合可以存储null元素,在获取元素的时候需要进行元素的非空校验,防止空指针异常
 
-\* 3.ArrayList集合是线程不安全的集合,适用于单线程程序,如果在多线程中进行使用,需要手动添加线程安全
+* 3.ArrayList集合是线程不安全的集合,适用于单线程程序,如果在多线程中进行使用,需要手动添加线程安全
 
-\* 类的构造器
+* 类的构造器
 
-\* public ArrayList()
+* public ArrayList()
 
-\* 构造一个初始容量为 10 的空列表。
+* 构造一个初始容量为 10 的空列表。
 
-\* 类的方法
+* 类的方法
 
-\* 详见Collection集合和List集合的常用方法
+* 详见Collection集合和List集合的常用方法
 
 ​  
 
 ArrayList集合的源码分析:
 
-\* 1.ArrayList集合底层数组的初始长度
+* 1.ArrayList集合底层数组的初始长度
 
-\* 初始长度是多少所选择的构造器
+* 初始长度是多少所选择的构造器
 
-\* (1)public ArrayList()
+* (1)public ArrayList()
 
-\* 初始容量:
+* 初始容量:
 
-\* JDK6.0(包含)以前:10
+* JDK6.0(包含)以前:10
 
-\* JDK7.0(包含)以后:0
+* JDK7.0(包含)以后:0
 
-\* (2)public ArrayList(Collection<? extends E> c)
+* (2)public ArrayList(Collection<? extends E> c)
 
-\* 初始容量:
+* 初始容量:
 
-\* 参数集合长度
+* 参数集合长度
 
-\* (3)public ArrayList(int initialCapacity)
+* (3)public ArrayList(int initialCapacity)
 
-\* 初始容量:
+* 初始容量:
 
-\* 自定义
+* 自定义
 
-\* 2.ArrayList集合底层数组的扩容原理
+* 2.ArrayList集合底层数组的扩容原理
 
-\* JDK6.0(包含)以前:
+* JDK6.0(包含)以前:
 
-\* (原来数组长度 \* 3) / 2 + 1
+* (原来数组长度 \* 3) / 2 + 1
 
-\* JDK7.0(包含)以后:
+* JDK7.0(包含)以后:
 
-\* 第一次扩容:
+* 第一次扩容:
 
-\* 10
+* 10
 
-\* 后续扩容:
+* 后续扩容:
 
-\* 原来数组长度 + (原来数组长度 >> 1);
+* 原来数组长度 + (原来数组长度 >> 1);
 
-\*
+* 
 
 ​  
 
 Vector类
 
-\* 类的位置
+* 类的位置
 
-\* java.util
+* java.util
 
-\* 类的特点
+* 类的特点
 
-\* 1.Vector集合底层的数据结构是"数组结构"
+* 1.Vector集合底层的数据结构是"数组结构"
 
-\* 2.Vector集合可以存储null元素,在获取元素的时候需要进行元素的非空校验,防止空指针异常
+* 2.Vector集合可以存储null元素,在获取元素的时候需要进行元素的非空校验,防止空指针异常
 
-\* 3.Vector集合是线程安全的,适用于多线程程序,不推荐在单线程中进行使用,因为效果过低
+* 3.Vector集合是线程安全的,适用于多线程程序,不推荐在单线程中进行使用,因为效果过低
 
-\* 类的构造器
+* 类的构造器
 
-\* public Vector()
+* public Vector()
 
-\* 类的方法
+* 类的方法
 
-\* 详见Collection集合和List集合的常用方法
+* 详见Collection集合和List集合的常用方法
 
 ​  
 
 ArrayList集合和Vector集合的区别:
 
-\* 1.线程安全性:
+* 1.线程安全性:
 
-\* ArrayList集合是线程不安全的集合,适用于单线程程序,如果在多线程中进行使用,需要手动添加线程安全
+* ArrayList集合是线程不安全的集合,适用于单线程程序,如果在多线程中进行使用,需要手动添加线程安全
 
-\* Vector集合是线程安全的,适用于多线程程序,不推荐在单线程中进行使用,因为效果过低
+* Vector集合是线程安全的,适用于多线程程序,不推荐在单线程中进行使用,因为效果过低
 
-\* 2.无参构造器的初始长度不同:
+* 2.无参构造器的初始长度不同:
 
-\* ArrayList初始容量:
+* ArrayList初始容量:
 
-\* JDK6.0(包含)以前:10
+* JDK6.0(包含)以前:10
 
-\* JDK7.0(包含)以后:0
+* JDK7.0(包含)以后:0
 
-\* Vector初始容量:
+* Vector初始容量:
 
-\* 10
+* 10
 
-\* 3.扩容机制不同:
+* 3.扩容机制不同:
 
-\* ArrayList:
+* ArrayList:
 
-\* 根据计算公式进行扩容:
+* 根据计算公式进行扩容:
 
-\* JDK6.0(包含)以前:
+* JDK6.0(包含)以前:
 
-\* (原来数组长度 \* 3) / 2 + 1
+* (原来数组长度 \* 3) / 2 + 1
 
-\* JDK7.0(包含)以后:
+* JDK7.0(包含)以后:
 
-\* 第一次扩容:
+* 第一次扩容:
 
-\* 10
+* 10
 
-\* 后续扩容:
+* 后续扩容:
 
-\* 原来数组长度 + (原来数组长度 >> 1);
+* 原来数组长度 + (原来数组长度 >> 1);
 
-\* Vector:
+* Vector:
 
-\* 根据增量变量进行扩容
+* 根据增量变量进行扩容
 
-\* 当增量为0时(无参构造器,int参数构造器,Collection参数构造器)
+* 当增量为0时(无参构造器,int参数构造器,Collection参数构造器)
 
-\* 原来数组长度 + 原来数组长度
+* 原来数组长度 + 原来数组长度
 
-\* 当增量大于0时(两个int参数构造器)
+* 当增量大于0时(两个int参数构造器)
 
-\* 原来数组长度 + 增量变量
+* 原来数组长度 + 增量变量
 
 ​  
 
 #### Collections类
 
-\* 类的位置
+* 类的位置
 
-\* java.util
+* java.util
 
-\* 类的特点
+* 类的特点
 
-\* 针对Collection集合进行操作的工具类
+* 针对Collection集合进行操作的工具类
 
-\* 类的构造器
+* 类的构造器
 
-\* 构造器私有化
+* 构造器私有化
 
-\* 类的方法
+* 类的方法
 
-\* public static <T> boolean addAll(Collection<? super T> c,T... elements)
+* public static <T> boolean addAll(Collection<? super T> c,T... elements)
 
-\* 将所有指定元素添加到指定 collection 中
+* 将所有指定元素添加到指定 collection 中
 
-\* public static void reverse(List<?> list)
+* public static void reverse(List<?> list)
 
-\* 反转指定列表中元素的顺序。
+* 反转指定列表中元素的顺序。
 
-\* public static void shuffle(List<?> list)
+* public static void shuffle(List<?> list)
 
-\* 使用默认随机源对指定列表进行置换。
+* 使用默认随机源对指定列表进行置换。
 
-\* public static <T extends Comparable<? super T>> void sort(List<T> list)
+* public static <T extends Comparable<? super T>> void sort(List<T> list)
 
-\* 根据元素的自然顺序 对指定列表按升序进行排序
+* 根据元素的自然顺序 对指定列表按升序进行排序
 
-\* public static <T> void sort(List<T> list,Comparator<? super T> c)
+* public static <T> void sort(List<T> list,Comparator<? super T> c)
 
-\* 根据指定比较器产生的顺序对指定列表进行排序。
+* 根据指定比较器产生的顺序对指定列表进行排序。
 
-\*/
+* /
 
 ​  
 
 #### 链接列表(链表):
 
-\* 类似于女生带的"手链",本质上其实就是一个类
+* 类似于女生带的"手链",本质上其实就是一个类
 
-\*
+* 
 
-\* 链表的分类:
+* 链表的分类:
 
-\* 单向链表:
+* 单向链表:
 
-\* 当前元素(泛型类型)
+* 当前元素(泛型类型)
 
-\* 下一个链表对象(链表类型)
+* 下一个链表对象(链表类型)
 
-\* 双向链表
+* 双向链表
 
-\* 当前元素(泛型类型)
+* 当前元素(泛型类型)
 
-\* 下一个链表对象(链表类型)
+* 下一个链表对象(链表类型)
 
-\* 上一个链表对象(链表类型)
+* 上一个链表对象(链表类型)
 
-\*
+* 
 
-\* 链表结构的特点:
+* 链表结构的特点:
 
-\* 查询效率低,增删效率高
+* 查询效率低,增删效率高
 
-\* 针对链表结构中首尾两个元素快速操作
+* 针对链表结构中首尾两个元素快速操作
 
-\*
+* 
 
-\* 链表结构的弊端:
+* 链表结构的弊端:
 
-\* 链表越长且数据越靠后,链表结构的查询和增删效率会更低
+* 链表越长且数据越靠后,链表结构的查询和增删效率会更低
 
-\*
+* 
 
-\* LinkedList类
+* LinkedList类
 
-\* 类的位置
+* 类的位置
 
-\* java.util
+* java.util
 
-\* 类的特点
+* 类的特点
 
-\* 1.LinkedList集合底层的数据结构是"链表结构",而且是双向链表
+* 1.LinkedList集合底层的数据结构是"链表结构",而且是双向链表
 
-\* 2.LinkedList集合可以存储null元素,在获取元素时候需要进行非空校验,防止空指针异常
+* 2.LinkedList集合可以存储null元素,在获取元素时候需要进行非空校验,防止空指针异常
 
-\* 3.LinkedList集合是线程不安全的,适用于单线程程序,如果在多线程中进行使用,需要手动添加线程安全处理
+* 3.LinkedList集合是线程不安全的,适用于单线程程序,如果在多线程中进行使用,需要手动添加线程安全处理
 
-\* 类的构造器
+* 类的构造器
 
-\* public LinkedList()
+* public LinkedList()
 
-\* 构造一个空列表。
+* 构造一个空列表。
 
-\* 类的方法
+* 类的方法
 
-\* public void addFirst(E e)
+* public void addFirst(E e)
 
-\* 将指定元素插入此列表的开头。
+* 将指定元素插入此列表的开头。
 
-\* public void addLast(E e)
+* public void addLast(E e)
 
-\* 将指定元素添加到此列表的结尾。
+* 将指定元素添加到此列表的结尾。
 
-\* public E getFirst()
+* public E getFirst()
 
-\* 返回此列表的第一个元素。
+* 返回此列表的第一个元素。
 
-\* public E getLast()
+* public E getLast()
 
-\* 返回此列表的最后一个元素。
+* 返回此列表的最后一个元素。
 
-\* public E removeFirst()
+* public E removeFirst()
 
-\* 移除并返回此列表的第一个元素。
+* 移除并返回此列表的第一个元素。
 
-\* public E removeLast()
+* public E removeLast()
 
-\* 移除并返回此列表的最后一个元素。
+* 移除并返回此列表的最后一个元素。
 
 ​  
 
 #### Map接口
 
-\* 接口的位置
+* 接口的位置
 
-\* java.util
+* java.util
 
-\* 接口的特点
+* 接口的特点
 
-\* 1.Map集合存储元素不是以"个"为单位,而是以"对"为单位,一个key(键),一个value(值)
+* 1.Map集合存储元素不是以"个"为单位,而是以"对"为单位,一个key(键),一个value(值)
 
-\* 2.Map集合中的泛型类型可以相同,也可以不同
+* 2.Map集合中的泛型类型可以相同,也可以不同
 
-\* 3.Map集合中key和value之间的关系为"映射关系"
+* 3.Map集合中key和value之间的关系为"映射关系"
 
-\* 4.在映射关系中,key的值不能重复
+* 4.在映射关系中,key的值不能重复
 
-\* 5.在映射关系中,value的值可以重复
+* 5.在映射关系中,value的值可以重复
 
-\* 6.Map集合中提供了三个Collection属性,分别是键集,值集,键值对集
+* 6.Map集合中提供了三个Collection属性,分别是键集,值集,键值对集
 
-\* 接口的方法
+* 接口的方法
 
-\* V put(K key,V value)
+* V put(K key,V value)
 
-\* 将指定的值与此映射中的指定键关联（可选操作）。
+* 将指定的值与此映射中的指定键关联（可选操作）。
 
-\* V remove(Object key)
+* V remove(Object key)
 
-\* 如果存在一个键的映射关系，则将其从此映射中移除（可选操作）。
+* 如果存在一个键的映射关系，则将其从此映射中移除（可选操作）。
 
-\* boolean containsKey(Object key)
+* boolean containsKey(Object key)
 
-\* 如果此映射包含指定键的映射关系，则返回 true
+* 如果此映射包含指定键的映射关系，则返回 true
 
-\* boolean containsValue(Object value)
+* boolean containsValue(Object value)
 
-\* 如果此映射将一个或多个键映射到指定值，则返回 true。
+* 如果此映射将一个或多个键映射到指定值，则返回 true。
 
-\* V get(Object key)
+* V get(Object key)
 
-\* 返回指定键所映射的值；如果此映射不包含该键的映射关系，则返回 null。
+* 返回指定键所映射的值；如果此映射不包含该键的映射关系，则返回 null。
 
-\* boolean isEmpty()
+* boolean isEmpty()
 
-\* 如果此映射未包含键-值映射关系，则返回 true。
+* 如果此映射未包含键-值映射关系，则返回 true。
 
-\* void clear()
+* void clear()
 
-\* 从此映射中移除所有映射关系（可选操作）。此调用返回后，该映射将为空。
+* 从此映射中移除所有映射关系（可选操作）。此调用返回后，该映射将为空。
 
-\* int size()
+* int size()
 
-\* 返回此映射中的键-值映射关系数
+* 返回此映射中的键-值映射关系数
 
-\* Set<K> keySet()
+* Set<K> keySet()
 
-\* 返回此映射中包含的键的 Set 视图。
+* 返回此映射中包含的键的 Set 视图。
 
-\* Collection<V> values()
+* Collection<V> values()
 
-\* 返回此映射中包含的值的 Collection 视图。
+* 返回此映射中包含的值的 Collection 视图。
 
-\* Set<Map.Entry<K,V>> entrySet()
+* Set<Map.Entry<K,V>> entrySet()
 
-\* 返回此映射中包含的映射关系的 Set 视图。
+* 返回此映射中包含的映射关系的 Set 视图。
 
-\*/
+* /
 
 Map集合通用的遍历方式
 
@@ -682,89 +682,89 @@ Map集合通用的遍历方式
 
 ​  
 
-\* Map.Entry接口
+* Map.Entry接口
 
-\* 接口的位置
+* 接口的位置
 
-\* java.util下,Map接口中
+* java.util下,Map接口中
 
-\* 接口的特点
+* 接口的特点
 
-\* 针对put()每对元素进行对象创建的工具接口
+* 针对put()每对元素进行对象创建的工具接口
 
-\* 接口的方法
+* 接口的方法
 
-\* K getKey()
+* K getKey()
 
-\* 返回与此项对应的键。
+* 返回与此项对应的键。
 
-\* V getValue()
+* V getValue()
 
-\* 返回与此项对应的值
+* 返回与此项对应的值
 
 ​  
 
 #### Set接口:
 
-\* 接口的位置
+* 接口的位置
 
-\* java.util
+* java.util
 
-\* 接口的特点
+* 接口的特点
 
-\* 1.Set集合是不可以存储重复元素的集合
+* 1.Set集合是不可以存储重复元素的集合
 
-\* 2.Set集合中既有有序的集合,也有无序的集合
+* 2.Set集合中既有有序的集合,也有无序的集合
 
-\* 3.Set集合是没有索引的集合
+* 3.Set集合是没有索引的集合
 
-\* 4.Set集合没有特有的迭代器
+* 4.Set集合没有特有的迭代器
 
-\* 5.Set集合的遍历方式只有4种
+* 5.Set集合的遍历方式只有4种
 
-\* (1)迭代器
+* (1)迭代器
 
-\* (2)增强for
+* (2)增强for
 
-\* (3)forEach()
+* (3)forEach()
 
-\* (4)Stream流
+* (4)Stream流
 
-\* 接口的方法
+* 接口的方法
 
-\* 详见Collection集合常用方法
+* 详见Collection集合常用方法
 
 ​  
 
 #### HashSet类
 
-\* 类的位置
+* 类的位置
 
-\* java.util
+* java.util
 
-\* 类的特点
+* 类的特点
 
-\* 1.HashSet集合底层其实就是一个HashMap实例
+* 1.HashSet集合底层其实就是一个HashMap实例
 
-\* 2.HashSet集合是无序的集合
+* 2.HashSet集合是无序的集合
 
-\* 3.HashSet集合无法保证元素的顺序在集合中永远不会改变
+* 3.HashSet集合无法保证元素的顺序在集合中永远不会改变
 
-\* 元素的顺序和HashMap底层的数组长度有关,一旦长度发生改变,就有可能改变元素的顺序
+* 元素的顺序和HashMap底层的数组长度有关,一旦长度发生改变,就有可能改变元素的顺序
 
-\* 4.HashSet集合可以存储null元素,当获取元素时需要进行非空校验,防止空指针异常
+* 4.HashSet集合可以存储null元素,当获取元素时需要进行非空校验,防止空指针异常
 
-\* 5.HashSet集合是线程不安全的,适用于单线程程序,如果在多线程中进行使用,需要手动添加线程安全处理
+* 5.HashSet集合是线程不安全的,适用于单线程程序,如果在多线程中进行使用,需要手动添加线程安全处理
 
-\* 类的构造器
+* 类的构造器
 
-\* public HashSet()
+* public HashSet()
 
-\* 构造一个新的空 set，其底层 HashMap 实例的默认初始容量是 16，加载因子是 0.75。
+* 构造一个新的空 set，其底层 HashMap 实例的默认初始容量是 16，加载因子是 0.75。
 
-\* 类的方法
+* 类的方法
 
-\* 详见Collection集合常用方法
+* 详见Collection集合常用方法
 
 ​  
 
@@ -772,174 +772,174 @@ Map集合通用的遍历方式
 
 HashSet集合过滤重复元素原理
 
-\* 1.hashCode值不同当成不同的元素进行存储;如果hashCode值相同,元素内容有可能相同,也有可能不同
+* 1.hashCode值不同当成不同的元素进行存储;如果hashCode值相同,元素内容有可能相同,也有可能不同
 
-\* 2.进行内容的比较equals(),内容如果相同,直接过滤,如果不同直接进行存储
+* 2.进行内容的比较equals(),内容如果相同,直接过滤,如果不同直接进行存储
 
-\*
+* 
 
-\* 如果想保证元素的唯一性:
+* 如果想保证元素的唯一性:
 
-\* 1.重写Object类的hashCode()
+* 1.重写Object类的hashCode()
 
-\* 2.重写Object类的equals()
+* 2.重写Object类的equals()
 
-\*
+* 
 
-\* 在重写hashCode()中,需要乘以一个数字31,为什么是31,而不是其它数字?
+* 在重写hashCode()中,需要乘以一个数字31,为什么是31,而不是其它数字?
 
-\* 1.该乘以数字不宜过大(容易超出int取值范围),也不宜过小(造成hashCode值重复概率过大)
+* 1.该乘以数字不宜过大(容易超出int取值范围),也不宜过小(造成hashCode值重复概率过大)
 
-\* 2.该乘以数字因数不宜过多(造成hashCode值重复概率过大),需要选择一个质数
+* 2.该乘以数字因数不宜过多(造成hashCode值重复概率过大),需要选择一个质数
 
-\* 3.测试人员需要通过"泊松分布"计算出每个质数对应的hashCode值重复概率
+* 3.测试人员需要通过"泊松分布"计算出每个质数对应的hashCode值重复概率
 
-\* 4.在测试结果中,有2个数字hashCode值重复概率是最小的,分别为29和31
+* 4.在测试结果中,有2个数字hashCode值重复概率是最小的,分别为29和31
 
-\* 5.考虑到31可以改写为2^5-1,和整数类型取值范围格式类似,最终选择31
+* 5.考虑到31可以改写为2^5-1,和整数类型取值范围格式类似,最终选择31
 
-\*
+* 
 
 ​  
 
 LinkedHashSet类
 
-\* 类的位置
+* 类的位置
 
-\* java.util
+* java.util
 
-\* 类的特点
+* 类的特点
 
-\* 1.LinkedHashSet类是HashSet类的子类
+* 1.LinkedHashSet类是HashSet类的子类
 
-\* 2.LinkedHashSet集合是有序的集合
+* 2.LinkedHashSet集合是有序的集合
 
-\* 3.LinkedHashSet集合的底层其实是一个LinkedHashMap实例
+* 3.LinkedHashSet集合的底层其实是一个LinkedHashMap实例
 
-\* 4.LinkedHashSet集合在底层比HashSet集合多封装了一个链表,用来保证元素的有序性
+* 4.LinkedHashSet集合在底层比HashSet集合多封装了一个链表,用来保证元素的有序性
 
-\* 5.LinkedHashSet集合可以存储null元素,当获取元素时需要进行非空校验,防止空指针异常
+* 5.LinkedHashSet集合可以存储null元素,当获取元素时需要进行非空校验,防止空指针异常
 
-\* 6.LinkedHashSet集合是线程不安全的,适用于单线程程序,如果在多线程中进行使用,需要手动添加线程安全处理
+* 6.LinkedHashSet集合是线程不安全的,适用于单线程程序,如果在多线程中进行使用,需要手动添加线程安全处理
 
-\* 类的构造器
+* 类的构造器
 
-\* public LinkedHashSet()
+* public LinkedHashSet()
 
-\* 构造一个带默认初始容量 (16) 和加载因子 (0.75) 的新空链接哈希 set。
+* 构造一个带默认初始容量 (16) 和加载因子 (0.75) 的新空链接哈希 set。
 
-\* 类的方法
+* 类的方法
 
-\* 详见Collection集合常用方法
+* 详见Collection集合常用方法
 
 ​  
 
 #### 红黑树数据结构:
 
-\* 红黑树结构是树形结构和二叉树结构中的一种,本质上也是一个类
+* 红黑树结构是树形结构和二叉树结构中的一种,本质上也是一个类
 
-\*
+* 
 
-\* 树形结构结点对象:
+* 树形结构结点对象:
 
-\* 当前元素(泛型类型)
+* 当前元素(泛型类型)
 
-\* 父结点对象(树形结点类型)
+* 父结点对象(树形结点类型)
 
-\* 子左结点对象(树形结点类型)
+* 子左结点对象(树形结点类型)
 
-\* 子右结点对象(树形结点类型)
+* 子右结点对象(树形结点类型)
 
-\*
+* 
 
-\* 树形结构特点(相比链表结构):
+* 树形结构特点(相比链表结构):
 
-\* 1.整体上查询效率快,增删效率快
+* 1.整体上查询效率快,增删效率快
 
-\* 注意:在一定的数据个数范围内,链表结构效率要比红黑树结构要快一点点
+* 注意:在一定的数据个数范围内,链表结构效率要比红黑树结构要快一点点
 
-\* 2.树形结构在添加元素的时候针对结点中的元素数据进行数值排序
+* 2.树形结构在添加元素的时候针对结点中的元素数据进行数值排序
 
-\* 如果比较的数值相同,JVM会默认为同一元素,只存储一个
+* 如果比较的数值相同,JVM会默认为同一元素,只存储一个
 
-\*
+* 
 
 #### TreeSet类
 
-\* 类的位置
+* 类的位置
 
-\* java.util
+* java.util
 
-\* 类的特点
+* 类的特点
 
-\* 1.TreeSet集合底层其实就是一个TreeMap实例
+* 1.TreeSet集合底层其实就是一个TreeMap实例
 
-\* 2.TreeSet集合是无序的集合
+* 2.TreeSet集合是无序的集合
 
-\* 3.TreeSet集合在添加元素的时候,可以根据所选择的构造器针对待添加元素进行数据值大小排序
+* 3.TreeSet集合在添加元素的时候,可以根据所选择的构造器针对待添加元素进行数据值大小排序
 
-\* 4.TreeSet集合不可以存储null,在进行添加元素的时候需要进行非空校验,防止空指针异常
+* 4.TreeSet集合不可以存储null,在进行添加元素的时候需要进行非空校验,防止空指针异常
 
-\* 5.TreeSet集合是线程不安全的,适用于单线程程序,如果在多线程中进行使用,需要手动添加线程安全处理
+* 5.TreeSet集合是线程不安全的,适用于单线程程序,如果在多线程中进行使用,需要手动添加线程安全处理
 
-\* 类的构造器
+* 类的构造器
 
-\* public TreeSet()
+* public TreeSet()
 
-\* 构造一个新的空 set，该 set 根据其元素的自然顺序进行排序。
+* 构造一个新的空 set，该 set 根据其元素的自然顺序进行排序。
 
-\* public TreeSet(Comparator<? super E> comparator)
+* public TreeSet(Comparator<? super E> comparator)
 
-\* 构造一个新的空 TreeSet，它根据指定比较器进行排序
+* 构造一个新的空 TreeSet，它根据指定比较器进行排序
 
-\* 类的方法
+* 类的方法
 
-\* 详见Collection集合常用方法
+* 详见Collection集合常用方法
 
 ​  
 
 TreeSet集合的排序特点:
 
-\* 包装类型(Boolean类型除外):
+* 包装类型(Boolean类型除外):
 
-\* 按照数据值的大小的升序排序
+* 按照数据值的大小的升序排序
 
-\* String类型:
+* String类型:
 
-\* 每一位字符对应的Unicode码表值进行升序排序
+* 每一位字符对应的Unicode码表值进行升序排序
 
-\* 自定义类型Student:
+* 自定义类型Student:
 
-\* 通过无参构造器实现的自然顺序
+* 通过无参构造器实现的自然顺序
 
-\* 通过有参构造器实现的定制顺序
+* 通过有参构造器实现的定制顺序
 
-\*
+* 
 
-\* 注意事项:
+* 注意事项:
 
-\* 针对TreeSet集合存储自定义类型对象时,必须给其实现自然顺序或定制顺序,否则在添加对象时运行报错
+* 针对TreeSet集合存储自定义类型对象时,必须给其实现自然顺序或定制顺序,否则在添加对象时运行报错
 
-\*
+* 
 
 ​  
 
 自然顺序比较器:
 
-\* 1.将集合中元素的类型实现Comparable接口
+* 1.将集合中元素的类型实现Comparable接口
 
-\* 2.在集合元素的类型中重写Comparable接口的抽象方法compareTo(T o)
+* 2.在集合元素的类型中重写Comparable接口的抽象方法compareTo(T o)
 
-\* 3.在重写方法时,需要确认比较的规则,使用规则进行减法计算
+* 3.在重写方法时,需要确认比较的规则,使用规则进行减法计算
 
 ​  
 
 定制顺序的比较器
 
-\* 1.使用匿名内部类创建Comparator<T>接口的实现类对象
+* 1.使用匿名内部类创建Comparator<T>接口的实现类对象
 
-\* 2.确认比较规则,在匿名内部类中重写compare(Student o1, Student o2)
+* 2.确认比较规则,在匿名内部类中重写compare(Student o1, Student o2)
 
-\* 3.将Comparator<T>接口的实现类对象作为实参,创建TreeSet集合对象
+* 3.将Comparator<T>接口的实现类对象作为实参,创建TreeSet集合对象
 
-\* 4.添加元素即可完成排序
+* 4.添加元素即可完成排序
