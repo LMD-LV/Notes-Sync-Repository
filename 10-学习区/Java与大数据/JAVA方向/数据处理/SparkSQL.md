@@ -260,3 +260,50 @@ System.setProperty("HADOOP_USER_NAME","atguigu")//在虚拟机中以atguigu的�
   
   
 
+
+
+## 附:原 Spark 总集独有内容·SparkSQL(2026-09-06 合并)
+
+> 来自已转 MOC 的 Spark.md SparkSQL 章,该子篇缺失的行逐字搬运。
+
+# SparkSQL
+## 概述
+spark SQL 是用于处理结构化数据的saprk模块
+Hive on spark(HQL语法,存储和优化都是Hive,仅换了执行引擎)与spark on hive的区别
+![image.png](assets/Spark-7.png)
+1）DataFrame是一种类似RDD的分布式数据集，类似于传统数据库中的二维表格。
+2）DataFrame与RDD的主要区别在于，DataFrame带有schema元信息，即DataFrame所表示的二维表数据集的每一列都带有名称和类型。
+**DataFrame是DataSet的特例**，type DataFrame = DataSet[Row] ，Row是一个类型，跟Car、User这些的类型一样，所有的表结构信息都用Row来表示。
+如果同样的数据都给到这三个数据结构，他们分别计算之后，都会给出相同的结果。不同的是他们的执行效率和执行方式。在后期的Spark版本中，DataSet有可能会逐步取代RDD和DataFrame成为唯一的API接口。
+2）三者的共性
+（1）RDD、DataFrame、DataSet全都是Spark平台下的分布式弹性数据集，为处理超大型数据提供便利
+易整合
+无缝的整合了SQL查询和Spark编程。
+统一的数据访问方式
+使用相同的方式连接不同的数据源。
+兼容Hive
+在已有的仓库上直接运行SQL或者HQL。
+标准的数据连接
+通过JDBC或者ODBC来连接
+## 编程
+在老的版本中，SparkSQL提供两种SQL查询起始点：
+SparkSession内部封装了SparkContext，所以计算实际上是由SparkContext完成的。当我们使用spark-shell的时候，Spark框架会自动的创建一个名称叫做Spark的SparkSession，就像我们以前可以自动获取到一个sc来表示SparkContext
+DataFrame是一种类似于RDD的分布式数据集，类似于传统数据库中的二维表格。
+- 从一个存在的RDD进naj行转换；
+注意：如果从内存中获取数据，Spark可以知道数据类型具体是什么，如果是数字，默认作为Int处理；但是从文件中读取的数字，不能确定是什么类型，所以用BigInt接收，可以和Long类型转换，但是和Int不能进行转换。
+SQL语法风格是指我们查询数据的时候使用SQL语句来查询，这种风格的查询必须要有临时视图或者全局视图来辅助。
+DataSet是具有强类型的数据集合，需要提供对应的类型信息
+注意：在实际开发的时候，很少会把序列转换成DataSet，更多是通过RDD和DataFrame转换来得到DataSet
+![image.png](assets/Spark-8.png)
+1）RDD转换为DataFrame
+2）DataFrame转换为RDD
+DataFrame.rdd
+RDD.map { x => User(x._1, x._2) }.toDS()
+DS.rdd
+#### 用户自定义函数
+UDAF:
+UDTF:
+#### SparkSQL的加载与保存
+#### 加载数据
+1）加载数据通用方法
+SparkSQL可以采用内嵌Hive，也可以采用外部Hive。企业开发中，通常采用外部Hive。
