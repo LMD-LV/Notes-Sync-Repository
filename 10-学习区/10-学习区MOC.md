@@ -27,7 +27,6 @@ created: 2026-08-30
 - [[CV-印花模型清单]]
 ## Java与大数据
 
-- [[mysql]]
 
 ## Java与大数据 / DATEBASE
 
