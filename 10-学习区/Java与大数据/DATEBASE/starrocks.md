@@ -1,3 +1,10 @@
+---
+tags: [Java与大数据, 概念]
+created: 2026-08-02
+domain: Java与大数据
+source: 个人总结
+---
+
 ## 基本概念
 
 -   starrocks是列存数据库，mpp执行框架，Massively Parallel Processing，但是也支持行存 行存适合查询大量字段的,部分列更新，列存适合涉及字段少的，聚合计算等

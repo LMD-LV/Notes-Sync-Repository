@@ -1,3 +1,10 @@
+---
+tags: [Java与大数据, 概念]
+created: 2026-08-02
+domain: Java与大数据
+source: 个人总结
+---
+
 -   作用，接受，处理，响应，web中的控制器，运行在服务端
 -   web-inf 下为受保护资源，不允许客户端直接访问
 -   servlet不是实际存在的文件，所以配置映射路径访问，servletname，servletclass，urlpattern（支持通配）

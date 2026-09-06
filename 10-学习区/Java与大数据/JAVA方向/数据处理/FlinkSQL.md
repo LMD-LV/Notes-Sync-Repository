@@ -1,3 +1,10 @@
+---
+tags: [Java与大数据, 概念]
+created: 2026-08-02
+domain: Java与大数据
+source: 个人总结
+---
+
 Flink 社区很早就设想过将批数据看作一个有界流数据，将批处理看作流计算的一个特例，从而实现流批统一，Flink 社区的开发人员在多轮讨论后，基本敲定了Flink 未来的技术架构![image.png](assets/FlinkSQL-1.png)
 
 ​  

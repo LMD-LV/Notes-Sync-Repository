@@ -1,3 +1,11 @@
+---
+tags: [Python, 概念]
+created: 2026-08-02
+status: 种子
+domain: Python
+source: 个人总结
+---
+
 pthon中的方法使用时候是不是一定需要添加上(),如果没有那就是方法作为参数传递吧
 
 通过workbook,打开存储 excel数据

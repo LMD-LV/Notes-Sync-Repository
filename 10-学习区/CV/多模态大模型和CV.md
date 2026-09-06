@@ -1,3 +1,10 @@
+---
+tags: [CV, 概念]
+created: 2025-11-26
+domain: CV
+source: 个人总结
+---
+
 
 #### 多模态大模型(LLM with Vision)
 

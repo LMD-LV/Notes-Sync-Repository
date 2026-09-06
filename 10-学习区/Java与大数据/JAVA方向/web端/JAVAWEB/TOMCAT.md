@@ -1,3 +1,10 @@
+---
+tags: [Java与大数据, 概念]
+created: 2026-08-02
+domain: Java与大数据
+source: 个人总结
+---
+
 -   static 通常用于存放静态资源 WEB-INF 通常用于存放受保护的资源（不允许通过url直接访问）
 -   lib存放依赖包，classes下的src存放源码
 -   部署方式

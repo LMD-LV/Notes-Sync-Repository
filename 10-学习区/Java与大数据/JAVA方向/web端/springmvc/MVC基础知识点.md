@@ -1,3 +1,10 @@
+---
+tags: [Java与大数据, 概念]
+created: 2026-08-02
+domain: Java与大数据
+source: 个人总结
+---
+
 spirngmvc核心做的事情，封装了 对request ，response的处理
 
 param参数和 json参数

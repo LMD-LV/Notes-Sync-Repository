@@ -1,3 +1,10 @@
+---
+tags: [NLP, 概念]
+created: 2025-09-24
+domain: NLP
+source: 个人总结
+---
+
 
 #### 文本识别
 

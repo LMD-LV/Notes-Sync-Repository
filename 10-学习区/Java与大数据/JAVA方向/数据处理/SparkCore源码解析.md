@@ -1,3 +1,10 @@
+---
+tags: [Java与大数据, 概念]
+created: 2026-08-02
+domain: Java与大数据
+source: 个人总结
+---
+
 #### YarnCluster的提交流程
 
 ![image.png](assets/SparkCore源码解析-1.png)

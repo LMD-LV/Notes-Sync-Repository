@@ -1,3 +1,10 @@
+---
+tags: [Java与大数据, 概念]
+created: 2026-08-02
+domain: Java与大数据
+source: 个人总结
+---
+
 spark中间的结果不落盘,但是shuffle是要落盘的
 
 # 知识点概述

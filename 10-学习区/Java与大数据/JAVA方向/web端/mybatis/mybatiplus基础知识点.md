@@ -1,3 +1,10 @@
+---
+tags: [Java与大数据, 概念]
+created: 2026-08-02
+domain: Java与大数据
+source: 个人总结
+---
+
 #### 概述
 
 mybatis的增强工具，实现了基本的CRUD，支持lamdba表达式的查询条件，主键生成策略等

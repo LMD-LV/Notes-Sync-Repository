@@ -1,3 +1,10 @@
+---
+tags: [Java与大数据, 概念]
+created: 2026-08-02
+domain: Java与大数据
+source: 个人总结
+---
+
 ## 概述
 
 springboot的主要作用是整合框架，内嵌tomcat,使用的时候，先将spring-boot-starter-parent定义为父工程，然后根据使用到的场景，使用相应的starter，其starter的父项目是 spring-boot-dependencies

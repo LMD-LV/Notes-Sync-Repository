@@ -1,3 +1,10 @@
+---
+tags: [运维与部署, 概念]
+created: 2026-08-02
+domain: 运维与部署
+source: 个人总结
+---
+
 ​  
 
 2,MQ的相关经验,exchange,routingkey,queue的存储,

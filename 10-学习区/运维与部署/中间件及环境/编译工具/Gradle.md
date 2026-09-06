@@ -1,3 +1,11 @@
+---
+tags: [运维与部署, 概念]
+created: 2026-08-02
+status: 种子
+domain: 运维与部署
+source: 个人总结
+---
+
 -   1,gradle 和idea之间也有兼容性，注意查看版本
 -   gradle build. 前执行。classes ，test
 -   gradle wapper相当于一个容器，是实际被调用方

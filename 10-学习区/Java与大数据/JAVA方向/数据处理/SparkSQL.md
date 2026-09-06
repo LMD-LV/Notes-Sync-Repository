@@ -1,3 +1,10 @@
+---
+tags: [Java与大数据, 概念]
+created: 2026-08-02
+domain: Java与大数据
+source: 个人总结
+---
+
 #### RDD、DataFrame和DataSet之间关系
 
 SparkSQL是Spark用于结构化数据(Structuerd Data)处理的Spark模块(半结构化,结构化)

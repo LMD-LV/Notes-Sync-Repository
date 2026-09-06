@@ -1,3 +1,10 @@
+---
+tags: [Java与大数据, 概念]
+created: 2026-08-02
+domain: Java与大数据
+source: 个人总结
+---
+
 SparkStreaming用于流式处理数据
 
 ![image.png](assets/SparkStreaming-1.png)

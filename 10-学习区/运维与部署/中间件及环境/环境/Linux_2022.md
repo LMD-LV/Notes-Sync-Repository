@@ -1,3 +1,10 @@
+---
+tags: [运维与部署, 概念]
+created: 2026-08-02
+domain: 运维与部署
+source: 个人总结
+---
+
 Linux是基于POSIX和UNIX的多任务,多用户,支持多线程,多CPU的操作系统
 
 知名的发行版有:Ubuntu,RetHat,CentOS,Debain

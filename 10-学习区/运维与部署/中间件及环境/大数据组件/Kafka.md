@@ -1,3 +1,10 @@
+---
+tags: [运维与部署, 概念]
+created: 2026-08-02
+domain: 运维与部署
+source: 个人总结
+---
+
 ## Kafka概述
 
 ​  

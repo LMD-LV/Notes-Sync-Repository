@@ -1,3 +1,10 @@
+---
+tags: [大模型与AI, 概念]
+created: 2026-05-16
+domain: 大模型与AI
+source: 个人总结
+---
+
 
 LangChain(核心作用是什么)
 模型包装器,数据增强,记忆,Agent,链,回调处理器

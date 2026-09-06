@@ -1,3 +1,10 @@
+---
+tags: [运维与部署, 概念]
+created: 2026-08-02
+domain: 运维与部署
+source: 个人总结
+---
+
 ### 基本
 
 -   实际基于linux环境，仅有runtime环境，轻量化，不会虚拟化硬件，CS架构，docker后台守护进程

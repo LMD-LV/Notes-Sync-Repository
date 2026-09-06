@@ -1,3 +1,10 @@
+---
+tags: [Java与大数据, 概念]
+created: 2026-08-02
+domain: Java与大数据
+source: 个人总结
+---
+
 @Target(ElementType.TYPE)//接口、类、枚举、注解
 
 @Target(ElementType.FIELD)//字段、枚举的常量
