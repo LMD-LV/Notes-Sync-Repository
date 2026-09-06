@@ -19,7 +19,7 @@ Git易于学习，占地面积小，性能极快。它具有廉价的本地库�
 
 便于团队协作
 
-​  
+  
 
 版本控制工具可分为:集中版本控制工具
 
@@ -33,7 +33,7 @@ CVS、SVN(Subversion)、VSS……
 
 1. 服务器断网的情况下也可以进行开发（因为版本控制是在本地进行的）
 
-2\. 每个客户端保存的也都是整个完整的项目（包含历史记录，更加安全）
+2. 每个客户端保存的也都是整个完整的项目（包含历史记录，更加安全）
 
 ![image.png](assets/Git-1.png)
 
@@ -91,11 +91,11 @@ CVS、SVN(Subversion)、VSS……
 
 ### **合并分支**
 
-**1****）基本语法**
+**1** **）基本语法**
 
 **git** **merge** **分支名**
 
-**2****）案例实操 在****master****分支上合并****hot-fix****分支**
+**2** **）案例实操 在** **master** **分支上合并** **hot-fix** **分支**
 
 Layne@LAPTOP-Layne MINGW64 /d/Git-Space/SH0720 (master)
 
@@ -149,7 +149,7 @@ hello git! hello atguigu! master test
 
 hello git! hello atguigu!
 
-\=======
+=======
 
 hello git! hello atguigu!
 
@@ -157,7 +157,7 @@ hello git! hello atguigu! hot-fix test
 
 \>>>>>>> hot-fix
 
-​  
+  
 
 冲突产生的原因：
 
@@ -179,23 +179,23 @@ You have unmerged paths.
 
 (use "git merge --abort" to abort the merge)
 
-​  
+  
 
 Unmerged paths:
 
-(use "git add <file>..." to mark resolution)
+(use "git add \<file>..." to mark resolution)
 
-​  
+  
 
-​both modified: hello.txt
+both modified: hello.txt
 
-​  
+  
 
 no changes added to commit (use "git add" and/or "git commit -a")
 
 ### 创建分支和切换分支图解
 
-​  
+  
 
 ![image.png](assets/Git-3.png)
 
@@ -229,11 +229,11 @@ HEAD如果执行hotfix，那么我们现在就在hotfix分支上。
 
 ![image.png](assets/Git-6.png)![image.png](assets/Git-7.png)![image.png](assets/Git-8.png)
 
-**问题****1:****为什么要忽略他们？**
+**问题** **1:** **为什么要忽略他们？**
 
 答：与项目的实际功能无关，不参与服务器上部署运行。把它们忽略掉能够屏蔽IDE工具之间的差异。
 
-**问题****2****：怎么忽略？**
+**问题** **2** **：怎么忽略？**
 
 1）创建忽略规则文件xxxx.ignore（前缀名随便起，建议是git.ignore）
 
@@ -273,9 +273,9 @@ git.ignore文件模版内容如下：
 
 \*.rar
 
-\# virtual machine crash logs, see http://www.java.com/en/download/help/error\_hotspot.xml
+\# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 
-hs\_err\_pid\*
+hs_err_pid\*
 
 .classpath
 
@@ -303,7 +303,7 @@ excludesfile = C:/Users/asus/git.ignore
 
 注意：这里要使用“正斜线（/）”，不要使用“反斜线（\\）”
 
-​  
+  
 
 初始化化本地库
 
@@ -329,7 +329,7 @@ excludesfile = C:/Users/asus/git.ignore
 
 然后再IDEA的右下角看到hot-fix，说明分支创建成功，并且当前已经切换成hot-fix分支
 
-​  
+  
 
 #### 切换分支
 
@@ -343,7 +343,7 @@ excludesfile = C:/Users/asus/git.ignore
 
 在IDEA窗口的右下角，将hot-fix分支合并到当前master分支。
 
-​  
+  
 
 #### 解决代码冲突
 

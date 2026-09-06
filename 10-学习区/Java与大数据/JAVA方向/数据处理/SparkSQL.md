@@ -21,15 +21,15 @@ DataFrame与RDD的主要区别在于，DataFrame带有schema元信息，即DataF
 
 3）Spark SQL性能上比RDD要高。因为Spark SQL了解数据内部结构，从而对藏于DataFrame背后的数据源以及作用于DataFrame之上的变换进行了针对性的优化，最终达到大幅提升运行时效率的目标。反观RDD，由于无从得知所存数据元素的具体内部结构，Spark Core只能在Stage层面进行简单、通用的流水线优化。
 
-​  
+  
 
 DataSet是分布式数据集。
 
-Ø DataSet是强类型的。比如可以有DataSet[Car]，DataSet[User]。具有类型安全检查
+- DataSet是强类型的。比如可以有DataSet[Car]，DataSet[User]。具有类型安全检查
 
-Ø **DataFrame是DataSet的特例**，type DataFrame = DataSet[Row] ，Row是一个类型，跟Car、User这些的类型一样，所有的表结构信息都用Row来表示。
+- **DataFrame是DataSet的特例**，type DataFrame = DataSet[Row] ，Row是一个类型，跟Car、User这些的类型一样，所有的表结构信息都用Row来表示。
 
-​  
+  
 
 如果同样的数据都给到这三个数据结构，他们分别计算之后，都会给出相同的结果。不同的是他们的执行效率和执行方式。
 
@@ -45,33 +45,33 @@ RDD、DataFrame、DataSet全都是Spark平台下的分布式弹性数据集，�
 
 ![image.png](assets/SparkSQL-2.png)
 
-​  
+  
 
 sparkSQL的特点:1)易整合 统一的数据访问方式 兼容hive 标准的数据连接
 
-​  
+  
 
 #### SparkSession
 
-Ø 一个叫SQLContext，用于Spark自己提供的SQL查询；
+- 一个叫SQLContext，用于Spark自己提供的SQL查询；
 
-Ø 一个叫HiveContext，用于连接Hive的查询。
+- 一个叫HiveContext，用于连接Hive的查询。
 
 SparkSession是Spark最新的SQL查询起始点，实质上是SQLContext和HiveContext的组合，所以在SQLContext和HiveContext上可用的API在SparkSession上同样是可以使用的。
 
 SparkSession内部封装了SparkContext，所以计算实际上是由SparkContext完成的。当我们使用spark-shell的时候，Spark框架会自动的创建一个名称叫做Spark的SparkSession，
 
-​  
+  
 
 #### DataFrame
 
 在Spark SQL中SparkSession是创建DataFrame和执行SQL的入口，创建DataFrame有三种方式：
 
-Ø 通过Spark的数据源进行创建；
+- 通过Spark的数据源进行创建；
 
-Ø 从一个存在的RDD进行转换；
+- 从一个存在的RDD进行转换；
 
-Ø 还可以从Hive Table进行查询返回。
+- 还可以从Hive Table进行查询返回。
 
 如果从内存中获取数据，Spark可以知道数据类型具体是什么，如果是数字，默认作为Int处理；但是从文件中读取的数字，不能确定是什么类型，所以用BigInt接收，可以和Long类型转换，但是和Int不能进行转换。
 
@@ -83,7 +83,7 @@ SQL语法风格是指我们查询数据的时候使用SQL语句来查询，这�
 
 视图：对特定表的数据的查询结果重复使用。View只能查询，不能修改和插入。
 
-​  
+  
 
 DataFrame提供一个特定领域语言（domain-specific language，DSL）去管理结构化的数据，可以在Scala，Java，Python和R中使用DSL，使用DSL语法风格不必去创建临时视图了。
 
@@ -91,7 +91,7 @@ df.select("name").show() df.select('name).show
 
 注意：列名要用双引号引起来，如果是单引号的话，只能在前面加一个单引号。
 
-​  
+  
 
 scala> df.select($"name",$"age" + 1).show
 
@@ -109,7 +109,7 @@ DataSet是具有强类型的数据集合，需要提供对应的类型信息。
 
 使用样例类序列创建DataSet
 
-​  
+  
 
 #### RDD与DataFrame相互转换
 
@@ -117,17 +117,17 @@ RDD转换为DataFrame
 
 RDD和DF、DS转换必须要导的包(隐式转换)
 
-import spark.implicits.\_
+import spark.implicits._
 
-​  
+  
 
-Ø 手动转换：RDD.toDF(“列名1”, “列名2”)
+- 手动转换：RDD.toDF(“列名1”, “列名2”)
 
 (普通rdd转换成DF,需要手动为每一列补上列名(补充元数据))
 
-Ø 通过样例类反射转换：UserRDD.map{ x=>User(x.\_1,x.\_2) }.toDF()
+- 通过样例类反射转换：UserRDD.map{ x=>User(x._1,x._2) }.toDF()
 
-​  
+  
 
 DF=>RDD
 
@@ -145,7 +145,7 @@ SparkSQL能够自动将包含有样例类的RDD转换成DataSet，样例类定�
 
 样例类RDD转换DS,直接toDS转换即可,不需要补充元数据,因此转DS一定要用样例类RDD
 
-​  
+  
 
 ds转成rdd,直接.rdd即可,并且ds不会改变rdd里面的数据类型
 
@@ -159,7 +159,7 @@ df.as[User]
 
 ds.toDF
 
-​  
+  
 
 ### 用户自定义函数
 
@@ -177,11 +177,11 @@ Spark3.x推荐使用extends Aggregator自定义UDAF，属于强类型的Dataset�
 
 Spark2.x使用extends UserDefinedAggregateFunction，属于弱类型的DataFrame
 
-​  
+  
 
 SparkSQL中没有UDTF，Spark中用flatMap即可实现该功能
 
-​  
+  
 
 ### SparkSQL数据的加载与保存
 
@@ -204,7 +204,7 @@ spark.read.load是加载数据的通用方法
 
 // option("…")：在"jdbc"格式下需要传入JDBC相应参数，url、user、password和dbtable
 
-​  
+  
 
 保存数据通用方法
 
@@ -225,7 +225,7 @@ df.write.save是保存数据的通用方法
 
 df.write.mode("append||overwrite||ignore||error||append").json("output2")
 
-​  
+  
 
 #### 与MySQL交互
 
@@ -239,25 +239,24 @@ df.write.mode("append||overwrite||ignore||error||append").json("output2")
 
 内嵌Hive，元数据存储在Derby数据库。
 
-多了$SPARK\_HOME/metastore\_db和derby.log，用于存储元数据  
-多了$SPARK\_HOME/spark-warehouse/user，用于存储数据库数据  
+多了$SPARK_HOME/metastore_db和derby.log，用于存储元数据  
+多了$SPARK_HOME/spark-warehouse/user，用于存储数据库数据  
 然而在实际使用中，几乎没有任何人会使用内置的Hive，因为元数据存储在derby数据库，不支持多客户端访问。
 
 #### 外部Hive应用
 
-为了说明内嵌Hive和外部Hive区别：删除内嵌Hive的metastore\_db和spark-warehouse
+为了说明内嵌Hive和外部Hive区别：删除内嵌Hive的metastore_db和spark-warehouse
 
 Spark SQL CLI可以很方便的在本地运行Hive元数据服务以及从命令行执行查询任务
 
 #### 3.4.4 IDEA操作外部Hive
 
-System.setProperty("HADOOP\_USER\_NAME","atguigu")//在虚拟机中以atguigu的用户身份创建
+System.setProperty("HADOOP_USER_NAME","atguigu")//在虚拟机中以atguigu的用户身份创建
 
-​  
+  
 
 # **SparkSQL项目实战**
 
   
   
 
-​

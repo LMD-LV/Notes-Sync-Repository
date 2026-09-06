@@ -7,7 +7,7 @@ source: 个人总结
 
 ## Kafka概述
 
-​  
+  
 
 kafka是一个分布式的基于发布/订阅模式的消息队列,主要应用于实时处理领域,是一个分布式事件流平台,被用于高性能的数据管道,流分析,数据集成,与关键任务应用.
 
@@ -15,17 +15,17 @@ kafka是一个分布式的基于发布/订阅模式的消息队列,主要应用�
 
 kafka中的消息压缩策列,**compression.type**. broker的值为none,默认和生产者保持一致,但是 当 a,指定了压缩格式,且和生产者不一样,那么将会解压后重新压缩 b,broker端发送了消息格式变化,常出现在kafka集群中同时保存多种版本的消息格式
 
-生产者:max\-request-size 要小于message.max.bytes
+生产者:max-request-size 要小于message.max.bytes
 
 consumer:fetch-max-bytes 要大于message.max.bytes
 
 broker: message.max.bytes
 
-replica.fetch.max.bytes\=6291456（6M）每个分区试图获取的消息字节数。要大于等于message.max.bytes
+replica.fetch.max.bytes=6291456（6M）每个分区试图获取的消息字节数。要大于等于message.max.bytes
 
-​  
+  
 
-​  
+  
 
 在大数据场景主 要采用Kafka作为消息队列。在JavaEE开发中主要采用ActiveMQ、RabbitMQ、RocketMQ。
 
@@ -33,13 +33,13 @@ replica.fetch.max.bytes\=6291456（6M）每个分区试图获取的消息字节�
 
 传统的消息队列的主要应用场景包括：**缓存/消峰**、**解耦**和**异步通信。**
 
-​  
+  
 
 应用场景: 缓冲/消峰-----------有助于控制与优化数据流经过系统的速度,解决产生消息与消费消息的处理速度不一致的情况,
 
 解耦--------------
 
-​  
+  
 
 ![image.png](assets/Kafka-1.png)
 
@@ -63,31 +63,31 @@ replica.fetch.max.bytes\=6291456（6M）每个分区试图获取的消息字节�
 
   
 
-**（****1****）****Producer****：**消息生产者，就是向Kafka broker发消息的客户端。
+**（** **1** **）** **Producer** **：**消息生产者，就是向Kafka broker发消息的客户端。
 
-**（****2****）****Consumer****：**消息消费者，向Kafka broker取消息的客户端。
+**（** **2** **）** **Consumer** **：**消息消费者，向Kafka broker取消息的客户端。
 
-**（****3****）****Consumer Group****（****CG****）：**消费者组，由多个consumer组成。**消费者组内每个消费者负责消费不同分区的数据，一个分区只能由一个组内消费者消费；消费者组之间互不影响。**所有的消费者都属于某个消费者组，即**消费者组是逻辑上的一个订阅者**。
+**（** **3** **）** **Consumer Group** **（** **CG** **）：**消费者组，由多个consumer组成。**消费者组内每个消费者负责消费不同分区的数据，一个分区只能由一个组内消费者消费；消费者组之间互不影响。**所有的消费者都属于某个消费者组，即**消费者组是逻辑上的一个订阅者**。
 
-**（****4****）****Broker****：**一台Kafka服务器就是一个broker。一个集群由多个broker组成。一个broker可以容纳多个topic。
+**（** **4** **）** **Broker** **：**一台Kafka服务器就是一个broker。一个集群由多个broker组成。一个broker可以容纳多个topic。
 
-**（****5****）****Topic****：**可以理解为多个队列，**生产者和消费者面向的都是一个****topic**。
+**（** **5** **）** **Topic** **：**可以理解为多个队列，**生产者和消费者面向的都是一个** **topic**。
 
-**（****6****）****Partition****：**为了实现扩展性，一个非常大的topic可以分布到多个broker（即服务器）上，**一个****topic****可以分为多个****partition**，每个partition是一个有序的队列。
+**（** **6** **）** **Partition** **：**为了实现扩展性，一个非常大的topic可以分布到多个broker（即服务器）上，**一个** **topic** **可以分为多个** **partition**，每个partition是一个有序的队列。
 
-**（****7****）****Replica****：**副本。一个topic的每个分区都有若干个副本，一个**Leader**和若干个**Follower**。
+**（** **7** **）** **Replica** **：**副本。一个topic的每个分区都有若干个副本，一个**Leader**和若干个**Follower**。
 
-**（****8****）****Leader****：**每个分区多个副本的“主”，生产者发送数据的对象，以及消费者消费数据的对象都是Leader。
+**（** **8** **）** **Leader** **：**每个分区多个副本的“主”，生产者发送数据的对象，以及消费者消费数据的对象都是Leader。
 
 **（9）Follower：**每个分区多个副本中的“从”，实时从Leader中同步数据，保持和Leader数据的同步。Leader发生故障时，某个Follower会成为新的Leader。
 
-​  
-
-​  
+  
 
   
 
-​  
+  
+
+  
 
 ## Kafka使用入门
 
@@ -99,16 +99,16 @@ replica.fetch.max.bytes\=6291456（6M）每个分区试图获取的消息字节�
 
 | 参数 | 描述 |
 | --- | --- |
-| --bootstrap-server <String: server toconnect to> | 连接的Kafka Broker主机名称和端口号。 |
-| --topic <String: topic> | 操作的topic名称。 |
+| --bootstrap-server \<String: server toconnect to> | 连接的Kafka Broker主机名称和端口号。 |
+| --topic \<String: topic> | 操作的topic名称。 |
 | --create | 创建主题。 |
 | --delete | 删除主题。 |
 | --alter | 修改主题。 |
 | --list | 查看所有主题。 |
 | --describe | 查看主题详细描述。 |
-| --partitions <Integer: # of partitions> | 设置分区数。 |
-| --replication-factor<Integer: replication factor> | 设置分区副本。 |
-| --config <String: name=value> | 更新系统默认的配置。 |
+| --partitions \<Integer: # of partitions> | 设置分区数。 |
+| --replication-factor\<Integer: replication factor> | 设置分区副本。 |
+| --config \<String: name=value> | 更新系统默认的配置。 |
 
 修改分区数（注意：分区数只能增加，不能减少）
 
@@ -122,8 +122,8 @@ replica.fetch.max.bytes\=6291456（6M）每个分区试图获取的消息字节�
 
 | 参数 | 描述 |
 | --- | --- |
-| --bootstrap-server <String: server toconnect to> | 连接的Kafka Broker主机名称和端口号。 |
-| --topic <String: topic> | 操作的topic名称。 |
+| --bootstrap-server \<String: server toconnect to> | 连接的Kafka Broker主机名称和端口号。 |
+| --topic \<String: topic> | 操作的topic名称。 |
 
 **查看操作消费者命令参数**
 
@@ -131,14 +131,14 @@ bin/kafka-console-consumer.sh
 
 | 参数 | 描述 |
 | --- | --- |
-| --bootstrap-server <String: server toconnect to> | 连接的Kafka Broker主机名称和端口号。 |
-| --topic <String: topic> | 操作的topic名称。 |
+| --bootstrap-server \<String: server toconnect to> | 连接的Kafka Broker主机名称和端口号。 |
+| --topic \<String: topic> | 操作的topic名称。 |
 | --from-beginning | 从头开始消费。 |
-| --group <String: consumer group id> | 指定消费者组名称。 |
+| --group \<String: consumer group id> | 指定消费者组名称。 |
 
-​命令行中使用的消费者，如果不写消费者组，系统会默认分配一个随机的消费者组。所以每次启动都无法消费之前的数据。添加\--from-beginning 可以从头消费。
+命令行中使用的消费者，如果不写消费者组，系统会默认分配一个随机的消费者组。所以每次启动都无法消费之前的数据。添加--from-beginning 可以从头消费。
 
-如果是同一个组的消费者，能实现断点续传的功能。添加\--from-beginning 也还是断点续传的。
+如果是同一个组的消费者，能实现断点续传的功能。添加--from-beginning 也还是断点续传的。
 
 如果生产消费到一个不存在的主题，系统会自动帮你创建这个主题，分区和副本的个数都为1个
 
@@ -150,11 +150,11 @@ bin/kafka-console-consumer.sh
 
 有两个线程,一个是main,在其中创建了双端队列RecordAccumulator,main线程将消息发送给RecordAccumulator,另一个线程Sender不断地从RecordAccumulator拉取信息发送到Kafak Broker.
 
-​  
+  
 
 ![image.png](assets/Kafka-5.png)
 
-​  
+  
 
 #### 生产者重要参数列表
 
@@ -182,7 +182,7 @@ bin/kafka-console-consumer.sh
 
 带回调函数的异步发送
 
-​  
+  
 
 回调函数会在producer收到ack时调用，为异步调用，该方法有两个参数，分别是元数据信息（RecordMetadata）和异常信息（Exception），如果Exception为null，说明消息发送成功，如果Exception不为null，说明消息发送失败。
 
@@ -218,11 +218,11 @@ bin/kafka-console-consumer.sh
 
 /\*\*
 
-​\* 1. 实现接口Partitioner
+\* 1. 实现接口Partitioner
 
-​\* 2. 实现3个方法:partition,close,configure
+\* 2. 实现3个方法:partition,close,configure
 
-​\* 3. 编写partition方法,返回分区号
+\* 3. 编写partition方法,返回分区号
 
 \*/
 
@@ -248,7 +248,7 @@ ISR队列:in-sync- replica set(ISR)与leader保持同步的Follower+leader的集
 
 ![image.png](assets/Kafka-13.png)
 
-​  
+  
 
 3）副本介绍
 
@@ -268,11 +268,11 @@ AR = ISR + OSR
 
 ![image.png](assets/Kafka-14.png)
 
-​  
+  
 
 ![image.png](assets/Kafka-15.png)
 
-​  
+  
 
 ### 数据去重
 
@@ -290,7 +290,7 @@ at least once at most once
 
 开启参数**enable.idempotence** 默认为true，false关闭。
 
-​  
+  
 
 生产者事务:
 
@@ -305,7 +305,7 @@ at least once at most once
 
 单分区间是有序的,分区间是无序的
 
-​  
+  
 
 #### 数据乱序
 
@@ -323,9 +323,9 @@ max.in.flight.request.per.connnect
 
 ![image.png](assets/Kafka-19.png)
 
-​  
+  
 
-​  
+  
 
 #### Broker重要参数
 
@@ -351,11 +351,11 @@ max.in.flight.request.per.connnect
 
 #### 文件储存
 
-​  
+  
 
 文件存储机制
 
-​  
+  
 
 Topic数据的存储机制
 
@@ -396,7 +396,7 @@ Kafka中提供的日志清理策略有delete和compact两种。
 
 1）delete日志删除：将过期数据删除
 
-l log.cleanup.policy \= delete 所有数据启用删除策略
+l log.cleanup.policy = delete 所有数据启用删除策略
 
 （1）基于时间：默认打开。以segment中所有记录中的最大时间戳作为该文件时间戳。
 
@@ -404,17 +404,17 @@ l log.cleanup.policy \= delete 所有数据启用删除策略
 
 log.retention.bytes，默认等于-1，表示无穷大。
 
-​  
+  
 
 ![image.png](assets/Kafka-22.png)
 
 #### 高效读写数据
 
-**1****）****Kafka****本身是分布式集群，可以采用分区技术，并行度高**
+**1** **）** **Kafka** **本身是分布式集群，可以采用分区技术，并行度高**
 
-**2****）读数据采用稀疏索引，可以快速定位要消费的数据**
+**2** **）读数据采用稀疏索引，可以快速定位要消费的数据**
 
-**3****）顺序写磁盘**
+**3** **）顺序写磁盘**
 
 Kafka的producer生产数据，要写入到log文件中，写的过程是一直追加到文件末端，为顺序写。**官网有数据表明**，同样的磁盘，顺序写能到600M/s，而随机写只有100K/s。这与磁盘的机械机构有关，顺序写之所以快，是因为其省去了大量磁头寻址的时间。
 
@@ -424,7 +424,7 @@ Kafka的producer生产数据，要写入到log文件中，写的过程是一直�
 
 ![image.png](assets/Kafka-23.png)
 
-​  
+  
 
 | 参数 | 描述 |
 | --- | --- |
@@ -435,9 +435,9 @@ Kafka的producer生产数据，要写入到log文件中，写的过程是一直�
 
 ![image.png](assets/Kafka-24.png)
 
-​  
+  
 
-​  
+  
 
 ![image.png](assets/Kafka-25.png)
 
@@ -449,7 +449,7 @@ coordinator
 
 ![image.png](assets/Kafka-27.png)
 
-​  
+  
 
 ![image.png](assets/Kafka-28.png)
 
@@ -501,7 +501,7 @@ Ranger,RoundRobin,Sticky,CooperativeSticky
 
 说明：Kafka默认的分区分配策略就是Range + CooperativeSticky，所以不需要修改策略。
 
-​  
+  
 
 **RoundRobin分区策略原理**
 
@@ -525,9 +525,9 @@ Ranger,RoundRobin,Sticky,CooperativeSticky
 
 ![image.png](assets/Kafka-32.png)
 
-\_\_consumer\_offsets主题里面采用key和value的方式存储数据。key是group.id+topic+分区号，value就是当前offset的值。每隔一段时间，kafka内部会对这个topic进行compact，也就是每个group.id+topic+分区号就保留最新数据。
+__consumer_offsets主题里面采用key和value的方式存储数据。key是group.id+topic+分区号，value就是当前offset的值。每隔一段时间，kafka内部会对这个topic进行compact，也就是每个group.id+topic+分区号就保留最新数据。
 
-​  
+  
 
 | 参数名称 | 描述 |
 | --- | --- |
@@ -536,7 +536,7 @@ Ranger,RoundRobin,Sticky,CooperativeSticky
 
 ![image.png](assets/Kafka-33.png)
 
-​  
+  
 
 | 参数名称 | 描述 |
 | --- | --- |
@@ -557,7 +557,7 @@ auto.offset.reset = earliest | latest | none 默认是latest。
 
 当Kafka中没有初始偏移量（消费者组第一次消费）或服务器上不再存在当前偏移量时（例如该数据已被删除），该怎么办？
 
-（1）earliest：自动将偏移量重置为最早的偏移量，\-\-from\-beginning。
+（1）earliest：自动将偏移量重置为最早的偏移量，--from-beginning。
 
 （2）latest（默认值）：自动将偏移量重置为最新偏移量。
 
@@ -602,49 +602,49 @@ kafka是一个分布式的基于发布,订阅模式(消息的发布者将发布�
 
 ![image.png](assets/Kafka-40.png)
 
-**（****1****）****Producer****：**消息生产者，就是向Kafka broker发消息的客户端。
+**（** **1** **）** **Producer** **：**消息生产者，就是向Kafka broker发消息的客户端。
 
-**（****2****）****Consumer****：**消息消费者，向Kafka broker取消息的客户端。
+**（** **2** **）** **Consumer** **：**消息消费者，向Kafka broker取消息的客户端。
 
-**（****3****）****Consumer Group****（****CG****）：**消费者组，由多个consumer组成。**消费者组内每个消费者负责消费不同分区的数据，一个分区只能由一个组内消费者消费；消费者组之间互不影响。**所有的消费者都属于某个消费者组，即**消费者组是逻辑上的一个订阅者**。
+**（** **3** **）** **Consumer Group** **（** **CG** **）：**消费者组，由多个consumer组成。**消费者组内每个消费者负责消费不同分区的数据，一个分区只能由一个组内消费者消费；消费者组之间互不影响。**所有的消费者都属于某个消费者组，即**消费者组是逻辑上的一个订阅者**。
 
 **（4）Broker：**一台Kafka服务器就是一个broker。一个集群由多个broker组成。一个broker可以容纳多个topic。
 
-**（****5****）****Topic****：**可以理解为一个队列，**生产者和消费者面向的都是一个****topic**。
+**（** **5** **）** **Topic** **：**可以理解为一个队列，**生产者和消费者面向的都是一个** **topic**。
 
-**（****6****）****Partition****：**为了实现扩展性，一个非常大的topic可以分布到多个broker（即服务器）上，**一个****topic****可以分为多个****partition**，每个partition是一个有序的队列。
+**（** **6** **）** **Partition** **：**为了实现扩展性，一个非常大的topic可以分布到多个broker（即服务器）上，**一个** **topic** **可以分为多个** **partition**，每个partition是一个有序的队列。
 
-**（****7****）****Replica****：**副本。一个topic的每个分区都有若干个副本，一个**Leader**和若干个**Follower**。
+**（** **7** **）** **Replica** **：**副本。一个topic的每个分区都有若干个副本，一个**Leader**和若干个**Follower**。
 
-**（****8****）****Leader****：**每个分区多个副本的“主”，生产者发送数据的对象，以及消费者消费数据的对象都是Leader。
+**（** **8** **）** **Leader** **：**每个分区多个副本的“主”，生产者发送数据的对象，以及消费者消费数据的对象都是Leader。
 
 **（9）Follower：**每个分区多个副本中的“从”，实时从Leader中同步数据，保持和Leader数据的同步。Leader发生故障时，某个Follower会成为新的Leader。
 
-​  
+  
 
 **注意：**停止Kafka集群时，一定要等Kafka所有节点进程全部停止后再停止Zookeeper集群。因为Zookeeper集群当中记录着Kafka集群相关信息，Zookeeper集群一旦先停止，Kafka集群就没有办法再获取停止进程的信息，只能手动杀死Kafka进程了。
 
-​  
+  
 
 查看操作主题命令参数
 
 [atguigu@hadoop102 kafka]$ bin/kafka-topics.sh
 
-\--topic 定义topic名
+--topic 定义topic名
 
-\--replication-factor 定义副本数
+--replication-factor 定义副本数
 
-\--partitions 定义分区数
+--partitions 定义分区数
 
-​  
+  
 
 修改分区数（注意：分区数只能增加，不能减少）
 
-​  
+  
 
 生产者消息发送流程
 
-### **​****发送原理**
+### ** ****发送原理**
 
 在消息发送的过程中，涉及到了**两个线程——main线程和Sender线程**。在main线程中创建了**一个双端队列RecordAccumulator**。main线程将消息发送给RecordAccumulator，Sender线程不断从RecordAccumulator中拉取消息发送到Kafka Broker。
 
@@ -660,7 +660,7 @@ kafka是一个分布式的基于发布,订阅模式(消息的发布者将发布�
 
 回调函数会在producer收到ack时调用，为异步调用，该方法有两个参数，分别是元数据信息（RecordMetadata）和异常信息（Exception），如果Exception为null，说明消息发送成功，如果Exception不为null，说明消息发送失败
 
-​  
+  
 
 ![image.png](assets/Kafka-43.png)
 

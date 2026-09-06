@@ -14,27 +14,27 @@ Flink性能调优的第一步，就是为任务分配合适的资源，在一定
 
 ###   
 
-Ø标准的Flink任务提交脚本（Generic CLI 模式）
+- 标准的Flink任务提交脚本（Generic CLI 模式）
 
-从1.11开始，增加了通用客户端模式，参数使用\-D <property=value>指定
+从1.11开始，增加了通用客户端模式，参数使用-D \<property=value>指定
 
 bin/flink run \\
 
-\-t yarn-per-job \\
+-t yarn-per-job \\
 
-\-d \\
+-d \\
 
-\-p 3 \\ 指定并行度
+-p 3 \\ 指定并行度
 
-\-Dyarn.application.queue=default \\ 指定yarn队列
+-Dyarn.application.queue=default \\ 指定yarn队列
 
-\-Djobmanager.memory.process.size=1024mb \\ 指定JM的总进程大小
+-Djobmanager.memory.process.size=1024mb \\ 指定JM的总进程大小
 
-\-Dtaskmanager.memory.process.size=1024mb \\ 指定每个TM的总进程大小
+-Dtaskmanager.memory.process.size=1024mb \\ 指定每个TM的总进程大小
 
-\-Dtaskmanager.numberOfTaskSlots=2 \\ 指定每个TM的slot数
+-Dtaskmanager.numberOfTaskSlots=2 \\ 指定每个TM的slot数
 
-\-c com.atguigu.flink.tuning.UvDemo \\
+-c com.atguigu.flink.tuning.UvDemo \\
 
 /opt/module/flink-1.13.1/myjar/flink-tuning-1.0-SNAPSHOT.jar
 
@@ -44,17 +44,17 @@ bin/flink run \\
 
 ### 内存设置
 
-​  
+  
 
-​  
+  
 
 ![image.png](assets/Flink优化-1.png)
 
-​  
+  
 
 Task的内存=进程内存-JVM特有内存-网络内存-托管内存-框架内存(堆内,堆外)
 
-​  
+  
 
 **1、内存模型详解**
 
@@ -72,9 +72,9 @@ taskmanager.memory.jvm-overhead.min，默认192mb
 
 taskmanager.memory.jvm-overhead.max，默认1gb
 
-**总进程内存****\*fraction，如果小于****配置的****min****（或大于配置的****max****）****大小，则使用****min/max大小**
+**总进程内存** **\*fraction，如果小于** **配置的** **min** **（或大于配置的** **max** **）** **大小，则使用** **min/max大小**
 
-**l** **框架内存：**Flink框架，即TaskManager本身所占用的内存，**不计入****Slot的资源中。**
+**l** **框架内存：**Flink框架，即TaskManager本身所占用的内存，**不计入** **Slot的资源中。**
 
 堆内：taskmanager.memory.framework.heap.size，默认128MB
 
@@ -94,15 +94,15 @@ taskmanager.memory.network.min，默认64mb
 
 taskmanager.memory.network.max，默认1gb
 
-**Flink内存\*fraction，如果小于****配置的****min****（或大于配置的****max****）****大小，则使用****min/max大小**
+**Flink内存\*fraction，如果小于** **配置的** **min** **（或大于配置的** **max** **）** **大小，则使用** **min/max大小**
 
-**l** **托管内存****：**用于RocksDB State Backend 的本地内存和批的排序、哈希表、缓存中间结果。
+**l** **托管内存** **：**用于RocksDB State Backend 的本地内存和批的排序、哈希表、缓存中间结果。
 
 堆外：taskmanager.memory.managed.fraction，默认0.4
 
-​taskmanager.memory.managed.size，默认none
+taskmanager.memory.managed.size，默认none
 
-**如果****size没指定，则等于Flink内存\*fraction**
+**如果** **size没指定，则等于Flink内存\*fraction**
 
 **2、案例分析**
 
@@ -114,7 +114,7 @@ JVM元空间256m
 
 JVM执行开销： 4g\*0.1=409.6m，在[192m,1g]之间，最终结果409.6m
 
-Flink内存=4g\-256m\-409.6m\=3430.4m
+Flink内存=4g-256m-409.6m=3430.4m
 
 （2）网络内存=3430.4m\*0.1=343.04m，在[64m,1g]之间，最终结果343.04m
 
@@ -124,7 +124,7 @@ Flink内存=4g\-256m\-409.6m\=3430.4m
 
 （5）Task堆内内存=3430.4m-128m-128m-343.04m-1372.16m=1459.2m
 
-​  
+  
 
 ![image.png](assets/Flink优化-2.png)
 
@@ -136,21 +136,21 @@ Flink内存=4g\-256m\-409.6m\=3430.4m
 
 bin/flink run \\
 
-\-t yarn-per-job \\
+-t yarn-per-job \\
 
-\-d \\
+-d \\
 
-\-p 3 \\ 指定并行度
+-p 3 \\ 指定并行度
 
-\-Dyarn.application.queue=default \\ 指定yarn队列
+-Dyarn.application.queue=default \\ 指定yarn队列
 
-\-Djobmanager.memory.process.size=2048mb \\ JM2~4G足够
+-Djobmanager.memory.process.size=2048mb \\ JM2~4G足够
 
-\-Dtaskmanager.memory.process.size=4096mb \\ 单个TM2~8G足够
+-Dtaskmanager.memory.process.size=4096mb \\ 单个TM2~8G足够
 
-\-Dtaskmanager.numberOfTaskSlots=2 \\ 与容器核数1core：1slot或1core：2slot
+-Dtaskmanager.numberOfTaskSlots=2 \\ 与容器核数1core：1slot或1core：2slot
 
-\-c com.atguigu.flink.tuning.UvDemo \\
+-c com.atguigu.flink.tuning.UvDemo \\
 
 /opt/module/flink-1.13.1/myjar/flink-tuning-1.0-SNAPSHOT.jar
 
@@ -162,35 +162,35 @@ Yarn的容量调度器默认情况下是使用“DefaultResourceCalculator”分
 
 可以修改策略为 DominantResourceCalculator，该资源计算器在计算资源的时候会综合考虑cpu和内存的情况。在capacity-scheduler.xml 中修改属性:
 
-<property>
+\<property>
 
-<name>yarn.scheduler.capacity.resource-calculator</name>
+\<name>yarn.scheduler.capacity.resource-calculator\</name>
 
-<!-- <value>org.apache.hadoop.yarn.util.resource.DefaultResourceCalculator</value> -->
+<!-- \<value>org.apache.hadoop.yarn.util.resource.DefaultResourceCalculator\</value> -->
 
-<value>org.apache.hadoop.yarn.util.resource.DominantResourceCalculator</value>
+\<value>org.apache.hadoop.yarn.util.resource.DominantResourceCalculator\</value>
 
-</property>
+\</property>
 
 #### 1.1.1 使用DefaultResourceCalculator 策略
 
 bin/flink run \\
 
-\-t yarn-per-job \\
+-t yarn-per-job \\
 
-\-d \\
+-d \\
 
-\-p 3 \\
+-p 3 \\
 
-\-Dyarn.application.queue=default \\
+-Dyarn.application.queue=default \\
 
-\-Djobmanager.memory.process.size=1024mb \\
+-Djobmanager.memory.process.size=1024mb \\
 
-\-Dtaskmanager.memory.process.size=4096mb \\
+-Dtaskmanager.memory.process.size=4096mb \\
 
-\-Dtaskmanager.numberOfTaskSlots=2 \\
+-Dtaskmanager.numberOfTaskSlots=2 \\
 
-\-c com.atguigu.flink.tuning.UvDemo \\
+-c com.atguigu.flink.tuning.UvDemo \\
 
 /opt/module/flink-1.13.1/myjar/flink-tuning-1.0-SNAPSHOT.jar
 
@@ -204,23 +204,23 @@ bin/flink run \\
 
 bin/flink run \\
 
-\-t yarn-per-job \\
+-t yarn-per-job \\
 
-\-d \\
+-d \\
 
-\-p 3 \\
+-p 3 \\
 
-\-Drest.flamegraph.enabled=true \\
+-Drest.flamegraph.enabled=true \\
 
-\-Dyarn.application.queue=default \\
+-Dyarn.application.queue=default \\
 
-\-Djobmanager.memory.process.size=1024mb \\
+-Djobmanager.memory.process.size=1024mb \\
 
-\-Dtaskmanager.memory.process.size=4096mb \\
+-Dtaskmanager.memory.process.size=4096mb \\
 
-\-Dtaskmanager.numberOfTaskSlots=2 \\
+-Dtaskmanager.numberOfTaskSlots=2 \\
 
-\-c com.atguigu.flink.tuning.UvDemo \\
+-c com.atguigu.flink.tuning.UvDemo \\
 
 /opt/module/flink-1.13.1/myjar/flink-tuning-1.0-SNAPSHOT.jar
 
@@ -234,25 +234,25 @@ bin/flink run \\
 
 bin/flink run \\
 
-\-t yarn-per-job \\
+-t yarn-per-job \\
 
-\-d \\
+-d \\
 
-\-p 3 \\
+-p 3 \\
 
-\-Drest.flamegraph.enabled=true \\
+-Drest.flamegraph.enabled=true \\
 
-\-Dyarn.application.queue=default \\
+-Dyarn.application.queue=default \\
 
-\-Dyarn.containers.vcores=3 \\
+-Dyarn.containers.vcores=3 \\
 
-\-Djobmanager.memory.process.size=1024mb \\
+-Djobmanager.memory.process.size=1024mb \\
 
-\-Dtaskmanager.memory.process.size=4096mb \\
+-Dtaskmanager.memory.process.size=4096mb \\
 
-\-Dtaskmanager.numberOfTaskSlots=2 \\
+-Dtaskmanager.numberOfTaskSlots=2 \\
 
-\-c com.atguigu.flink.tuning.UvDemo \\
+-c com.atguigu.flink.tuning.UvDemo \\
 
 /opt/module/flink-1.13.1/myjar/flink-tuning-1.0-SNAPSHOT.jar
 
@@ -284,11 +284,11 @@ Flink 的一个并行度可以处理一至多个分区的数据，如果并行�
 
 #### 1.1.3 Transform端并行度的配置
 
-Ø Keyby之前的算子
+- Keyby之前的算子
 
 一般不会做太重的操作，都是比如map、filter、flatmap等处理较快的算子，并行度可以和source保持一致。
 
-Ø Keyby之后的算子 -\- keyGroup
+- Keyby之后的算子 -- keyGroup
 
 如果并发较大，建议调整最大并行度并行度；
 
@@ -302,7 +302,7 @@ Source 端的数据量是最小的，拿到 Source 端流过来的数据后做�
 
 另外 Sink 端要与下游的服务进行交互，并行度还得根据下游的服务抗压能力来设置，如果在 Flink Sink 这端的数据量过大的话，且 Sink 处并行度也设置的很大，但下游的服务完全撑不住这么大的并发写入，可能会造成下游服务直接被写挂，所以最终还是要在 Sink 处的并行度做一定的权衡。
 
-​  
+  
 
-​  
+  
 

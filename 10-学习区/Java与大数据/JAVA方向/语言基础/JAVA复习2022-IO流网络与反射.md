@@ -13,7 +13,7 @@ source: 个人总结
 * 1.如何关闭流：相反顺序关闭 先开后关  
 * 2.其实只要关闭高层流即可，高层流会关闭底层流*
 
-*​*  
+**  
 
 *BufferdReader BufferedWriter  
 * 字符流 处理流  
@@ -37,14 +37,14 @@ source: 个人总结
 * Reader fr = new InputStreamReader(System.in);  
 * public class InputStreamReader extends Reader  
 \*/  
-2\. 只可以将字节流转换为字符流  
+2. 只可以将字节流转换为字符流  
 * OutputStream---->OutputStreamWriter---------->Writer  
 * InputStream ----->InputStreamReader----->Reader  
 *  
 * 没有WriterOutputStream ReaderInputStream类，没有这种应用场景  
 \*/
 
-​  
+  
 
 * File用来指向一个文件（文件夹/目录也是文件）  
 * 可以获取该文件的各种属性：文件名、路径、大小、可读可写.....  
@@ -55,7 +55,7 @@ source: 个人总结
 *  
 * 功能1：可以获取该文件的各种属性：文件名、路径、大小、可读可写.....
 
-​  
+  
 
   
 */\*\*  
@@ -77,7 +77,7 @@ source: 个人总结
 * File file = new File(new File("e:/java0212"),"readme.txt");  
 * /*
 
-*​*  
+**  
 
   
 * 功能3：创建文件  
@@ -137,7 +137,7 @@ source: 个人总结
 *  
 * 相对路径到底是哪里  
 * 当前模块 @Test Junit  
-* C:\\Users\\Administrator\\IdeaProjects\\javase0212\\ch14\_io  
+* C:\\Users\\Administrator\\IdeaProjects\\javase0212\\ch14_io  
 * 当前项目 main  
 * C:\\Users\\Administrator\\IdeaProjects\\javase0212  
 *  
@@ -145,15 +145,15 @@ source: 个人总结
 *  
 \*/
 
-​  
+  
 
 #### 网络编程(以后再深入)
 
 相关知识点代码中少
 
-\----------TheTwentueth
+----------TheTwentueth
 
-​  
+  
 
 #### 反射(重点,难点,目前先跳过)
 

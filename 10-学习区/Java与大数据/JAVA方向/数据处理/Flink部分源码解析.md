@@ -17,7 +17,7 @@ source: 个人总结
 
 解决方式：在方法后面.returns(Types.类型)
 
-​  
+  
 
 Flink中流处理方式和批处理方式的区别:
 
@@ -27,13 +27,13 @@ Flink中流处理方式和批处理方式的区别:
 
 3.流处理方式最后需要调用execute()启动
 
-​  
+  
 
-​  
+  
 
 #### keyby源码
 
-\--------------------------------------KeyBy源码解析--------------------------------  
+--------------------------------------KeyBy源码解析--------------------------------  
 1.首先计算出KeyGroupId（计算这个key属于那个分组）  
 先通过key.hashCode()这个方法对key做了一次Hash  
 然后又调用computeKeyGroupForKeyHash(key.hashCode(), maxParallelism)  
@@ -52,19 +52,19 @@ computeOperatorIndexForKeyGroup(maxParallelism, parallelism, assignToKeyGroup(ke
   
 
 3.最终再通过一下方法决定这个key的发送  
-public int selectChannel(SerializationDelegate<StreamRecord> record) {  
+public int selectChannel(SerializationDelegate\<StreamRecord> record) {  
 。  
 。  
 。  
 }
 
-​  
+  
 
-​  
+  
 
 #### 窗口源码解析
 
-\---------------------------------------窗口源码解析---------------------------------
+---------------------------------------窗口源码解析---------------------------------
 
 1.窗口怎么实现的左闭右开？
 
@@ -76,13 +76,13 @@ return end - 1;
 
 在TimeWindow这个类中有以上这个方法，这个方法的作用：获取仍然属于此窗口的最大时间戳。end指的是窗口结束时间 1指的是1毫秒
 
-​  
+  
 
 2.在定义窗口的时候offset的含义？
 
 偏移的是窗口的开始时间，从某种意义上来看窗口的开始时间是固定在某些时间点的，如果不想在这些时间点开窗，可以指定offset来改变窗口的开始时间。
 
-​  
+  
 
 3.窗口的开始时间和数据进来的时间有什么关系？
 
@@ -94,7 +94,7 @@ timestamp - (timestamp - offset + windowSize) % windowSize;
 
 因此从某种意义上来说，窗口的开始时间是固定的，比如窗口大小为5S，那么开启的窗口的开始时间都是5的整数倍不会有类似于\[2,7)这种窗口
 
-​  
+  
 
 4在assignWindows方法中，是每来一条数据调用一次，这个方法最后会new TimeWindow，会不会创建大量对象？
 
@@ -102,7 +102,7 @@ Collections.singletonList(new TimeWindow(start, start + size));
 
 因为用到了单例，所以不会创建大量重复的对象
 
-​  
+  
 
 5.滑动窗口中，如何判断这个数据是属于哪些窗口的？
 
@@ -134,13 +134,13 @@ start： 0 -3 -6
 
 window:\[0,6) \[-3,3)
 
-​  
+  
 
 6.没有数据过来的时候会不会开窗？
 
 没有数据的时候程序会一直阻塞，不会开窗，因为flink是事件驱动的，有数据才处理，没有的话一直阻塞
 
-​  
+  
 
 7.会话窗口中窗口的开始时间和数据进来的时间有什么关系？
 
@@ -148,7 +148,7 @@ new TimeWindow(currentProcessingTime, currentProcessingTime + sessionTimeout)
 
 窗口的开始时间等于数据进来的处理时间，那么就意味着每毫秒来的数据都会创建一个不同的窗口
 
-​  
+  
 
 8.会话窗口源码（了解）
 
@@ -156,15 +156,15 @@ new TimeWindow(currentProcessingTime, currentProcessingTime + sessionTimeout)
 
 然后这些窗口会放到集合中，并按照窗口开始时间做排序
 
-List<TimeWindow> sortedWindows = new ArrayList<>(windows);
+List\<TimeWindow> sortedWindows = new ArrayList<>(windows);
 
-​  
+  
 
 Collections.sort(
 
 sortedWindows,
 
-new Comparator<TimeWindow>() {
+new Comparator\<TimeWindow>() {
 
 @Override
 
@@ -178,7 +178,7 @@ return Long.compare(o1.getStart(), o2.getStart());
 
 接下来，通过以下代码判断排完序的两两窗口是否有重叠
 
-return this.start <= other.end && this.end >= other.start;
+return this.start \<= other.end && this.end >= other.start;
 
 如果有重叠的话，则合并两个窗口
 
@@ -198,7 +198,7 @@ s1,1,1 这个是第3秒来的数据 \[3,4)
 
 然后再与\[3,4)合并 => \[0,11)最终合并成这么一个窗口
 
-​  
+  
 
 9.窗户什么时候触发计算？
 
@@ -224,9 +224,9 @@ return time == window.maxTimestamp() ? TriggerResult.FIRE : TriggerResult.CONTIN
 
 因此基于事件时间的窗口是否被触发，主要看的还是WaterMark
 
-​  
+  
 
-​  
+  
 
 10.窗户什么时候关闭（被销毁）？
 
@@ -240,7 +240,7 @@ if (windowAssigner.isEventTime()) {
 
 long cleanupTime = window.maxTimestamp() + allowedLateness;
 
-return cleanupTime >= window.maxTimestamp() ? cleanupTime : Long.MAX\_VALUE;
+return cleanupTime >= window.maxTimestamp() ? cleanupTime : Long.MAX_VALUE;
 
 } else {
 
@@ -252,7 +252,7 @@ return window.maxTimestamp();
 
 如果这个清理时机小于窗口的最大时间戳则清理时间为Long的最大值，不清理
 
-​  
+  
 
 如果这个窗口是基于处理时间的窗口，则清理时间为window.maxTimestamp()（窗口的最大时间戳）
 
@@ -276,27 +276,27 @@ clearAllState(triggerContext.window, windowState, mergingWindows);
 
 如果这个窗口是基于处理时间的窗口，则清理时间为window.maxTimestamp()（窗口的最大时间戳）
 
-​  
+  
 
 事件时间指的是这个事件发生的时间
 
 处理时间指的是这个事件被程序处理的时间
 
-​  
+  
 
 当前时间是2022-07-05 15:43:20 则意味着这个时间之前的事已经发生完了，不应该再出现了
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
 #### WaterMark源码解析
 
   
 
-\------------------------------------WaterMark源码解析--------------------------
+------------------------------------WaterMark源码解析--------------------------
 
 1.WaterMark默认生成方式是什么？
 
@@ -306,7 +306,7 @@ public void onPeriodicEmit(WatermarkOutput output) 这个方法是周期性调�
 
 因为是在onPeriodicEmit这个方法中生产的WaterMark，所以默认是周期性生成的WaterMark。
 
-​  
+  
 
 1.2周期时间是多少？
 
@@ -316,7 +316,7 @@ private long autoWatermarkInterval = 200; 默认为200ms
 
 env.getConfig().setAutoWatermarkInterval(200);
 
-​  
+  
 
 1.3为什么有周期性生成和间歇期生成WaterMark的方式？
 
@@ -374,7 +374,7 @@ public void onProcessingTime(long timestamp) throws Exception {
 
 watermarkGenerator.onPeriodicEmit(wmOutput);
 
-​  
+  
 
 final long now = getProcessingTimeService().getCurrentProcessingTime();
 
@@ -384,17 +384,17 @@ getProcessingTimeService().registerTimer(now + watermarkInterval, this);
 
 在以下processElement这个方法中，调用了onEvent这个方法，因为processElement这个方法是来一条数据调用一次，所以onEvent这个方法是间歇性调用的
 
-public void processElement(final StreamRecord<T> element) throws Exception {
+public void processElement(final StreamRecord\<T> element) throws Exception {
 
 final T event = element.getValue();
 
 final long previousTimestamp =
 
-element.hasTimestamp() ? element.getTimestamp() : Long.MIN\_VALUE;
+element.hasTimestamp() ? element.getTimestamp() : Long.MIN_VALUE;
 
 final long newTimestamp = timestampAssigner.extractTimestamp(event, previousTimestamp);
 
-​  
+  
 
 element.setTimestamp(newTimestamp);
 
@@ -408,17 +408,17 @@ watermarkGenerator.onEvent(event, newTimestamp, wmOutput);
 
 Long的最小值
 
-this.maxTimestamp = Long.MIN\_VALUE + outOfOrdernessMillis + 1;
+this.maxTimestamp = Long.MIN_VALUE + outOfOrdernessMillis + 1;
 
 output.emitWatermark(new Watermark(maxTimestamp - outOfOrdernessMillis - 1));
 
-​  
+  
 
 3.为什么WaterMark是单调增长的？
 
 maxTimestamp = Math.max(maxTimestamp, eventTimestamp);
 
-​  
+  
 
 4.关于生成WaterMark周期过长，期间来了很多数据，WaterMark的情况分析
 
@@ -428,26 +428,25 @@ maxTimestamp = Math.max(maxTimestamp, eventTimestamp);
 
 至于maxTimestamp这个值什么时候用，取决于WaterMark什么时候更新
 
-​  
+  
 
 5.为什么读有界数据的时候，所有的窗口都能关闭？当有界数据读完时WaterMark是多少？
 
 在WaterMark这个类中可以看到一下代码
 
-public static final Watermark MAX\_WATERMARK = new Watermark(Long.MAX\_VALUE);
+public static final Watermark MAX_WATERMARK = new Watermark(Long.MAX_VALUE);
 
 当有界数据读完时，WaterMark为Long的最大值
 
 /\*\* 事件时间定时器触发时调用. \*/
 
-void onEventTime(InternalTimer<K, N> timer) throws Exception;
+void onEventTime(InternalTimer\<K, N> timer) throws Exception;
 
-​  
+  
 
 /\*\* 处理时间定时器触发时调用. \*/
 
-void onProcessingTime(InternalTimer<K, N> timer) throws Exception;
+void onProcessingTime(InternalTimer\<K, N> timer) throws Exception;
 
-​  
+  
 
-​

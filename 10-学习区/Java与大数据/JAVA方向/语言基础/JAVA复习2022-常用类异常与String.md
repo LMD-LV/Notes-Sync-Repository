@@ -29,7 +29,7 @@ BigDecimal类
 * 将 BigDecimal 的字符串表示形式转换为 BigDecimal。  
 * 类的方法
 
-​  
+  
 
   
 
@@ -52,9 +52,9 @@ BigDecimal类
 **\* public long getTime()  
 **\* 返回自 1970 年 1 月 1 日 00:00:00 GMT 以来此 Date 对象表示的毫秒数。*
 
-*​*  
+**  
 
-*​*  
+**  
 
 *Calendar类  
 **\* 类的位置  
@@ -69,11 +69,11 @@ BigDecimal类
 **\* public int get(int field)  
 **\* 返回给定日历字段的值*
 
-*​*  
+**  
 
-*​*  
+**  
 
-*​*  
+**  
 
 *LocalDateTime类  
 **\* 类的位置  
@@ -88,9 +88,9 @@ BigDecimal类
 **\* public static LocalDateTime parse(CharSequence text,DateTimeFormatter formatter)  
 **\* 获得 LocalDateTime实例从使用特定格式的文本字符串。*
 
-*​*  
+**  
 
-*​*  
+**  
 
 *LocalDateTime对象的格式化和解析  
 **\*  
@@ -109,11 +109,11 @@ BigDecimal类
 **\* public TemporalAccessor parse(CharSequence text)  
 **\* 充分分析文本产生的时空对象。*
 
-*​*  
+**  
 
-*​*  
+**  
 
-*​*  
+**  
 
 DateTimeFormatter类  
 * 类的位置  
@@ -131,7 +131,7 @@ DateTimeFormatter类
 * 充分分析文本产生的时空对象。  
 * /
 
-​  
+  
 
 *System类  
 **\* 类的位置  
@@ -155,7 +155,7 @@ DateTimeFormatter类
 **\* 返回最准确的可用系统计时器的当前值，以毫微秒为单位。  
 **\*/*
 
-​  
+  
 
 #### 异常
 
@@ -184,9 +184,9 @@ DateTimeFormatter类
 **\* public String getMessage()  
 **\* 返回此 throwable 的详细消息字符串。*
 
-*​*  
+**  
 
-*​*  
+**  
 
 *Exception的体系:  
 **\* 编译时异常:  
@@ -196,7 +196,7 @@ DateTimeFormatter类
 **\* 含义:代码没有任何语法格式错误,编译正常,在运行时期程序报错  
 **\* 位置:java.lang包下RuntimeException类及其子类*
 
-*​*  
+**  
 
   
 *\* 异常处理:  
@@ -230,7 +230,7 @@ throw关键字:
 *  
 * }
 
-​  
+  
 
 异常声明的注意事项:异常声明和面向对象中的"继承"有一定的关系  
 * 在进行异常声明的时候出现了子父类继承关系  
@@ -254,9 +254,9 @@ throw关键字:
 **\* } catch (异常类名 对象名) {  
 **\* 捕获到该异常对象时,进行该异常的处理方案*
 
-*​*  
+**  
 
-*​*  
+**  
 
 *异常捕获的注意事项:异常捕获和面向对象中的"继承"有一定的关系  
 **\* 在进行异常捕获的时候出现了子父类继承关系  
@@ -274,7 +274,7 @@ throw关键字:
 **\* 异常在子类重写后的方法中  
 **\* 处理方案只有唯一的一种,就是"异常捕获"*
 
-*​*  
+**  
 
 finally关键字:  
 * 含义:  
@@ -288,14 +288,14 @@ finally关键字:
 * 必须执行的代码  
 * }
 
-​  
+  
 
 *finally关键字的注意事项:  
 **\* 在try,catch,finally里面避免使用return语句*
 
-*​*  
+**  
 
-*​*  
+**  
 
 *自定义异常类  
 **\* 自定义编译时异常类  
@@ -313,9 +313,9 @@ finally关键字:
 **\* 3.据父类生成合适的构造器,至少有2个  
 **\* 无参和String参数*
 
-*​*  
+**  
 
-*​*  
+**  
 
 #### 包装类
 
@@ -375,26 +375,26 @@ finally关键字:
 
 字符串连接符在内存中相当一个new
 
-​  
+  
 
-​  
+  
 
 *包装类笔试题1:  
 **\* 包装类型没有基本类型数据的自动提升,只有向上转型和向下转型*
 
-*​*  
+**  
 
-*​*  
+**  
 
 *包装类笔试题2:  
 **\* 当通过自动装箱的方式创建Integer对象时,如果初始化值在-128~127之间,直接整数常量池中拿数据,如果不在其范围内,直接在堆中new  
 **\*/*
 
-*​*  
+**  
 
-*​*  
+**  
 
-*​*  
+**  
 
 #### String类
 
@@ -454,7 +454,7 @@ finally关键字:
 **\* 1.字符串字面值常量  
 **\* 2.通过构造器*
 
-*​*  
+**  
 
 *String类的常用方法:判断  
 **\* public boolean equals (Object anObject)  
@@ -472,7 +472,7 @@ finally关键字:
 **\* public boolean startsWith(String prefix,int toffset)  
 **\* 测试此字符串从指定索引开始的子字符串是否以指定前缀开始。*
 
-*​*  
+**  
 
 *String类常用方法:获取  
 **\* public int length ()  
@@ -490,9 +490,9 @@ finally关键字:
 **\* public String substring (int beginIndex, int endIndex)  
 **\* 返回一个子字符串，从beginIndex到endIndex截取字符串。含beginIndex，不含endIndex。*
 
-*​*  
+**  
 
-*​*  
+**  
 
 *\* String的常用方法:  
 **\* public char[] toCharArray ()  
@@ -506,9 +506,9 @@ finally关键字:
 **\* public String toUpperCase()  
 **\* 使用默认语言环境的规则将此 String 中的所有字符都转换为大写。*
 
-*​*  
+**  
 
-*​*  
+**  
 
 String类的常用方法:分割  
 * public String[] split(String regex)  
@@ -519,9 +519,9 @@ String类的常用方法:分割
 * 2.只要"给定规则"不在字符串的最后,都正常分割  
 * 3.如果给定的规则在字符串的最后,删除最后的给定规则,不进行分割
 
-​  
+  
 
-​  
+  
 
 *StringBuilder类和StringBuffer类  
 **\* 相同点:  
@@ -532,7 +532,7 @@ String类的常用方法:分割
 **\* 2.StringBuffer类是线程安全,适合多线程程序,如果在单线程程序中进行使用,效率过低,不推荐在单线程中进行使用  
 **\*/*
 
-*​*  
+**  
 
 *StringBuilder类  
 **\* 类的位置  
@@ -551,9 +551,9 @@ String类的常用方法:分割
 **\* public StringBuilder reverse()  
 **\* 将此字符序列用其反转形式取代。*
 
-*​*  
+**  
 
-*​*  
+**  
 
 *StringBuilder类的源码分析:  
 **\* 1.StringBuilder类底层数组的初始容量  
@@ -577,9 +577,9 @@ String类的常用方法:分割
 **\* 当使用带有int参数的构造器创建对象时,自定义长度为0,进行扩容不加2永远为0,需要通过+2进行扩容,访问底层数组为0的情况  
 **\*/*
 
-*​*  
+**  
 
-*​*  
+**  
 
-*​*  
+**  
 

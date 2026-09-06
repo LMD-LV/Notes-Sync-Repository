@@ -21,9 +21,9 @@ source: 个人总结
 
 没有事务，
 
-​  
+  
 
-​  
+  
 
 特色:ROW KEY 列族
 
@@ -39,7 +39,7 @@ Hbase的删除为逻辑删除,实际为改变type的类型,使用StoreFile Compa
 
 region:横着切(依据rowkey) store依据列族(竖着切)
 
-​  
+  
 
 NameSpace:命名空间，类似于关系型数据库的database概念，每个命名空间下有多个表。HBase两个自带的命名空间，分别是hbase和default，hbase中存放的是HBase内置的表，default表是用户默认使用的命名空间。
 
@@ -67,7 +67,7 @@ Region Server为 Region的管理者，其实现类为HRegionServer，主要作�
 
 对于Region的操作：splitRegion、compactRegion。
 
-​  
+  
 
 **Master**
 
@@ -77,23 +77,23 @@ Master是所有Region Server的管理者，其实现类为HMaster，主要作用
 
 对于RegionServer的操作：分配regions到每个RegionServer，监控每个RegionServer的状态，负载均衡和故障转移。
 
-​  
+  
 
 **Zookeeper**
 
 HBase通过Zookeeper来做master的高可用、RegionServer的监控、元数据的入口以及集群配置的维护等工作。
 
-​  
+  
 
 **HDFS**
 
 HDFS为Hbase提供最终的底层数据存储服务，同时为HBase提供高容错的支持
 
-​  
+  
 
 bin/start-hbase.sh bin/stop-hbase.sh
 
-​  
+  
 
 # HBase搭建
 
@@ -101,27 +101,27 @@ bin/start-hbase.sh bin/stop-hbase.sh
 
 在HBase中HMaster负责监控HRegionServer的生命周期，均衡RegionServer的负载，如果HMaster挂掉了，那么整个HBase集群将陷入不健康的状态，并且此时的工作状态并不会维持太久。所以HBase支持对HMaster的高可用配置.
 
-​  
+  
 
 #### Hbase shell的数据操作语法
 
 create 'TABLE','LIEZHU'
 
-PUT 'TABLE','ROW\_KEY','列族:列名','列的value'
+PUT 'TABLE','ROW_KEY','列族:列名','列的value'
 
 scan 'TABLE'
 
-scan 'Table',{STARTROW\=>'ROW\_KEY',STOPROW\=>'ROW\_KEY'}
+scan 'Table',{STARTROW=>'ROW_KEY',STOPROW=>'ROW_KEY'}
 
 scan 'Tablescribe 'table'
 
-put 'TABLE','ROW\_KEY','列族:列名','value'
+put 'TABLE','ROW_KEY','列族:列名','value'
 
-get 'TABLE','ROW\_KEY'
+get 'TABLE','ROW_KEY'
 
-DELETE 'TABLE','ROW\_KEY','列族:列名'
+DELETE 'TABLE','ROW_KEY','列族:列名'
 
-deleteall 'table','row\_key'
+deleteall 'table','row_key'
 
 truncate 'table' 提示：清空表的操作顺序为先disable，然后再truncate。
 
@@ -131,7 +131,7 @@ drop 'table' 如果直接drop表，会报错：ERROR: Table student is enabled. 
 
 alter 'table',{NAME=>'列族',VERSIONS=>自己设置}
 
-​  
+  
 
 # Hbase进阶
 
@@ -155,7 +155,7 @@ alter 'table',{NAME=>'列族',VERSIONS=>自己设置}
 
 读缓存，每次查询出的数据会缓存在BlockCache中，方便下次查询。
 
-​  
+  
 
 #### 写流程
 
@@ -177,47 +177,47 @@ alter 'table',{NAME=>'列族',VERSIONS=>自己设置}
 
 7）等达到MemStore的刷写时机后，将数据刷写到HFile。
 
-​  
+  
 
 #### MemStore Flush刷写
 
 ![image.png](assets/HBase-7.png)
 
-**MemStore****刷写时机：**
+**MemStore** **刷写时机：**
 
-1.当某个memstroe的大小达到了**hbase.hregion.memstore.flush.size****（默认值****128M****）**，其所在region的所有memstore 都会刷写。
+1.当某个memstroe的大小达到了**hbase.hregion.memstore.flush.size** **（默认值** **128M** **）**，其所在region的所有memstore 都会刷写。
 
 当memstore的大小达到了
 
-**hbase.hregion.memstore.flush.size****（默认值****128M****）**
+**hbase.hregion.memstore.flush.size** **（默认值** **128M** **）**
 
-**\*** **hbase.hregion.memstore.block.multiplier****（默认值****4****）**
+**\*** **hbase.hregion.memstore.block.multiplier** **（默认值** **4** **）**
 
 时，会阻止继续往该memstore写数据。
 
 2.当region server中memstore的总大小达到
 
-**java****\_****heapsize**
+**java** **_** **heapsize**
 
-**\*hbase.regionserver.global.memstore.size****（默认值****0****.4****）**
+**\*hbase.regionserver.global.memstore.size** **（默认值** **0** **.4** **）**
 
-**\*****hbase.regionserver.global.memstore.size.lower.limit****（默认值****0.95****）**，
+**\** ***hbase.regionserver.global.memstore.size.lower.limit** **（默认值** **0.95** **）**，
 
 region会按照其所有memstore的大小顺序（由大到小）依次进行刷写。直到region server中所有memstore的总大小减小到上述值以下。
 
 当region server中memstore的总大小达到
 
-**java****\_****heapsize**
+**java** **_** **heapsize**
 
-**\*hbase.regionserver.global.memstore.size****（默认值****0****.4****）**
+**\*hbase.regionserver.global.memstore.size** **（默认值** **0** **.4** **）**
 
 时，会阻止继续往所有的memstore写数据。
 
-3. 到达自动刷写的时间，也会触发memstore flush。自动刷新的时间间隔由该属性进行配置**hbase.regionserver.optionalcacheflushinterval****（默认****1****小时）**。
+3. 到达自动刷写的时间，也会触发memstore flush。自动刷新的时间间隔由该属性进行配置**hbase.regionserver.optionalcacheflushinterval** **（默认** **1** **小时）**。
 
 4.当WAL文件的数量超过**hbase.regionserver.max.logs**，region会按照时间顺序依次进行刷写，直到WAL文件数量减小到**hbase.regionserver.max.log**以下（该属性名已经废弃，现无需手动设置，最大值为32）。
 
-​  
+  
 
 #### 读流程
 
@@ -225,7 +225,7 @@ region会按照其所有memstore的大小顺序（由大到小）依次进行刷
 
 ![image.png](assets/HBase-9.png)
 
-**​**  
+** **  
 
 1）Client先访问zookeeper，获取hbase:meta表位于哪个Region Server。
 
@@ -239,7 +239,7 @@ region会按照其所有memstore的大小顺序（由大到小）依次进行刷
 
 6）将合并后的最终结果返回给客户端。
 
-​  
+  
 
 #### StoreFile Compaction
 
@@ -285,13 +285,13 @@ Region Split时机：
 
 1,导入依赖 2,获取配置类(Hbaseconfiguration.create()) 3,给配置类添加配置set() 4,获取连接ConnectionFactory.createConnection 5,完成需求 6,关闭连接
 
-​  
+  
 
 多线程单例使用
 
 1,创建静态类 2 创建配置对象 Configuration 3 添加配置参数set 4,创建hbase的连接connectionFactory.
 
-​  
+  
 
 //完成增删改查
 
@@ -311,7 +311,7 @@ Region Split时机：
 
 3,删除信息 3.1删除信息 delete.addcolumn() 删除单个版本 删除所有版本(方法体不一样)
 
-​  
+  
 
 # Hbase的使用设计
 
@@ -353,7 +353,7 @@ BlockCache占用RegionServer堆内存的比例
 
 MemStore占用RegionServer堆内存的比例
 
-​  
+  
 
 # 整合Phoenix
 
@@ -365,15 +365,15 @@ MemStore占用RegionServer堆内存的比例
 
 ![image.png](assets/HBase-12.png)
 
-​  
+  
 
-在phoenix中，表名等会自动转换为大写，若要小写，使用双引号，如"us\_population"。
+在phoenix中，表名等会自动转换为大写，若要小写，使用双引号，如"us_population"。
 
-​  
+  
 
 二级索引
 
-​  
+  
 
 #### 全局索引
 
@@ -383,7 +383,7 @@ Global Index是默认的索引格式，创建全局索引时，会在HBase中建
 
 在读数据的时候Phoenix会选择索引表来降低查询消耗的时间。
 
-​  
+  
 
 如果想查询的字段不是索引字段的话索引表不会被使用，也就是说不会带来查询速度的提升。
 
@@ -393,15 +393,15 @@ Global Index是默认的索引格式，创建全局索引时，会在HBase中建
 
 2）使用本地索引
 
-​  
+  
 
 #### 包含索引
 
 **创建携带其他字段的全局索引**
 
-**​**  
+** **  
 
-**​**  
+** **  
 
 #### 本地索引
 
@@ -409,22 +409,21 @@ Local Index适用于写操作频繁的场景。
 
 索引数据和数据表的数据是存放在同一张表中（且是同一个Region），避免了在写操作的时候往不同服务器的索引表中写索引带来的额外开销。
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
-​

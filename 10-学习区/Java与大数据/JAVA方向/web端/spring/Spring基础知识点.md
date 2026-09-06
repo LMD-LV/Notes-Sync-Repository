@@ -17,15 +17,15 @@ ApplicationContext实现类中常用的 AnnotationConfigApplicationContext Class
 
 开发的流程，配置文件，创建ioc容器，获取bean(组件)
 
-​  
+  
 
 使用注解完成加载bean，首先类上添加注解，然后告诉spring容器，哪些包下有注解，使用注释加载的Di的时候 这里的bean的id默认为被修饰的类的首字母小写
 
-​  
+  
 
 1.  spring framework 是spring的底层基础，spring的基础实现由ioc（inverse of control）,AOP(aspect oriented programing)来实现
 2.  springframework中常见的功能，core container，aop，TX，springMVC
-3.  ioc主要用于管理bean的生命周期(对象创建，属性的赋值)，相当于一个容器，用来存放bean对象，通过map集合的方式，Map<String,BeanDefinition> ，key默认就是类名的首字母小写，BeanDefinition是用来存储类的元数据信息
+3.  ioc主要用于管理bean的生命周期(对象创建，属性的赋值)，相当于一个容器，用来存放bean对象，通过map集合的方式，Map\<String,BeanDefinition> ，key默认就是类名的首字母小写，BeanDefinition是用来存储类的元数据信息
 
 1.  实现容器的方式 ，beanfactory，applicationcontext(开发者使用)
 2.  AOP主要用于拓展业务涉及的公共方法
@@ -161,7 +161,7 @@ spring-tx 负责声明式事务的基本规范 spring-jdbc 符合数据源和事
 
 6.  对于声明事务的全注解管理
 
-​  
+  
 
 ### spring中的resource
 
@@ -176,7 +176,7 @@ spring-tx 负责声明式事务的基本规范 spring-jdbc 符合数据源和事
 
 ### Spring中的国际化
 
-1.  internationalization ，i18n，java自身java.util.Locale用于指定当前用户所属的语言环境等信息，sping中通过配置文件（**国际化文件命名格式：基本名称 \_ 语言 \_ 国家.properties**）中设定的language，country来实现
+1.  internationalization ，i18n，java自身java.util.Locale用于指定当前用户所属的语言环境等信息，sping中通过配置文件（**国际化文件命名格式：基本名称 _ 语言 _ 国家.properties**）中设定的language，country来实现
 2.  spring中的国际化通过实现messagesource接口，常见的实现类，**ResourceBundleMessageSource**
 
   

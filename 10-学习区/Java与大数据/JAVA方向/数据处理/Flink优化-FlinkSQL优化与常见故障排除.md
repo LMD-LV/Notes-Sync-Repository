@@ -11,13 +11,13 @@ source: 个人总结
 
 Flink SQL新手有可能犯的错误，其中之一就是忘记设置空闲状态保留时间导致状态爆炸。列举两个场景：
 
-Ø FlinkSQL的regular join（inner、left、right），左右表的数据都会一直保存在状态里，不会清理！要么设置TTL，要么使用FlinkSQL的interval join。
+- FlinkSQL的regular join（inner、left、right），左右表的数据都会一直保存在状态里，不会清理！要么设置TTL，要么使用FlinkSQL的interval join。
 
-Ø 使用Top-N语法进行去重，重复数据的出现一般都位于特定区间内（例如一小时或一天内），过了这段时间之后，对应的状态就不再需要了。
+- 使用Top-N语法进行去重，重复数据的出现一般都位于特定区间内（例如一小时或一天内），过了这段时间之后，对应的状态就不再需要了。
 
 Flink SQL可以指定空闲状态(即未更新的状态)被保留的最小时间，当状态中某个key对应的状态未更新的时间达到阈值时，该条状态被自动清理：
 
-​  
+  
 
 #API指定  
 tableEnv.getConfig().setIdleStateRetention(Duration.ofHours(1));
@@ -34,15 +34,15 @@ configuration.setString("table.exec.state.ttl", "1 h");
 
 MiniBatch是微批处理，原理是缓存一定的数据后再触发处理，以减少对State的访问，从而提升吞吐并减少数据的输出量。MiniBatch主要依靠在每个Task上注册的Timer线程来触发微批，需要消耗一定的线程调度性能。
 
-​  
+  
 
-**Ø** **MiniBatch默认关闭，开启方式如下****:**
+**Ø** **MiniBatch默认关闭，开启方式如下** **:**
 
 // 初始化table environment
 
 TableEnvironment tEnv = ...
 
-​  
+  
 
 // 获取tableEnv的配置对象
 
@@ -62,7 +62,7 @@ configuration.setString("table.exec.mini-batch.allow-latency", "5 s");
 
 configuration.setString("table.exec.mini-batch.size", "20000");
 
-Ø 适用场景
+- 适用场景
 
 微批处理通过增加延迟换取高吞吐，如果有超低延迟的要求，不建议开启微批处理。通常对于聚合的场景，微批处理可以显著的提升系统性能，建议开启。
 
@@ -92,23 +92,23 @@ l 未开启LocalGlobal优化，由于流中的数据倾斜，Key为红色的聚�
 
 l 开启LocalGlobal优化后，先进行本地聚合，再进行全局聚合。可大大减少GlobalAgg的热点，提高性能。
 
-**Ø** **LocalGlobal****开启方式：**
+**Ø** **LocalGlobal** **开启方式：**
 
 1）LocalGlobal优化需要先开启MiniBatch，依赖于MiniBatch的参数。
 
-2）table.optimizer.agg-phase-strategy: 聚合策略。默认AUTO，支持参数AUTO、TWO\_PHASE(使用LocalGlobal两阶段聚合)、ONE\_PHASE(仅使用Global一阶段聚合)。
+2）table.optimizer.agg-phase-strategy: 聚合策略。默认AUTO，支持参数AUTO、TWO_PHASE(使用LocalGlobal两阶段聚合)、ONE_PHASE(仅使用Global一阶段聚合)。
 
 // 初始化table environment
 
 TableEnvironment tEnv = ...
 
-​  
+  
 
 // 获取tableEnv的配置对象
 
 Configuration configuration = tEnv.getConfig().getConfiguration();
 
-​  
+  
 
 // 设置参数：
 
@@ -126,7 +126,7 @@ configuration.setString("table.exec.mini-batch.size", "20000");
 
 // 开启LocalGlobal
 
-configuration.setString("table.optimizer.agg-phase-strategy", "TWO\_PHASE");
+configuration.setString("table.optimizer.agg-phase-strategy", "TWO_PHASE");
 
 **Ø** **注意事项：**
 
@@ -134,7 +134,7 @@ configuration.setString("table.optimizer.agg-phase-strategy", "TWO\_PHASE");
 
 2）开启LocalGlobal需要UDAF实现Merge方法。
 
-​  
+  
 
 ## 1.1 **开启Split Distinct**
 
@@ -144,11 +144,11 @@ LocalGlobal优化针对普通聚合（例如SUM、COUNT、MAX、MIN和AVG）有�
 
 之前，为了解决COUNT DISTINCT的热点问题，通常需要手动改写为两层聚合（增加按Distinct Key取模的打散层）。
 
-从Flink1.9.0版本开始，提供了COUNT DISTINCT自动打散功能，通过HASH\_CODE(distinct\_key) % BUCKET\_NUM打散，不需要手动重写。Split Distinct和LocalGlobal的原理对比参见下图。
+从Flink1.9.0版本开始，提供了COUNT DISTINCT自动打散功能，通过HASH_CODE(distinct_key) % BUCKET_NUM打散，不需要手动重写。Split Distinct和LocalGlobal的原理对比参见下图。
 
 ![image.png](assets/Flink优化-17.png)
 
-**Ø** **Split Distinct****开启方式**
+**Ø** **Split Distinct** **开启方式**
 
 默认不开启，使用参数显式开启：
 
@@ -156,9 +156,9 @@ l table.optimizer.distinct-agg.split.enabled: true，默认false。
 
 l table.optimizer.distinct-agg.split.bucket-num: Split Distinct优化在第一层聚合中，被打散的bucket数目。默认1024。
 
-​  
+  
 
-​  
+  
 
 **Ø** **注意事项：**
 
@@ -170,45 +170,45 @@ l table.optimizer.distinct-agg.split.bucket-num: Split Distinct优化在第一�
 
   
 
-​  
+  
 
 ## 1.1 **多维DISTINCT使用Filter**
 
 在某些场景下，可能需要从不同维度来统计count（distinct）的结果（比如统计uv、app端的uv、web端的uv），可能会使用如下CASE WHEN语法。
 
-​  
-
-SELECT
-
-​a,
-
-COUNT(DISTINCT b) AS total\_b,
-
-COUNT(DISTINCT **CASE WHEN** c IN ('A', 'B') THEN b ELSE NULL END) AS AB\_b,
-
-COUNT(DISTINCT **CASE WHEN** c IN ('C', 'D') THEN b ELSE NULL END) AS CD\_b
-
-FROM T
-
-GROUP BY a
-
-​  
-
-在这种情况下，建议使用FILTER语法, 目前的Flink SQL优化器可以识别同一唯一键上的不同FILTER参数。如，在上面的示例中，三个COUNT DISTINCT都作用在b列上。此时，经过优化器识别后，Flink可以只使用一个共享状态实例，而不是三个状态实例，可减少状态的大小和对状态的访问。
-
-​  
-
-**将上边的****CASE WHEN替换成FILTER后**，如下所示:
+  
 
 SELECT
 
 a,
 
-COUNT(DISTINCT b) AS total\_b,
+COUNT(DISTINCT b) AS total_b,
 
-COUNT(DISTINCT b) FILTER (WHERE c IN ('A', 'B')) AS AB\_b,
+COUNT(DISTINCT **CASE WHEN** c IN ('A', 'B') THEN b ELSE NULL END) AS AB_b,
 
-COUNT(DISTINCT b) FILTER (WHERE c IN ('C', 'D')) AS CD\_b
+COUNT(DISTINCT **CASE WHEN** c IN ('C', 'D') THEN b ELSE NULL END) AS CD_b
+
+FROM T
+
+GROUP BY a
+
+  
+
+在这种情况下，建议使用FILTER语法, 目前的Flink SQL优化器可以识别同一唯一键上的不同FILTER参数。如，在上面的示例中，三个COUNT DISTINCT都作用在b列上。此时，经过优化器识别后，Flink可以只使用一个共享状态实例，而不是三个状态实例，可减少状态的大小和对状态的访问。
+
+  
+
+**将上边的** **CASE WHEN替换成FILTER后**，如下所示:
+
+SELECT
+
+a,
+
+COUNT(DISTINCT b) AS total_b,
+
+COUNT(DISTINCT b) FILTER (WHERE c IN ('A', 'B')) AS AB_b,
+
+COUNT(DISTINCT b) FILTER (WHERE c IN ('C', 'D')) AS CD_b
 
 FROM T
 
@@ -222,13 +222,13 @@ GROUP BY a
 
 TableEnvironment tEnv = ...
 
-​  
+  
 
 // 获取tableEnv的配置对象
 
 Configuration configuration = tEnv.getConfig().getConfiguration();
 
-​  
+  
 
 // 设置参数：
 
@@ -246,7 +246,7 @@ configuration.setString("table.exec.mini-batch.size", "20000");
 
 // 开启LocalGlobal
 
-configuration.setString("table.optimizer.agg-phase-strategy", "TWO\_PHASE");
+configuration.setString("table.optimizer.agg-phase-strategy", "TWO_PHASE");
 
 // 开启Split Distinct
 

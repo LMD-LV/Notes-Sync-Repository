@@ -51,11 +51,11 @@ MapReduce核心功能是将用户编写的业务逻辑代码和自带默认组�
 
 （3）**ReduceTask**：负责Reduce阶段的整个数据处理流程。
 
-​  
+  
 
 #### 常用数据序列化类型
 
-| **Java****类型** | **Hadoop Writable****类型** |
+| **Java** **类型** | **Hadoop Writable** **类型** |
 | --- | --- |
 | Boolean | BooleanWritable |
 | Byte | ByteWritable |
@@ -84,11 +84,11 @@ MapReduce核心功能是将用户编写的业务逻辑代码和自带默认组�
 
 #### 切片与maptask的并行度
 
-**MapTask****并行度决定****机制**
+**MapTask** **并行度决定** **机制**
 
 MapTask的并行度决定Map阶段的任务处理并发度，进而影响到整个Job的处理速度
 
-**数据****块：**Block是HDFS物理上把数据分成一块一块。数据块是HDFS存储数据单位。
+**数据** **块：**Block是HDFS物理上把数据分成一块一块。数据块是HDFS存储数据单位。
 
 **数据切片：**数据切片只是在逻辑上对输入进行分片，并不会在磁盘上将其切分成片进行存储。数据切片是MapReduce程序计算输入数据的单位，一个切片会对应启动一个MapTask。
 
@@ -104,7 +104,7 @@ MapTask的并行度决定Map阶段的任务处理并发度，进而影响到整�
 
 #### TextInputFormat
 
-**FileInputFormat****实现类**
+**FileInputFormat** **实现类**
 
 思考：在运行MapReduce程序时，输入的文件格式包括：基于行的日志文件、二进制格式文件、数据库表等。那么，针对不同的数据类型，MapReduce是如何读取这些数据的呢？
 
@@ -134,7 +134,7 @@ CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);// 4m
 
   
 
-​  
+  
 
 虚拟存储过程：
 
@@ -170,7 +170,7 @@ CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);// 4m
 
 （7）合并成大文件后，Shuffle的过程也就结束了，后面进入ReduceTask的逻辑运算过程（从文件中取出一个一个的键值对Group，调用用户自定义的reduce()方法）
 
-**注意****：**
+**注意** **：**
 
 （1）Shuffle中的缓冲区大小会影响到MapReduce程序的执行效率，原则上说，缓冲区越大，磁盘io的次数越少，执行速度就越快。
 
@@ -194,23 +194,23 @@ CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);// 4m
 
 maptask会将处理的数据暂时放到环形缓冲区中,当环形缓冲区的使用率达到一定的阈值之后,会对缓冲区的数据进行一次快速排序,将他们溢写到磁盘,数据处理完成后,对磁盘的所有文件进行归并排序.
 
-​  
+  
 
 ReduceTask从每个maptask中远程拷贝相应的数据文件,若大小过一定的阈值,溢写到磁盘,否则存储在内存中,若磁盘达到了一定的阈值,来一次归并排序,生成一个更大的文件,若内存中的文件大小或者数目过了一定的阈值,则合并之后将数据溢写到磁盘,当数据拷贝完成后,RedeceTask统一对内存上的所有数据进行一次归并排序 .
 
 ![image.png](assets/Hadoop-22.png)
 
-**​**  
+** **  
 
 **自定义排序WritableComparable原理分析**
 
 bean对象做为key传输，需要实现WritableComparable接口重写compareTo方法，就可以实现排序。
 
-​  
+  
 
 #### writableComparable案例实操
 
-​  
+  
 
 #### Combiner
 
@@ -222,11 +222,11 @@ Combiner在每一个Maptask所在的节点运行,Reducer是接收全局所有的
 
 combiner的使用前提是不影响业务逻辑,且输出的kv类型要与Reducer的输入类型对应,其意义在于对于每一个MapTask的输出进行局部汇总,减少网络传输量
 
-​  
+  
 
 #### Combiner合并案例实操
 
-​  
+  
 
 ### MapReduce源码解析
 
@@ -254,7 +254,7 @@ combiner的使用前提是不影响业务逻辑,且输出的kv类型要与Reduce
 
 让每个MapTask最终只生成一个数据文件，可避免同时打开大量文件和同时读取大量小文件产生的随机读取带来的开销。
 
-​  
+  
 
 #### ReduceTask工作机制
 
@@ -270,7 +270,7 @@ combiner的使用前提是不影响业务逻辑,且输出的kv类型要与Reduce
 
 **思考：**ReduceTask并行度由谁决定？
 
-**1****）****设置****ReduceTask****并行度（个数）**
+**1** **）** **设置** **ReduceTask** **并行度（个数）**
 
 ReduceTask的并行度同样影响整个Job的执行并发度和执行效率，但与MapTask的并发数由切片数决定不同，ReduceTask数量的决定是可以直接手动设置：
 
@@ -278,7 +278,7 @@ ReduceTask的并行度同样影响整个Job的执行并发度和执行效率，�
 
 job.setNumReduceTasks(4);
 
-​  
+  
 
 ![image.png](assets/Hadoop-23.png)
 
@@ -286,9 +286,9 @@ job.setNumReduceTasks(4);
 
 #### MapTask & ReduceTask源码解析
 
-**1****）****Map****Task****源码****解析流程**
+**1** **）** **Map** **Task** **源码** **解析流程**
 
-\=================== MapTask \===================
+=================== MapTask ===================
 
 context.write(k, NullWritable.get()); //自定义的map方法的写出，进入
 
@@ -314,9 +314,9 @@ mergeParts(); //合并文件，MapTask1527行，进入
 
 collector.close(); //MapTask739行,收集器关闭,即将进入ReduceTask
 
-**2****）****ReduceTask****源码****解析流程**
+**2** **）** **ReduceTask** **源码** **解析流程**
 
-\=================== ReduceTask \===================
+=================== ReduceTask ===================
 
 if (isMapOrReduce()) //reduceTask324行，提前打断点
 
@@ -326,7 +326,7 @@ init(shuffleContext); // reduceTask375行,走到这需要先给下面的打断�
 
 totalMaps = job.getNumMapTasks(); // ShuffleSchedulerImpl第120行，提前打断点
 
-​ merger = createMergeManager(context); //合并方法，Shuffle第80行
+ merger = createMergeManager(context); //合并方法，Shuffle第80行
 
 // MergeManagerImpl第232 235行，提前打断点
 
@@ -350,7 +350,7 @@ reduce(); //reduce阶段调用的就是我们自定义的reduce方法，会被�
 
 cleanup(context); //reduce完成之前，会最后调用一次Reducer里面的cleanup方法
 
-​  
+  
 
 ### Join
 
@@ -362,7 +362,7 @@ Map端的主要工作：为来自不同表或文件的key/value对，打标签�
 
 Reduce端的主要工作：在Reduce端以连接字段作为key的分组已经完成，我们只需要在每一个分组当中将那些来源于不同文件的记录（在Map阶段已经打标志）分开，最后进行合并就ok了。
 
-​  
+  
 
 这种方式中，合并的操作是在Reduce阶段完成，Reduce端的处理压力太大，Map节点的运算负载则很低，资源利用率不高，且在Reduce阶段极易产生数据倾斜。
 
@@ -374,17 +374,17 @@ Reduce端的主要工作：在Reduce端以连接字段作为key的分组已经�
 
 Map Join适用于一张表十分小、一张表很大的场景。
 
-**2****）****优点**
+**2** **）** **优点**
 
 思考：在Reduce端处理过多的表，非常容易产生数据倾斜。怎么办？
 
 在Map端缓存多张表，提前处理业务逻辑，这样增加Map端业务，减少Reduce端数据的压力，尽可能的减少数据倾斜。
 
-​  
+  
 
 #### MapReduce开发总结
 
-**1****）输入数据接口：****InputFormat**
+**1** **）输入数据接口：** **InputFormat**
 
 （1）默认使用的实现类是：TextInputFormat
 
@@ -392,17 +392,17 @@ Map Join适用于一张表十分小、一张表很大的场景。
 
 （3）CombineTextInputFormat可以把多个小文件合并成一个切片处理，提高处理效率。
 
-**2****）逻辑处理接口：****Mapper**
+**2** **）逻辑处理接口：** **Mapper**
 
 用户根据业务需求实现其中三个方法：map() setup() cleanup ()
 
-**3****）****Partitioner****分区**
+**3** **）** **Partitioner** **分区**
 
 （1）有默认实现 HashPartitioner，逻辑是根据key的哈希值和numReduces来返回一个分区号；key.hashCode()&Integer.MAXVALUE % numReduces
 
 （2）如果业务上有特别的需求，可以自定义分区。
 
-**4****）****Comparable****排序**
+**4** **）** **Comparable** **排序**
 
 （1）当我们用自定义的对象作为key来输出时，就必须要实现WritableComparable接口，重写其中的compareTo()方法。
 
@@ -412,15 +412,15 @@ Map Join适用于一张表十分小、一张表很大的场景。
 
 （4）二次排序：排序的条件有两个。
 
-**5****）****Combiner****合并**
+**5** **）** **Combiner** **合并**
 
 Combiner合并可以提高程序执行效率，减少IO传输。但是使用时必须不能影响原有的业务处理结果。
 
-**6****）逻辑处理接口：****Reducer**
+**6** **）逻辑处理接口：** **Reducer**
 
 用户根据业务需求实现其中三个方法：reduce() setup() cleanup ()
 
-**7****）输出数据接口：****OutputFormat**
+**7** **）输出数据接口：** **OutputFormat**
 
 （1）默认实现类是TextOutputFormat，功能逻辑是：将每一个KV对，向目标文本文件输出一行。
 

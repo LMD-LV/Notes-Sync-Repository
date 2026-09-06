@@ -19,9 +19,9 @@ source: 个人总结
 
 1. 基于时间的窗口(时间驱动)
 
-2\. 基于元素个数的(数据驱动)
+2. 基于元素个数的(数据驱动)
 
-​  
+  
 
 #### 时间窗口
 
@@ -29,11 +29,11 @@ source: 个人总结
 
 在代码中, Flink使用TimeWindow这个类来表示基于时间的窗口. 这个类提供了key查询开始时间戳和结束时间戳的方法, 还提供了针对给定的窗口获取它允许的最大时间差的方法(maxTimestamp())
 
-​  
+  
 
 **时间窗口又分4种:**
 
-​  
+  
 
 滚动窗口(Tumbling Windows): 滚动窗口有固定的大小, 窗口与窗口之间不会重叠也没有缝隙.比如,如果指定一个长度为5分钟的滚动窗口, 当前窗口开始计算, 每5分钟启动一个新的窗口.
 
@@ -45,11 +45,11 @@ source: 个人总结
 
 1. 时间间隔可以通过: Time.milliseconds(x), Time.seconds(x), Time.minutes(x),等等来指定.
 
-2\. 我们传递给window函数的对象叫**窗口分配器**.
+2. 我们传递给window函数的对象叫**窗口分配器**.
 
-​  
+  
 
-Ø 滑动窗口(Sliding Windows)
+- 滑动窗口(Sliding Windows)
 
 与滚动窗口一样, 滑动窗口也是有固定的长度. 另外一个参数我们叫滑动步长, 用来控制滑动窗口启动的频率.
 
@@ -57,7 +57,7 @@ source: 个人总结
 
 例如, 滑动窗口长度10分钟, 滑动步长5分钟, 则, 每5分钟会得到一个包含最近10分钟的数据.
 
-​  
+  
 
 ![image.png](assets/Flink-17.png)
 
@@ -75,30 +75,30 @@ source: 个人总结
 
   
 
-**示例代码****:**
+**示例代码** **:**
 
 1. 静态gap
 
-.window***(***ProcessingTimeSessionWindows.*withGap****(***Time.*seconds****(***10***)))***
+.window***(***ProcessingTimeSessionWindows.*withGap** **(***Time.*seconds** **(***10***)))***
 
 2. 动态gap
 
-.window***(***ProcessingTimeSessionWindows.*withDynamicGap****(*****new** SessionWindowTimeGapExtractor<Tuple2<String, Long>>***() {  
+.window***(***ProcessingTimeSessionWindows.*withDynamicGap** **(** ***new** SessionWindowTimeGapExtractor\<Tuple2\<String, Long>>***() {  
 ***@Override  
-**public long** extract***(***Tuple2<String, Long> element***) {*** *// 返回 gap值, 单位毫秒  
+**public long** extract***(***Tuple2\<String, Long> element***) {*** *// 返回 gap值, 单位毫秒  
 ***return** element.**f0**.length***()*** \* 1000;  
 ***}  
-******}))***
+** ****}))***
 
-***​***  
+** ****  
 
-**创建原理****:**
+**创建原理** **:**
 
 因为会话窗口没有固定的开启和关闭时间, 所以会话窗口的创建和关闭与滚动, 滑动窗口不同. 在Flink内部, 每到达一个新的元素都会创建一个新的会话窗口, 如果这些窗口彼此相距比较定义的gap小, 则会对他们进行合并. 为了能够合并, 会话窗口算子需要合并触发器和合并窗口函数: ReduceFunction, AggregateFunction, or ProcessWindowFunction
 
-​  
+  
 
-Ø 全局窗口(Global Windows)
+- 全局窗口(Global Windows)
 
 全局窗口分配器会分配相同key的所有元素进入同一个 Global window. 这种窗口机制只有**指定自定义的触发器**时才有用. 否则, 不会做任务计算, 因为这种窗口没有能够处理聚集在一起元素的结束点.
 
@@ -110,7 +110,7 @@ source: 个人总结
 
 **分2类:**
 
-Ø 滚动窗口
+- 滚动窗口
 
 **实例代码**
 
@@ -118,15 +118,15 @@ source: 个人总结
 
 说明:那个窗口先达到3个元素, 哪个窗口就关闭. 不影响其他的窗口.
 
-Ø 滑动窗口
+- 滑动窗口
 
-滑动窗口和滚动窗口的函数名是完全一致的，只是在传参数时需要传入两个参数，一个是window\_size，一个是sliding\_size。下面代码中的sliding\_size设置为了2，也就是说，每收到两个相同key的数据就计算一次，每一次计算的window范围**最多**是3个元素。
+滑动窗口和滚动窗口的函数名是完全一致的，只是在传参数时需要传入两个参数，一个是window_size，一个是sliding_size。下面代码中的sliding_size设置为了2，也就是说，每收到两个相同key的数据就计算一次，每一次计算的window范围**最多**是3个元素。
 
 **实例代码**
 
 .countWindow***(***3, 2***)***
 
-***​***  
+** ****  
 
 #### Window Function
 
@@ -134,21 +134,21 @@ source: 个人总结
 
 *window function* 可以是ReduceFunction,AggregateFunction,or ProcessWindowFunction中的任意一种.
 
-ReduceFunction,AggregateFunction更加高效, 原因就是Flink可以对到来的元素进行**增量聚合****.** ProcessWindowFunction （**全窗口函数**）可以得到一个包含这个窗口中所有元素的迭代器, 以及这些元素所属窗口的一些元数据信息.
+ReduceFunction,AggregateFunction更加高效, 原因就是Flink可以对到来的元素进行**增量聚合** **.** ProcessWindowFunction （**全窗口函数**）可以得到一个包含这个窗口中所有元素的迭代器, 以及这些元素所属窗口的一些元数据信息.
 
 ProcessWindowFunction不能被高效执行的原因是Flink在执行这个函数之前, 需要在**内部缓存这个窗口上所有的元素**
 
 **增量聚合函数是来一条计算一条，而全窗口函数则是等到数据都到了再做计算做一次计算。**
 
-**​**  
+** **  
 
 ReduceFunction(增量聚合函数----不会改变数据的类型)
 
 AggregateFunction(增量聚合函数----可以改变数据的类型)
 
-Ø ProcessWindowFunction(全窗口函数) 全窗口函数应用场景：可以求百分之多少的数据或者求平均数这种需要把全部数据拿到之后再求的场景。
+- ProcessWindowFunction(全窗口函数) 全窗口函数应用场景：可以求百分之多少的数据或者求平均数这种需要把全部数据拿到之后再求的场景。
 
-​  
+  
 
 ### Keyed vs Non-Keyed Windows
 
@@ -160,7 +160,7 @@ AggregateFunction(增量聚合函数----可以改变数据的类型)
 
 需要注意的是: 非key分区的流, 即使把并行度设置为大于1 的数, 窗口也只能在某个分区上使用
 
-​  
+  
 
 ### Flink中的时间语义与WaterMark
 
@@ -172,7 +172,7 @@ AggregateFunction(增量聚合函数----可以改变数据的类型)
 
 在使用窗口的时候, 如果使用处理时间, 就指定时间分配器为处理时间分配器
 
-​  
+  
 
 **事件时间**是指的这个事件发生的时间.(event time)
 
@@ -180,15 +180,15 @@ AggregateFunction(增量聚合函数----可以改变数据的类型)
 
 在事件时间体系中, 时间的进度依赖于数据本身, 和任何设备的时间无关. 事件时间程序必须制定如何产生*Event Time Watermarks(水印)* . 在事件时间体系中, 水印是表示时间进度的标志(作用就相当于**现实时间的时钟**).
 
-​  
+  
 
 在1.12之前默认的时间语义是处理时间, 从**1.12开始**, Flink内部已经把**默认的语义**改成了**事件时间**
 
-**​**  
+** **  
 
 支持event time的流式处理框架需要一种能够**测量event time 进度**的方式.比如, 一个窗口算子创建了一个长度为1小时的窗口,那么这个算子需要知道事件时间已经到达了这个窗口的关闭时间, 从而在程序中去关闭这个窗口.
 
-​  
+  
 
 这种在Flink中去**测量事件时间的进度**的机制就是**watermark(水印)**. watermark作为数据流的一部分在流动, 并且携带一个时间戳t.
 
@@ -208,7 +208,7 @@ AggregateFunction(增量聚合函数----可以改变数据的类型)
 
 6、 Flink认为，小于Watermark时间戳的数据处理完了，不应该再出现。
 
-​  
+  
 
 **Ø 有序流中的水印**
 
@@ -224,7 +224,7 @@ AggregateFunction(增量聚合函数----可以改变数据的类型)
 
 2、 乱序程度设置多少比较合适？
 
-a) 经验值\=\> 对自身集群和数据的了解，大概估算。
+a) 经验值=\> 对自身集群和数据的了解，大概估算。
 
 b) 对数据进行抽样。
 
@@ -232,21 +232,21 @@ c) 肯定不会设置为几小时，一般设为秒或者分钟。
 
 3、 Watermark = maxTimestamp – outOfOrdernessMills – 1ms
 
-\=>当前最大的事件时间– 乱序程度（等待时间）- 1ms
+=>当前最大的事件时间– 乱序程度（等待时间）- 1ms
 
-​  
+  
 
 #### Flink制造水印
 
 Flink内置了两个WaterMark生成器 1. Monotonously Increasing Timestamps(时间戳单调增长:其实就是允许的延迟为0) 1. Fixed Amount of Lateness(允许固定时间的延迟)
 
-​  
+  
 
 自定义WatermarkStrategy :有周期性(periodic) 间歇性(punctuated) 继承接口WatermarkGenerator
 
-​  
+  
 
-​  
+  
 
 多并行度下WaterMark的传递
 
@@ -258,11 +258,11 @@ Flink内置了两个WaterMark生成器 1. Monotonously Increasing Timestamps(时
 
 那么什么时候会真正的关闭窗口呢? wartermark 超过了**窗口结束时间+等待时间**
 
-**注意****:**
+**注意** **:**
 
 允许迟到只能运用在event time上
 
-​  
+  
 
 ### 侧输出流
 
@@ -272,7 +272,7 @@ Flink内置了两个WaterMark生成器 1. Monotonously Increasing Timestamps(时
 
 2,使用侧输出流把一个流拆成多个流, split算子可以把一个流分成两个流, 从1.12开始已经被移除了. 官方建议我们用侧输出流来替换split算子的功能.
 
-​  
+  
 
 ### ProcessFunction API (底层API)
 
@@ -298,7 +298,7 @@ ProcessAllWindowFunction
 
 基于事件时间的定时器 : 时间进展依据的是watermark
 
-​  
+  
 
-​  
+  
 

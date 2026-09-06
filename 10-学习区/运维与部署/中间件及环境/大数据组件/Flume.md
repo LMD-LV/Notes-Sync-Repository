@@ -7,7 +7,7 @@ source: 个人总结
 
 ## 概述及其基础架构
 
-​  
+  
 
 Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统。Flume基于流式架构，灵活简单。
 
@@ -15,7 +15,7 @@ Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量�
 
 实时读取服务器本地磁盘的数据,将数据写入到HDFS中
 
-​  
+  
 
 #### 组成架构
 
@@ -23,11 +23,11 @@ Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量�
 
 FLume的组成有Source Channel Sink 这三部分共同组成了Agent(一个JVM进程)以事件的形式将数据从源头送至目的地。
 
-​  
+  
 
 Source作为负责接收数据到Flume Agent的组件,Source组件可以处理各种类型,格式的日志数据
 
-​  
+  
 
 channel是source与Sink中的缓冲区,所以Channel允许Source和Sink运行的速率不一样.
 
@@ -43,7 +43,7 @@ File Channel将所有事件写到磁盘。因此在程序关闭或机器宕机�
 
 Sink不断的轮询Channel中的事件并批量的移除它们,并将这些事件批量写入到存储或索引系统、或者被发送到另一个Flume Agent。
 
-​  
+  
 
 #### Event
 
@@ -63,21 +63,21 @@ flume.root.logger=INFO,LOGFILE,console
 
 flume.log.dir=/opt/module/flume/logs
 
-​  
+  
 
-​  
+  
 
 修改nc-flume-log.conf文件
 
 配置文件来源于官方手册[http://flume.apache.org/FlumeUserGuide.html](http://flume.apache.org/FlumeUserGuide.html)
 
-​  
+  
 
 #### Taildir Source
 
 Taildir Source适合用于监听多个实时追加的文件，并且能够实现断点续传。
 
-​  
+  
 
 **案例需求:使用Flume监听整个目录的实时追加文件，并上传至HDFS**
 
@@ -89,7 +89,7 @@ a1.sources.r1.filegroups.f2 = /opt/module/flume/files2/.\*log.\*
 
 # 实现断点续传的文件存放位置不改有默认位置也能实现断点续传
 
-a1.sources.r1.positionFile = /opt/module/flume/taildir\_position.json
+a1.sources.r1.positionFile = /opt/module/flume/taildir_position.json
 
   
 
@@ -103,9 +103,9 @@ a1.sinks.k1.hdfs.path = hdfs://hadoop102:8020/flume/%Y%m%d/%H
 
 #上传文件的前缀
 
-a1.sinks.k1.hdfs.filePrefix = log\-
+a1.sinks.k1.hdfs.filePrefix = log-
 
-​  
+  
 
 #是否使用本地时间戳
 
@@ -127,7 +127,7 @@ a1.sinks.k1.hdfs.rollSize = 134217700
 
 a1.sinks.k1.hdfs.rollCount = 0
 
-​  
+  
 
 #### TaildirSoure可实现断点续传的原理说明：
 
@@ -139,7 +139,7 @@ Position File的格式如下：
 
 {"inode":2496275,"pos":12,"file":"/opt/module/flume/files1/file2.txt"}
 
-​  
+  
 
 注：Linux中储存文件元数据的区域就叫做inode，每个inode都有一个号码，操作系统用inode号码来识别不同的文件，Unix/Linux系统内部不使用文件名，而使用inode号码来识别文件。TailDir source使用inode和文件的全路径一起识别同一个文件，所以修改文件名之后如果表达式也能够匹配上，会再重新读取一份文件的数据。
 
@@ -147,7 +147,7 @@ Position File的格式如下：
 
 ## 进阶
 
-​  
+  
 
 #### Flume事务
 
@@ -159,7 +159,7 @@ Position File的格式如下：
 
 **组件介绍：**
 
-**1）****ChannelSelector**
+**1）** **ChannelSelector**
 
 ChannelSelector的作用就是选出Event将要被发往哪个Channel。其共有两种类型，分别是Replicating（复制）和Multiplexing（多路复用）(原理是依据Header中的key的值,将不同的Event发送到不同的Channel)。
 
@@ -171,11 +171,11 @@ SinkProcessor共有三种类型，分别是DefaultSinkProcessor(默认1对1)、L
 
 DefaultSinkProcessor对应的是单个的Sink，LoadBalancingSinkProcessor和FailoverSinkProcessor对应的是Sink Group，LoadBalancingSinkProcessor可以实现负载均衡的功能，FailoverSinkProcessor可以错误恢复的功能。
 
-​  
+  
 
 #### 企业开发案例
 
-**案例****需求**
+**案例** **需求**
 
 使用Flume-1监控文件变动，Flume-1将变动内容传递给Flume-2，Flume-2负责存储到HDFS。同时Flume-1将变动内容传递给Flume-3，Flume-3负责输出到Local FileSystem。
 
@@ -183,7 +183,7 @@ DefaultSinkProcessor对应的是单个的Sink，LoadBalancingSinkProcessor和Fai
 
 **提示**：输出的本地目录必须是已经存在的目录，如果该目录不存在，并不会创建新的目录。
 
-​  
+  
 
 #### 多路复用及拦截器案例
 
@@ -193,11 +193,11 @@ DefaultSinkProcessor对应的是单个的Sink，LoadBalancingSinkProcessor和Fai
 
 **2）需求分析**
 
-在实际的开发中，一台服务器产生的日志类型可能有很多种，不同类型的日志可能需要发送到不同的分析系统。此时会用到Flume的channel selecter中的Multiplexing结构，Multiplexing的原理是，根据event中Header的某个key的值，将不同的event发送到不同的Channel中，所以我们需要自定义一个Interceptor，为不同类型的event的Header中的key赋予不同的值。**​**
+在实际的开发中，一台服务器产生的日志类型可能有很多种，不同类型的日志可能需要发送到不同的分析系统。此时会用到Flume的channel selecter中的Multiplexing结构，Multiplexing的原理是，根据event中Header的某个key的值，将不同的event发送到不同的Channel中，所以我们需要自定义一个Interceptor，为不同类型的event的Header中的key赋予不同的值。** **
 
 ![image.png](assets/Flume-8.png)
 
-​  
+  
 
 定义CustomInterceptor类并实现Interceptor接口。
 
@@ -207,7 +207,7 @@ DefaultSinkProcessor对应的是单个的Sink，LoadBalancingSinkProcessor和Fai
 
 \* 3. 实现一个静态内部类创建拦截器
 
-​  
+  
 
 #### 聚合案例
 

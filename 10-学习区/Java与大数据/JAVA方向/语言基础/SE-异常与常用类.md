@@ -156,7 +156,7 @@ Calendar类
 
 * 返回给定日历字段的值
 
-​  
+  
 
 LocalDateTime类
 
@@ -182,7 +182,7 @@ LocalDateTime类
 
 * 获得 LocalDateTime实例从使用特定格式的文本字符串。
 
-​  
+  
 
 DateTimeFormatter类
 
@@ -212,15 +212,15 @@ DateTimeFormatter类
 
 * 充分分析文本产生的时空对象。
 
-​  
+  
 
 #### 异常:
 
 * 在程序编译或运行的过程中,出现了非正常的情况,从而导致JVM终止
 
-​  
+  
 
-​  
+  
 
 Throwable类
 
@@ -270,7 +270,7 @@ Exception的体系:
 
 * 位置:java.lang包下RuntimeException类及其子类
 
-​  
+  
 
 #### 异常处理:
 
@@ -300,7 +300,7 @@ Exception的体系:
 
 * 2.异常捕获
 
-​  
+  
 
 throw关键字:
 
@@ -310,7 +310,7 @@ throw关键字:
 
 * throw new 异常类名(实参);
 
-​  
+  
 
 异常处理方案1:异常声明
 
@@ -326,7 +326,7 @@ throw关键字:
 
 * }
 
-​  
+  
 
 异常声明的注意事项:异常声明和面向对象中的"继承"有一定的关系
 
@@ -348,9 +348,9 @@ throw关键字:
 
 * 处理方案只有唯一的一种,就是"异常捕获"
 
-​  
+  
 
-​  
+  
 
 异常处理方案2:异常捕获
 
@@ -370,7 +370,7 @@ throw关键字:
 
 * }
 
-​  
+  
 
 异常捕获的注意事项:异常捕获和面向对象中的"继承"有一定的关系
 
@@ -402,7 +402,7 @@ throw关键字:
 
 * 处理方案只有唯一的一种,就是"异常捕获"
 
-​  
+  
 
 finally关键字:
 
@@ -426,13 +426,13 @@ finally关键字:
 
 * }
 
-​  
+  
 
 finally关键字的注意事项:
 
 * 在try,catch,finally里面避免使用return语句
 
-​  
+  
 
 自定义异常类
 
@@ -464,7 +464,7 @@ finally关键字的注意事项:
 
 * 无参和String参数
 
-​  
+  
 
 System类
 
@@ -506,7 +506,7 @@ System类
 
 * 返回最准确的可用系统计时器的当前值，以毫微秒为单位。
 
-​  
+  
 
 #### 包装类:
 
@@ -534,7 +534,7 @@ System类
 
 * 3.笔试或面试题
 
-​  
+  
 
 * 装箱和拆箱:
 
@@ -560,13 +560,13 @@ System类
 
 Integer num01 = new Integer(123);
 
-​  
+  
 
 //装箱2:包装类型的静态方法valueOf(基本类型数组)
 
 Integer num02 = Integer.valueOf(456);
 
-​  
+  
 
 //拆箱1.包装类型的实例方法xxxValue()
 
@@ -578,7 +578,7 @@ int num03 = num01.intValue();
 
 * 2.自动拆箱
 
-​  
+  
 
 自动装箱和自动拆箱(JDK5.0)
 
@@ -592,7 +592,7 @@ int num01 = new Integer(123);
 
 Integer num02 = 456;
 
-​  
+  
 
 #### 基本类型和字符串类型间的转换
 
@@ -628,7 +628,7 @@ String str3 = Integer.toString(345);
 
 String str4 = String.valueOf(456);
 
-​  
+  
 
 //字符串==>基本1:包装类型的构造器,再进行自动拆箱
 
@@ -652,9 +652,9 @@ int num02 = Integer.parseInt("678");
 
 * /
 
-​  
+  
 
-​  
+  
 
 #### String类
 
@@ -758,7 +758,7 @@ int num02 = Integer.parseInt("678");
 String str2 = new String();//类似于"",二者有本质的不同  
 System.*out*.println("str2 = " \+ str2);
 
-​  
+  
 
 String类的常用方法:判断
 
@@ -792,7 +792,7 @@ String类的常用方法:判断
 
 * 
 
-​  
+  
 
 String类常用方法:获取
 
@@ -826,7 +826,7 @@ String类常用方法:获取
 
 * /
 
-​  
+  
 
 String的常用方法:
 
@@ -852,7 +852,7 @@ String的常用方法:
 
 * /
 
-​  
+  
 
 String类的常用方法:分割
 
@@ -870,7 +870,7 @@ String类的常用方法:分割
 
 * 3.如果给定的规则在字符串的最后,删除最后的给定规则,不进行分割
 
-​  
+  
 
 StringBuilder类和StringBuffer类
 
@@ -888,7 +888,7 @@ StringBuilder类和StringBuffer类
 
 * /
 
-​  
+  
 
   
 
@@ -924,7 +924,7 @@ StringBuilder类
 
 * 将此字符序列用其反转形式取代。
 
-​  
+  
 
 StringBuilder类的源码分析:
 
@@ -966,7 +966,7 @@ StringBuilder类的源码分析:
 
 * 当使用带有int参数的构造器创建对象时,自定义长度为0,进行扩容不加2永远为0,需要通过+2进行扩容,访问底层数组为0的情况
 
-​  
+  
 
 */* String笔试题1:
 
@@ -978,7 +978,7 @@ System.out.println(str1 == (str5 + str6));//false
 
 // str5 + str6 相当于new StringBuilder().append(str5).append(str6).toString();
 
-​  
+  
 
 String笔试题2
 
@@ -1000,7 +1000,7 @@ public static final String str7;
 
 public static final String str8;
 
-​  
+  
 
 static {
 
@@ -1026,13 +1026,13 @@ String str1 = "HelloWorld";
 
 //String对象数量:1个(常量池)
 
-​  
+  
 
 String str2 = new String("HelloWorld");
 
 //String对象数量:2个,1个new的,1个常量池
 
-​  
+  
 
 String str3 = "H" + "e" + "l" + "l" + "o" + "W" + "o" + "r" + "l" + "d";
 

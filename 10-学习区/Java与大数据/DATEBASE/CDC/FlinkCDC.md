@@ -25,7 +25,7 @@ Flink社区开发了 flink-cdc-connectors 组件，这是一个可以直接从 M
 
 开源地址：[https://github.com/ververica/flink-cdc-connectors](https://github.com/ververica/flink-cdc-connectors)
 
-​  
+  
 
 ## FLINKCDC案例实操
 

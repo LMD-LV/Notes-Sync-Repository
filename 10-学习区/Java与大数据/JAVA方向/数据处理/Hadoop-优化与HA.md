@@ -11,11 +11,11 @@ source: 个人总结
 
 DataNode设置多目录来存储不同的数据,
 
-​  
+  
 
 磁盘间数据平衡问题,3.x出现的新特性,
 
-​  
+  
 
 生成均衡计划 hdfs diskbalancer -plan
 
@@ -29,7 +29,7 @@ DataNode设置多目录来存储不同的数据,
 
 企业中：配置白名单，可以尽量防止黑客恶意访问攻击。
 
-​  
+  
 
 #### 服役新服务器
 
@@ -45,7 +45,7 @@ yarn --daemon start nodemanager
 
 刷新namenode hdfs dfsadmin -refreshNodes
 
-​  
+  
 
 #### 服务器间数据均衡
 
@@ -63,13 +63,13 @@ yarn --daemon start nodemanager
 
 企业中：配置黑名单，用来退役服务器。
 
-​  
+  
 
 **第一次添加黑名单必须重启集群，不是第一次，只需要刷新NameNode节点即可**
 
 hdfs dfsadmin -refreshNodes
 
-​  
+  
 
 **检查Web浏览器，退役节点的状态为decommission in progress（退役中），说明数据节点正在复制块到其他节点**
 
@@ -89,11 +89,11 @@ NameNode挂掉了:NameNode进程挂了并且存储的数据也丢失了，如何
 
 **进入安全模式场景**
 
-Ø NameNode在加载镜像文件和编辑日志期间处于安全模式
+- NameNode在加载镜像文件和编辑日志期间处于安全模式
 
-Ø NameNode再接收DataNode注册时，处于安全模式
+- NameNode再接收DataNode注册时，处于安全模式
 
-​  
+  
 
 **退出安全模式条件**
 
@@ -103,9 +103,9 @@ dfs.namenode.safemode.threshold-pct:副本数达到最小要求的block占系统
 
 dfs.namenode.safemode.extension:稳定时间，默认值30000毫秒，即30秒
 
-​  
+  
 
-​  
+  
 
 ### 企业优化
 
@@ -113,7 +113,7 @@ dfs.namenode.safemode.extension:稳定时间，默认值30000毫秒，即30秒
 
 MapReduce优化方法主要从六个方面考虑：数据输入、Map阶段、Reduce阶段、IO传输、数据倾斜问题和常用的调优参数
 
-​  
+  
 
 #### 数据输入端口
 
@@ -131,7 +131,7 @@ MapReduce优化方法主要从六个方面考虑：数据输入、Map阶段、Re
 
 (3)在map之后,不影响业务逻辑前提下,先进行combine处理,减少I/O
 
-​  
+  
 
 #### Reduce阶段
 
@@ -155,7 +155,7 @@ MapReduce优化方法主要从六个方面考虑：数据输入、Map阶段、Re
 
 (2)使用SequeenceFile二进制文件
 
-​  
+  
 
 #### 数据倾斜问题
 
@@ -203,7 +203,7 @@ MapReduce优化方法主要从六个方面考虑：数据输入、Map阶段、Re
 | mapreduce.task.io.sort.mb | Shuffle的环形缓冲区大小，默认100m |
 | mapreduce.map.sort.spill.percent | 环形缓冲区溢出的阈值，默认80% |
 
-**2****）容错相关参数（****M****ap****R****educe****性能优化）**
+**2** **）容错相关参数（** **M** **ap** **R** **educe** **性能优化）**
 
 | 配置参数 | 参数说明 |
 | --- | --- |
@@ -213,7 +213,7 @@ MapReduce优化方法主要从六个方面考虑：数据输入、Map阶段、Re
 
 ### hadoop小文件问题
 
-​  
+  
 
 HDFS的每个文件都要在NN上创建对应的元数据,每个占用150(byte),
 
@@ -221,7 +221,7 @@ HDFS的每个文件都要在NN上创建对应的元数据,每个占用150(byte),
 
 小文件过多，在进行MR计算时，会生成过多切片，需要启动过多的MapTask。每个MapTask处理的数据量小，导致MapTask的处理时间比启动时间还小，白白消耗资源。
 
-​  
+  
 
 #### 小文件优化的方案及其解决
 
@@ -235,21 +235,21 @@ HDFS的每个文件都要在NN上创建对应的元数据,每个占用150(byte),
 
 (4)uber阶段-------开启JVM重用 ,默认情况下，每个Task任务都需要启动一个JVM来运行，如果Task任务计算的数据量很小，我们可以让同一个Job的多个Task运行在一个JVM中，不必为每个Task都开启一个JVM.
 
-​  
+  
 
 ### Hadoop扩展
 
 **1）scp实现两个远程主机之间的文件复制**
 
-scp -r hello.txt [root@hadoop103:/user/atguigu/hello.txt](mailto:root@hadoop103:/user/atguigu/hello.txt) // 推push
+scp -r hello.txt `root@hadoop103:/user/atguigu/hello.txt` // 推push
 
-scp -r [root@hadoop103:/user/atguigu/hello.txt  hello.txt](mailto:root@hadoop103:/user/atguigu/hello.txt%20%20hello.txt) // 拉 pull
+scp -r `root@hadoop103:/user/atguigu/hello.txt  hello.txt` // 拉 pull
 
-scp -r [root@hadoop103:/user/atguigu/hello.txt](mailto:root@hadoop103:/user/atguigu/hello.txt) root@hadoop104:/user/atguigu //是通过本地主机中转实现两个远程主机的文件复制；如果在两个远程主机之间ssh没有配置的情况下可以使用该方式。
+scp -r `root@hadoop103:/user/atguigu/hello.txt` root@hadoop104:/user/atguigu //是通过本地主机中转实现两个远程主机的文件复制；如果在两个远程主机之间ssh没有配置的情况下可以使用该方式。
 
   
 
-**2****）****采用****distcp****命令****实现****两个****Hadoop****集群之间的递归数据复制**
+**2** **）** **采用** **distcp** **命令** **实现** **两个** **Hadoop** **集群之间的递归数据复制**
 
 [atguigu@hadoop102 hadoop-3.1.3]$ bin/hadoop distcp hdfs://hadoop102:8020/user/atguigu/hello.txt hdfs://hadoop105:8020/user/atguigu/hello.txt
 
@@ -281,31 +281,31 @@ scp -r [root@hadoop103:/user/atguigu/hello.txt](mailto:root@hadoop103:/user/atgu
 
 （3）NameNode主要在以下两个方面影响HDFS集群
 
-Ø NameNode机器发生意外，如宕机，集群将无法使用，直到管理员重启。
+- NameNode机器发生意外，如宕机，集群将无法使用，直到管理员重启。
 
-Ø NameNode机器需要升级，包括软件、硬件升级，此时集群也将无法使用。
+- NameNode机器需要升级，包括软件、硬件升级，此时集群也将无法使用。
 
 HDFS HA功能通过配置多个NameNodes(Active/Standby)实现在集群中对NameNode的热备来解决上述问题。如果出现故障，如机器崩溃或机器需要升级维护，这时可通过此种方式将NameNode很快的切换到另外一台机器。
 
 #### HDFS-HA核心问题
 
-**1****）怎么保证三台****namenode****的数据一致**
+**1** **）怎么保证三台** **namenode** **的数据一致**
 
 （1）Fsimage：让一台nn生成数据，让其他机器nn同步。
 
 （2）Edits：需要引进新的模块JournalNode来保证edtis的文件的数据一致性。
 
-**2）****怎么让同时只有一台****nn****是****active****，其他所有是****standby****的**
+**2）** **怎么让同时只有一台** **nn** **是** **active** **，其他所有是** **standby** **的**
 
 （1）手动分配
 
 （2）自动分配
 
-**3****）****2nn****在****ha****架构中并不存在，定期合并****fsimage****和****edtis****的活谁来干**
+**3** **）** **2nn** **在** **ha** **架构中并不存在，定期合并** **fsimage** **和** **edtis** **的活谁来干**
 
-​由standby的nn来干。
+由standby的nn来干。
 
-**4****）如果****nn****真的发生了问题，怎么让其他的****nn****上位干活**
+**4** **）如果** **nn** **真的发生了问题，怎么让其他的** **nn** **上位干活**
 
 （1）手动故障转移
 
@@ -339,24 +339,24 @@ Yarn-HA配置
 
   
 
-**2）****核心问题**
+**2）** **核心问题**
 
-**（****1****）如果当前****active rm****挂了，其他****rm****怎么将其他****standby rm****上位**
+**（** **1** **）如果当前** **active rm** **挂了，其他** **rm** **怎么将其他** **standby rm** **上位**
 
 核心原理跟HDFS一样，利用了zk的临时节点。
 
-**（****2****）当前****rm****上有很多的计算程序在等待运行，其他的****rm****怎么将这些程序接手过来接着跑**
+**（** **2** **）当前** **rm** **上有很多的计算程序在等待运行，其他的** **rm** **怎么将这些程序接手过来接着跑**
 
 rm会将当前的所有计算程序的状态存储在zk中，其他rm上位后会去读取，然后接着跑。
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
 ![image.png](assets/Hadoop-33.png)

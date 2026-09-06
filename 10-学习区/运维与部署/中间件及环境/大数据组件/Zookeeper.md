@@ -9,7 +9,7 @@ source: 个人总结
 
 Zookeeper是一个开源的分布式的，为分布式框架提供协调服务的Apache项目。
 
-​  
+  
 
 工作机制
 
@@ -19,7 +19,7 @@ Zookeeper是一个开源的分布式的，为分布式框架提供协调服务�
 
 ![image.png](assets/Zookeeper-1.png)
 
-​  
+  
 
 ![image.png](assets/Zookeeper-2.png)
 
@@ -69,7 +69,7 @@ Leader和Follower之间通信时间如果超过syncLimit \* tickTime，Leader认
 
 ![image.png](assets/Zookeeper-4.png)
 
-​  
+  
 
 #### 集群操作
 
@@ -84,7 +84,7 @@ Leader和Follower之间通信时间如果超过syncLimit \* tickTime，Leader认
 | delete | 删除节点 |
 | deleteall | 递归删除节点 |
 
-​  
+  
 
 #### 客户端命令行操作
 

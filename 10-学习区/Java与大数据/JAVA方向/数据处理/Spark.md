@@ -45,7 +45,7 @@ yarn-cluster：Driver程序运行在由ResourceManager启动的APPMaster，适�
 
 1）Spark查看当前Spark-shell运行任务情况端口号：4040
 
-2）Spark Master内部通信服务端口号：7077 （类比于yarn的**8032****(R****M****和****NM****的内部通信****)**端口）
+2）Spark Master内部通信服务端口号：7077 （类比于yarn的**8032** **(R** **M** **和** **NM** **的内部通信** **)**端口）
 
 3）Spark Standalone模式Master Web端口号：8080（类比于Hadoop YARN任务运行情况查看端口号：8088）
 
@@ -71,7 +71,7 @@ totalSize = 10
 
 goalSize = 10 / 3 = 3(byte) 表示每个分区存储3字节的数据
 
-分区数\= totalSize/ goalSize \= 10 /3 \=> 3,3,4
+分区数= totalSize/ goalSize = 10 /3 => 3,3,4
 
 4子节大于3子节的1.1倍,符合hadoop切片1.1倍的策略,因此会多创建一个分区,即一共有4个分区 3,3,3,1
 
@@ -81,11 +81,11 @@ goalSize = 10 / 3 = 3(byte) 表示每个分区存储3字节的数据
 
 4.数据分区的偏移量范围的计算
 
-0 \=> [0,3] 1@@ 012 0 \=> 1,2
+0 => [0,3] 1@@ 012 0 => 1,2
 
-1 \=> [3,6] 2@@ 345 1 \=> 3
+1 => [3,6] 2@@ 345 1 => 3
 
-2 \=> [6,9] 3@@ 678 2 \=> 4
+2 => [6,9] 3@@ 678 2 => 4
 
 3 => [9,9] 4 9 3 => 无
 
@@ -105,7 +105,7 @@ map,mappartition,mappartitionwithIndex(),flatmap(),groupby,sortby,filter,distinc
 
 zip(),substract(),union().intersection()
 
-key\_value类型
+key_value类型
 
 partitionby(),rducebykey(),foldbykey(),aggregateByKey(),combineByKey(),sortbykey(),cogroup(),join()
 
@@ -131,7 +131,7 @@ Spark出于性能的考虑，Spark2.0开始支持另外一种Kryo序列化机制
 
 RDD只支持粗粒度转换，即在大量记录上执行的单个操作。将创建RDD的一系列Lineage（血统）记录下来，以便恢复丢失的分区。RDD的Lineage会记录RDD的元数据信息和转换行为，当该RDD的部分分区数据丢失时，它可以根据这些信息来重新运算和恢复丢失的数据分区。
 
-#### ​  
+####   
 
 注意：要想理解RDDS是如何工作的，最重要的就是理解Transformations。
 
@@ -141,7 +141,7 @@ RDD之间的关系可以从两个维度来理解：一个是RDD是从哪些RDD�
 
 宽依赖表示同一个父RDD的Partition被多个子RDD的Partition依赖(只能是一对多)，会引起Shuffle，总结：宽依赖我们形象的比喻为超生
 
-​  
+  
 
 具有宽依赖的*transformations*包括：*sort*、*reduceByKey*、*groupByKey*、*join*和调用*rePartition*函数的任何操作。
 
@@ -149,13 +149,13 @@ RDD之间的关系可以从两个维度来理解：一个是RDD是从哪些RDD�
 
 在不影响业务要求的情况下，要尽量避免使用有宽依赖的转换算子，因为有宽依赖,就一定会走shuffle，影响性能
 
-​  
+  
 
 DAG有向无环图
 
 DAG（Directed Acyclic Graph）有向无环图是由点和线组成的拓扑图形，该图形具有方向，不会闭环。例如，DAG记录了RDD的转换过程和任务的阶段。
 
-​  
+  
 
 #### 任务划分
 
@@ -171,7 +171,7 @@ RDD任务切分中间分为：Application、Job、Stage和Task
 
 注意：Application->Job->Stage->Task每一层都是1对n的关系。
 
-​  
+  
 
 #### RDD持久化
 
@@ -183,7 +183,7 @@ RDD通过Cache或者Persist方法将前面的计算结果缓存，默认情况�
 
 Spark会自动对一些Shuffle操作的中间数据做持久化操作（比如：reduceByKey）。这样做的目的是为了当一个节点Shuffle失败了避免重新计算整个输入。但是，在实际使用的时候，如果想重用数据，仍然建议调用persist或cache。
 
-​  
+  
 
 chectpoint检查点
 
@@ -203,9 +203,9 @@ chectpoint检查点
 
 对RDD进行checkpoint操作并不会马上被执行,需等到Action操作才能被触发
 
-​  
+  
 
-​  
+  
 
 ### **缓存和检查点区别**
 
@@ -217,9 +217,9 @@ chectpoint检查点
 
 4）如果使用完了缓存，可以通过unpersist()方法释放缓存
 
-​  
+  
 
-​  
+  
 
 #### 键值对RDD分区
 
@@ -233,7 +233,7 @@ Spark目前支持Hash分区、Range分区和用户自定义分区。Hash分区�
 
 ![image.png](assets/Spark-5.png)
 
-​  
+  
 
 ![image.png](assets/Spark-6.png)
 
@@ -249,7 +249,7 @@ Spark的数据读取及数据保存可以从两个维度来作区分：文件格
 
 文件系统分为：本地文件系统、HDFS以及数据库。
 
-### **Text****文件**
+### **Text** **文件**
 
 1）基本语法
 
@@ -263,11 +263,11 @@ object对象文件
 
 对象文件是将对象序列化后保存的文件，采用hadoop的序列化机制。可以通过objectFile\[k,v\](path)函数接收一个路径，读取对象文件，返回对应的RDD，也可以通过调用saveAsObjectFile()实现对对象文件的输出。因为要序列化所以要指定类型。
 
-​  
+  
 
 Spark的整个生态系统与Hadoop是完全兼容的，所以对于Hadoop所支持的文件类型或者数据库类型，Spark也同样支持。另外，由于Hadoop的API有新旧两个版本，所以Spark为了能够兼容Hadoop所有的版本，也提供了两套创建操作接口。如TextInputFormat，新旧两个版本所引用分别是org.apache.hadoop.mapred.InputFormat、org.apache.hadoop.mapreduce.InputFormat(NewInputFormat)
 
-​  
+  
 
 ### 累加器
 
@@ -295,7 +295,7 @@ sum.add(count)
 
 对于在行动算子中使用的累加器，Spark只会把每个Job对各累加器的修改应用一次。
 
-​  
+  
 
 可选择自定义累加器
 
@@ -307,7 +307,7 @@ sum.add(count)
 
 （3）使用自定义累加器需要注册:：sc.register(累加器,"累加器名字")
 
-​  
+  
 
 ### 广播变量
 
@@ -323,7 +323,7 @@ sum.add(count)
 
 （3）广播变量只会被发到各个节点一次，作为只读值处理（修改这个值不会影响到别的节点）。
 
-​  
+  
 
 ### SparkCore实战
 
@@ -349,17 +349,17 @@ Hive on spark(HQL语法,存储和优化都是Hive,仅换了执行引擎)与spark
 
 3）Spark SQL性能上比RDD要高。因为Spark SQL了解数据内部结构，从而对藏于DataFrame背后的数据源以及作用于DataFrame之上的变换进行了针对性的优化，最终达到大幅提升运行时效率的目标。反观RDD，由于无从得知所存数据元素的具体内部结构，Spark Core只能在Stage层面进行简单、通用的流水线优化。
 
-​  
+  
 
 DataSet是分布式数据集。
 
-Ø DataSet是强类型的。比如可以有DataSet[Car]，DataSet[User]。具有类型安全检查
+- DataSet是强类型的。比如可以有DataSet[Car]，DataSet[User]。具有类型安全检查
 
 **DataFrame是DataSet的特例**，type DataFrame = DataSet[Row] ，Row是一个类型，跟Car、User这些的类型一样，所有的表结构信息都用Row来表示。
 
 如果同样的数据都给到这三个数据结构，他们分别计算之后，都会给出相同的结果。不同的是他们的执行效率和执行方式。在后期的Spark版本中，DataSet有可能会逐步取代RDD和DataFrame成为唯一的API接口。
 
-​  
+  
 
 2）三者的共性
 
@@ -373,7 +373,7 @@ DataSet是分布式数据集。
 
 （5）三者都有分区的概念
 
-​  
+  
 
 易整合
 
@@ -397,15 +397,15 @@ DataSet是分布式数据集。
 
 在老的版本中，SparkSQL提供两种SQL查询起始点：
 
-Ø 一个叫SQLContext，用于Spark自己提供的SQL查询；
+- 一个叫SQLContext，用于Spark自己提供的SQL查询；
 
-Ø 一个叫HiveContext，用于连接Hive的查询。
+- 一个叫HiveContext，用于连接Hive的查询。
 
 SparkSession是Spark最新的SQL查询起始点，实质上是SQLContext和HiveContext的组合，所以在SQLContext和HiveContext上可用的API在SparkSession上同样是可以使用的。
 
 SparkSession内部封装了SparkContext，所以计算实际上是由SparkContext完成的。当我们使用spark-shell的时候，Spark框架会自动的创建一个名称叫做Spark的SparkSession，就像我们以前可以自动获取到一个sc来表示SparkContext
 
-​  
+  
 
 #### DataFrame
 
@@ -413,21 +413,21 @@ DataFrame是一种类似于RDD的分布式数据集，类似于传统数据库�
 
 在Spark SQL中SparkSession是创建DataFrame和执行SQL的入口，创建DataFrame有三种方式：
 
-Ø 通过Spark的数据源进行创建；
+- 通过Spark的数据源进行创建；
 
-Ø 从一个存在的RDD进naj行转换；
+- 从一个存在的RDD进naj行转换；
 
-Ø 还可以从Hive Table进行查询返回。
+- 还可以从Hive Table进行查询返回。
 
 注意：如果从内存中获取数据，Spark可以知道数据类型具体是什么，如果是数字，默认作为Int处理；但是从文件中读取的数字，不能确定是什么类型，所以用BigInt接收，可以和Long类型转换，但是和Int不能进行转换。
 
-​  
+  
 
 SQL语法风格是指我们查询数据的时候使用SQL语句来查询，这种风格的查询必须要有临时视图或者全局视图来辅助。
 
 视图：对特定表的数据的查询结果重复使用。View只能查询，不能修改和插入。
 
-​  
+  
 
 #### DataSet
 
@@ -445,9 +445,9 @@ DataSet是具有强类型的数据集合，需要提供对应的类型信息
 
 1）RDD转换为DataFrame
 
-Ø 手动转换：RDD.toDF(“列名1”, “列名2”)
+- 手动转换：RDD.toDF(“列名1”, “列名2”)
 
-Ø 通过样例类反射转换：UserRDD.map{ x=>User(x.\_1,x.\_2) }.toDF()
+- 通过样例类反射转换：UserRDD.map{ x=>User(x._1,x._2) }.toDF()
 
 2）DataFrame转换为RDD
 
@@ -457,7 +457,7 @@ DataFrame.rdd
 
 1）RDD转换为DataSet
 
-RDD.map { x => User(x.\_1, x.\_2) }.toDS()
+RDD.map { x => User(x._1, x._2) }.toDS()
 
 SparkSQL能够自动将包含有样例类的RDD转换成DataSet，样例类定义了table的结构，样例类属性通过反射变成了表的列名。样例类可以包含诸如Seq或者Array等复杂的结构。
 
@@ -477,7 +477,7 @@ df.as[User]
 
 ds.toDF
 
-​  
+  
 
 #### 用户自定义函数
 
@@ -487,7 +487,7 @@ UDAF:
 
 UDTF:
 
-​  
+  
 
 #### SparkSQL的加载与保存
 
@@ -501,21 +501,21 @@ spark.read.load是加载数据的通用方法
 
 df.write.save是保存数据的通用方法
 
-​  
+  
 
-​  
+  
 
 SparkSQL可以采用内嵌Hive，也可以采用外部Hive。企业开发中，通常采用外部Hive。
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
 # SparkSreaming
 
-​  
+  
 
 ## 概述
 
@@ -561,15 +561,15 @@ Kafka数据源
 
 ![image.png](assets/Spark-13.png)
 
-​  
+  
 
-​  
+  
 
 ## DStream转换
 
 DStream上的操作与RDD的类似，分为转换和输出两种，此外转换操作中还有一些比较特殊的原语，如：updateStateByKey()、transform()以及各种Window相关的原语。
 
-​  
+  
 
 无状态转化操作
 
@@ -579,37 +579,37 @@ DStream上的操作与RDD的类似，分为转换和输出两种，此外转换�
 
 DStream的部分无状态转化操作列在了下表中，都是DStream自己的API。
 
-注意，针对键值对的DStream转化操作，要添加import StreamingContext.\_才能在Scala中使用，比如reduceByKey()。
+注意，针对键值对的DStream转化操作，要添加import StreamingContext._才能在Scala中使用，比如reduceByKey()。
 
 需要记住的是，尽管这些函数看起来像作用在整个流上一样，但事实上每个DStream在内部是由许多RDD批次组成，且无状态转化操作是分别应用到每个RDD(一个批次的数据)上的。
 
-​  
+  
 
   
 
-​  
+  
 
   
 
 Window Operations可以设置窗口的大小和滑动窗口的间隔来动态的获取当前Streaming的允许状态。所有基于窗口的操作都需要两个参数，分别为窗口时长以及滑动步长。
 
-Ø 窗口时长：计算内容的时间范围；
+- 窗口时长：计算内容的时间范围；
 
-Ø 滑动步长：隔多久触发一次计算。
+- 滑动步长：隔多久触发一次计算。
 
 注意：这两者都必须为采集批次大小的整数倍。
 
-​  
+  
 
-​  
+  
 
 reduceByKeyAndWindow（反向Reduce）
 
 1）基本语法：
 
-Ø reduceByKeyAndWindow(func, invFunc, windowLength, slideInterval, [numTasks]): 这个函数是上述函数的变化版本，每个窗口的reduce值都是通过用前一个窗的reduce值来递增计算。通过reduce进入到滑动窗口数据并“反向reduce”离开窗口的旧数据来实现这个操作。一个例子是随着窗口滑动对keys的“加”“减”计数。通过前边介绍可以想到，这个函数只适用于“可逆的reduce函数”，也就是这些reduce函数有相应的“反reduce”函数（以参数invFunc形式传入）。如前述函数，reduce任务的数量通过可选参数来配置。
+- reduceByKeyAndWindow(func, invFunc, windowLength, slideInterval, [numTasks]): 这个函数是上述函数的变化版本，每个窗口的reduce值都是通过用前一个窗的reduce值来递增计算。通过reduce进入到滑动窗口数据并“反向reduce”离开窗口的旧数据来实现这个操作。一个例子是随着窗口滑动对keys的“加”“减”计数。通过前边介绍可以想到，这个函数只适用于“可逆的reduce函数”，也就是这些reduce函数有相应的“反reduce”函数（以参数invFunc形式传入）。如前述函数，reduce任务的数量通过可选参数来配置。
 
-​  
+  
 
 window的其它操作
 
@@ -617,9 +617,9 @@ window的其它操作
 
 （2）reduceByWindow(func, windowLength, slideInterval): 通过使用自定义函数整合滑动区间流元素来创建一个新的离散化数据流；
 
-​  
+  
 
-​  
+  
 
 ## DStream输出
 
@@ -629,23 +629,23 @@ DStream与RDD中的惰性求值类似，如果一个DStream及其派生出的DSt
 
 1）输出操作API如下：
 
-Ø saveAsTextFiles(prefix, [suffix])：以text文件形式存储这个DStream的内容。每一批次的存储文件名基于参数中的prefix和suffix。“prefix-Time\_IN\_MS[.suffix]”。
+- saveAsTextFiles(prefix, [suffix])：以text文件形式存储这个DStream的内容。每一批次的存储文件名基于参数中的prefix和suffix。“prefix-Time_IN_MS[.suffix]”。
 
-Ø saveAsObjectFiles(prefix, [suffix])：以Java对象序列化的方式将DStream中的数据保存为 SequenceFiles 。每一批次的存储文件名基于参数中的为"prefix-TIME\_IN\_MS[.suffix]"。
+- saveAsObjectFiles(prefix, [suffix])：以Java对象序列化的方式将DStream中的数据保存为 SequenceFiles 。每一批次的存储文件名基于参数中的为"prefix-TIME_IN_MS[.suffix]"。
 
-Ø saveAsHadoopFiles(prefix, [suffix])：将Stream中的数据保存为 Hadoop files。每一批次的存储文件名基于参数中的为"prefix-TIME\_IN\_MS[.suffix]"。
+- saveAsHadoopFiles(prefix, [suffix])：将Stream中的数据保存为 Hadoop files。每一批次的存储文件名基于参数中的为"prefix-TIME_IN_MS[.suffix]"。
 
 注意：以上操作都是每一批次写出一次，会产生大量小文件，在生产环境，很少使用。
 
-Ø print()：在运行流程序的驱动结点上打印DStream中每一批次数据的最开始10个元素。这用于开发和调试。
+- print()：在运行流程序的驱动结点上打印DStream中每一批次数据的最开始10个元素。这用于开发和调试。
 
-Ø foreachRDD(func)：这是最通用的输出操作，即将函数func用于产生DStream的每一个RDD。其中参数传入的函数func应该实现将每一个RDD中数据推送到外部系统，如将RDD存入文件或者写入数据库。
-
-在企业开发中通常采用foreachRDD()，它用来对DStream中的RDD进行任意计算。这和transform()有些类似，都可以让我们访问任意RDD。在foreachRDD()中，可以重用我们在Spark中实现的所有行动操作(action算子)。比如，常见的用例之一是把数据写到如MySQL的外部数据库中。
+- foreachRDD(func)：这是最通用的输出操作，即将函数func用于产生DStream的每一个RDD。其中参数传入的函数func应该实现将每一个RDD中数据推送到外部系统，如将RDD存入文件或者写入数据库。
 
 在企业开发中通常采用foreachRDD()，它用来对DStream中的RDD进行任意计算。这和transform()有些类似，都可以让我们访问任意RDD。在foreachRDD()中，可以重用我们在Spark中实现的所有行动操作(action算子)。比如，常见的用例之一是把数据写到如MySQL的外部数据库中。
 
-​  
+在企业开发中通常采用foreachRDD()，它用来对DStream中的RDD进行任意计算。这和transform()有些类似，都可以让我们访问任意RDD。在foreachRDD()中，可以重用我们在Spark中实现的所有行动操作(action算子)。比如，常见的用例之一是把数据写到如MySQL的外部数据库中。
+
+  
 
 （1）连接不能写在Driver层面（序列化）
 
@@ -659,9 +659,9 @@ DStream与RDD中的惰性求值类似，如果一个DStream及其派生出的DSt
 
 关闭方式：使用外部文件系统来控制内部程序关闭。
 
-​  
+  
 
-​  
+  
 
 # Spark内核源码
 
@@ -689,7 +689,7 @@ Shuffle的优化
 
 ![image.png](assets/Spark-21.png)
 
-​  
+  
 
 Spark支持堆内内存也支持堆外内存
 
@@ -707,7 +707,7 @@ Spark支持堆内内存也支持堆外内存
 
 **说明：**堆外内存是序列化的，其占用的内存大小可直接计算。堆内内存是非序列化的对象，其占用的内存是通过周期性地采样近似估算而得，即并不是每次新增的数据项都会计算一次占用的内存大小，这种方法降低了时间开销但是有可能误差较大，导致某一时刻的实际内存有可能远远超出预期。此外，在被Spark标记为释放的对象实例，很有可能在实际上并没有被JVM回收，导致实际可用的内存小于Spark记录的可用内存。所以 Spark并不能准确记录实际可用的堆内内存，从而也就无法完全避免内存溢出OOM的异常。
 
-**2****）堆外内存，相比于堆内内存有几个缺点：**
+**2** **）堆外内存，相比于堆内内存有几个缺点：**
 
 （1）堆外内存难以控制，如果内存泄漏，那么很难排查
 
@@ -721,10 +721,10 @@ Spark支持堆内内存也支持堆外内存
 
 在**Spark最初采用的静态内存管理机制**下，存储内存、执行内存和其他内存的大小在Spark应用程序运行期间均为固定的，但用户可以应用程序启动前进行配置，堆内内存的分配如图所示：
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
 (Spark内核源码没有看完,放弃了)

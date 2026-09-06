@@ -35,4 +35,3 @@ source: 个人总结
 -   provided：作用域在编译、测试时有效。运行时不需要，比如servlet-api被tomcat容器提供。
 -   runtime：作用域在测试、运行时有效。编译时不需要，比如：jdbc的驱动包。
 
-​

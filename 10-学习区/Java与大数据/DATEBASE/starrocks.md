@@ -52,7 +52,7 @@ source: 个人总结
 
 -   update： delete + insert
 -   insert into 批量写入 导致写一条和多条 在耗时上可以忽略不计
--   导入数据的方式有 broker\_load,pipe,routine\_load，stream Load
+-   导入数据的方式有 broker_load,pipe,routine_load，stream Load
 
 -   pipe方式导入,是unix较早的一批用于进程间通信的机制
 -   stream Load 是一种基于 HTTP PUT 的同步导入方式。提交导入作业以后，StarRocks 会同步地执行导入作业，并返回导入作业的结果信息。您可以通过返回的结果信息来判断导入作业是否成功。
@@ -67,7 +67,7 @@ source: 个人总结
 -   bitmap类型，通过二进制，位运算，可用于加速查询，索引效果比较好，能够过滤掉一部分 Page，读取数据的时间明显减少
 -   hill数据类型，一种用于统计数据集中唯一值个数的高效近似算法，所需的存储空间是1280比特，但是会有一定的误差度
 
-​  
+  
 
 ###### 索引
 
@@ -92,7 +92,7 @@ source: 个人总结
 
 -   参数配置分为，动态静态，静态需要重启服务后生效
 -   starrocks中自定义变量，set @variable
--   部分参数需要改写，例如group\_concat的返回的字符的长度
+-   部分参数需要改写，例如group_concat的返回的字符的长度
 
   
 
@@ -100,29 +100,29 @@ source: 个人总结
 
 -   常见的函数：
 
-开窗，cume\_dist，lag，lead，preceding，following
+开窗，cume_dist，lag，lead，preceding，following
 
-count\_if，group\_concat，类似于array\_agg
+count_if，group_concat，类似于array_agg
 
 特色函数计算留存，输出boolean类型的数组，retention函数
 
-window\_funnel通过指定窗口的大小，时间粒度，执行模式，行为动作判断符合要求的数据，类似于flink中的匹配行为模式
+window_funnel通过指定窗口的大小，时间粒度，执行模式，行为动作判断符合要求的数据，类似于flink中的匹配行为模式
 
-array\_join拼接数组的元素，array\_sum
+array_join拼接数组的元素，array_sum
 
 unnnest函数，列转行，与later view join使用，默认忽视 单列值为 null 或者空的情况，但是可以通过外连接留下
 
 lambda ->
 
-concat\_ws 使用 r作为参数，跳过null的异常值
+concat_ws 使用 r作为参数，跳过null的异常值
 
 left返回从左开始指定长度的字符
 
 locate函数，返回指定的字符在给定数据中的索引
 
-split\_part 按照指定分隔符拆开
+split_part 按照指定分隔符拆开
 
-substring， substring\_index
+substring， substring_index
 
 precentile
 
@@ -149,10 +149,10 @@ precentile
 
 ##### 存储优化
 
-1.  对于json数据的存储，由于会出现同样的key重复的场景，可以开启 flat\_json 配置，相当于减少了公共数据的占用，但是会影响导入时处理的速度，因为需要提取公共的相同的key
+1.  对于json数据的存储，由于会出现同样的key重复的场景，可以开启 flat_json 配置，相当于减少了公共数据的占用，但是会影响导入时处理的速度，因为需要提取公共的相同的key
 
-​  
+  
 
 ##### 场景优化
 
--   在去重的列为string类型的时候，计算的速度受到影响，可以设计一张 与string 类型 对应的字典表，value为int类型，这样实际计算的时候可以使用int类型，也可以再优化 将int转化为bitmap， 提供了dict\_mapping() 在插入的时候生成相应的value
+-   在去重的列为string类型的时候，计算的速度受到影响，可以设计一张 与string 类型 对应的字典表，value为int类型，这样实际计算的时候可以使用int类型，也可以再优化 将int转化为bitmap， 提供了dict_mapping() 在插入的时候生成相应的value

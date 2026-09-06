@@ -29,9 +29,9 @@ source: 个人总结
 
 在记录Task失败次数过程中，会记录它上一次失败所在的Executor Id和Host，这样下次再调度这个Task时，会使用黑名单机制，避免它被调度到上一次失败的节点上，起到一定的容错作用。黑名单记录Task上一次失败所在的Executor Id和Host，以及其对应的“拉黑”时间，“拉黑”时间是指这段时间内不要再往这个节点上调度这个Task了。
 
-​  
+  
 
-​  
+  
 
 #### shuffle
 
@@ -65,15 +65,15 @@ bypass运行机制的触发条件如下：
 
 SerializedShuffleHandle使用条件：
 
-**1****）序列化规则支持重定位操作（****java****序列化不支持，****Kryo****支持）**
+**1** **）序列化规则支持重定位操作（** **java** **序列化不支持，** **Kryo** **支持）**
 
-**2****）不能使用预聚合**
+**2** **）不能使用预聚合**
 
 **3）如果下游的分区数量小于或等于1677216**
 
-​  
+  
 
-​  
+  
 
 Spark最初版本HashShuffle
 
@@ -89,7 +89,7 @@ Spark2.0版本删除HashShuffle只有SortShuffle
 
   
 
-​  
+  
 
 #### 通讯框架的发展
 
@@ -103,28 +103,28 @@ Spark2.0版本删除HashShuffle只有SortShuffle
 
 备注(源码只能依靠自己后续理解加深,光看视频时没用的,在这之前,先死脑子背下流程图,以便后续理解)
 
-​  
+  
 
 #### Spark底层通讯原理
 
 ![image.png](assets/SparkCore源码解析-13.png)
 
-**Ø** **RpcEndpoint****：****RPC****通信终端**。Spark针对每个节点（Client/Master/Worker）都称之为一个RPC终端，且都实现RpcEndpoint接口，内部根据不同端点的需求，设计不同的消息和不同的业务处理，如果需要发送（询问）则调用Dispatcher。在Spark中，所有的终端都存在生命周期：
+**Ø** **RpcEndpoint** **：** **RPC** **通信终端**。Spark针对每个节点（Client/Master/Worker）都称之为一个RPC终端，且都实现RpcEndpoint接口，内部根据不同端点的需求，设计不同的消息和不同的业务处理，如果需要发送（询问）则调用Dispatcher。在Spark中，所有的终端都存在生命周期：
 
 Constructor =》**onStart** =》**receive**\* =》onStop
 
-**Ø** **RpcEnv****：****RPC****上下文环境**，每个RPC终端运行时依赖的上下文环境称为RpcEnv；在当前Spark版本中使用的NettyRpcEnv
+**Ø** **RpcEnv** **：** **RPC** **上下文环境**，每个RPC终端运行时依赖的上下文环境称为RpcEnv；在当前Spark版本中使用的NettyRpcEnv
 
-**Ø** **Dispatcher****：消息调度（分发）器**，针对于RPC终端需要发送远程消息或者从远程RPC接收到的消息，分发至对应的指令收件箱（发件箱）。如果指令接收方是自己则存入收件箱，如果指令接收方不是自己，则放入发件箱；
+**Ø** **Dispatcher** **：消息调度（分发）器**，针对于RPC终端需要发送远程消息或者从远程RPC接收到的消息，分发至对应的指令收件箱（发件箱）。如果指令接收方是自己则存入收件箱，如果指令接收方不是自己，则放入发件箱；
 
-**Ø** **Inbox****：指令消息收件箱。**一个本地RpcEndpoint对应一个收件箱，Dispatcher在每次向Inbox存入消息时，都将对应EndpointData加入内部ReceiverQueue中，另外Dispatcher创建时会启动一个单独线程进行轮询ReceiverQueue，进行收件箱消息消费；
+**Ø** **Inbox** **：指令消息收件箱。**一个本地RpcEndpoint对应一个收件箱，Dispatcher在每次向Inbox存入消息时，都将对应EndpointData加入内部ReceiverQueue中，另外Dispatcher创建时会启动一个单独线程进行轮询ReceiverQueue，进行收件箱消息消费；
 
-**Ø** **Rpc****EndpointRef****：****RpcEndpointRef****是对远程****RpcEndpoint****的一个引用。**当我们需要向一个具体的RpcEndpoint发送消息时，一般我们需要获取到该RpcEndpoint的引用，然后通过该应用发送消息。
+**Ø** **Rpc** **EndpointRef** **：** **RpcEndpointRef** **是对远程** **RpcEndpoint** **的一个引用。**当我们需要向一个具体的RpcEndpoint发送消息时，一般我们需要获取到该RpcEndpoint的引用，然后通过该应用发送消息。
 
-**Ø** **OutBox****：指令消息发件箱。**对于当前RpcEndpoint来说，一个目标RpcEndpoint对应一个发件箱，如果向多个目标RpcEndpoint发送信息，则有多个OutBox。当消息放入Outbox后，紧接着通过TransportClient将消息发送出去。消息放入发件箱以及发送过程是在同一个线程中进行；
+**Ø** **OutBox** **：指令消息发件箱。**对于当前RpcEndpoint来说，一个目标RpcEndpoint对应一个发件箱，如果向多个目标RpcEndpoint发送信息，则有多个OutBox。当消息放入Outbox后，紧接着通过TransportClient将消息发送出去。消息放入发件箱以及发送过程是在同一个线程中进行；
 
-**Ø** **Rpc****Address****：****表示远程的****RpcEndpointRef****的地址**，Host + Port。
+**Ø** **Rpc** **Address** **：** **表示远程的** **RpcEndpointRef** **的地址**，Host + Port。
 
-**Ø** **TransportClient****：****Netty****通信客户端**，一个OutBox对应一个TransportClient，TransportClient不断轮询OutBox，根据OutBox消息的receiver信息，请求对应的远程TransportServer；
+**Ø** **TransportClient** **：** **Netty** **通信客户端**，一个OutBox对应一个TransportClient，TransportClient不断轮询OutBox，根据OutBox消息的receiver信息，请求对应的远程TransportServer；
 
 **Ø TransportServer：Netty通信服务端**，一个RpcEndpoint对应一个TransportServer，接受远程消息后调用Dispatcher分发消息至对应收发件箱；

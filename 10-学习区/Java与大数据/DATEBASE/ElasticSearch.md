@@ -21,7 +21,7 @@ lucene，就是一个jar包，里面包含了封装好的各种建立倒排索�
 
 Lucene 为倒排索引(Term Dictionary)部分又增加一层Term Index结构，用于快速定位，而这Term Index是缓存在内存中的，但MySQL的B+tree不在内存中，所以整体来看ES速度更快，但同时也更消耗资源（内存、磁盘）
 
-​  
+  
 
 #### elasticsearch概述
 
@@ -35,7 +35,7 @@ Elasticsearch，基于Lucene，隐藏复杂性，提供简单易用的RestfulAPI
 
 数据分析:
 
-​  
+  
 
 #### ElasticSearch的特点
 
@@ -43,9 +43,9 @@ Elasticsearch，基于Lucene，隐藏复杂性，提供简单易用的RestfulAPI
 
 近实时 | Cluster集群 | Node节点 (默认节点会去加入一个名称为“elasticsearch”的集群，如果直接启动一堆节点，那么它们会自动组成一个elasticsearch集群，当然一个节点也可以组成一个elasticsearch集群。) | Index索引-数据库 (一个index包含很多document，一个index就代表了一类类似的或者相同的document) | Type(类型-表) 6.0版本之前每个索引里都可以有多个type；
 
-6.0版本之后到7.0版本之前每个索引里面只能有一个Type，一般使用\_doc代替了。
+6.0版本之后到7.0版本之前每个索引里面只能有一个Type，一般使用_doc代替了。
 
-​  
+  
 
 | document (文档-行) 文档是ES中的最小数据单元 ,通常用JSON数据结构表示,每个index下的type中，都可以去存储多个document。 | field(字段-列) Field是Elasticsearch的最小单位。一个document里面有多个field，每个field就是一个数据字段。| Mapping(映射-约束) 数据如何存放到索引对象上，需要有一个映射配置，包括：数据类型、是否存储、是否分词等。Mapping用来定义Document中每个字段的类型，即所使用的分词器、是否索引等属性
 
@@ -55,7 +55,7 @@ Elasticsearch，基于Lucene，隐藏复杂性，提供简单易用的RestfulAPI
 
 ![image.png](assets/ElasticSearch-4.png)
 
-​  
+  
 
 ![image.png](assets/ElasticSearch-5.png)
 
@@ -69,7 +69,7 @@ Elasticsearch，基于Lucene，隐藏复杂性，提供简单易用的RestfulAPI
 
 4）文档类型（type）：一个索引对象，存放多种类型数据，数据用文档类型进行标识。
 
-​  
+  
 
 ####   
 
@@ -81,15 +81,15 @@ Elasticsearch，基于Lucene，隐藏复杂性，提供简单易用的RestfulAPI
 
 开启后访问网址为http://hadoop102:9200
 
-查看集群节点：浏览器中输入hadoop102:9200/\_cat/nodes(?v)
+查看集群节点：浏览器中输入hadoop102:9200/_cat/nodes(?v)
 
-​  
+  
 
 # Kibana
 
 浏览器访问hadoop102:5601
 
-​  
+  
 
 # ElasticSearch使用
 
@@ -97,7 +97,7 @@ Elasticsearch，基于Lucene，隐藏复杂性，提供简单易用的RestfulAPI
 
 字符串型：text(分词)、keyword(不分词)
 
-数值型：long、integer、short、byte、double、float、half\_float、scaled\_float
+数值型：long、integer、short、byte、double、float、half_float、scaled_float
 
 日期类型：date
 
@@ -105,9 +105,9 @@ Elasticsearch，基于Lucene，隐藏复杂性，提供简单易用的RestfulAPI
 
 二进制类型：binary
 
-范围类型：integer\_range、float\_range、long\_range、double\_range、date\_range
+范围类型：integer_range、float_range、long_range、double_range、date_range
 
-​  
+  
 
 复杂数据类型
 
@@ -117,11 +117,11 @@ Elasticsearch，基于Lucene，隐藏复杂性，提供简单易用的RestfulAPI
 
 嵌套类型：nested object
 
-地理位置数据类型:geo\_point geo\_shape
+地理位置数据类型:geo_point geo_shape
 
-专用类型:ip,completion,token\_count,hash值,multi-fields
+专用类型:ip,completion,token_count,hash值,multi-fields
 
-​  
+  
 
 {PUT stu （stu类似于MySQL中的数据库名）
 
@@ -129,7 +129,7 @@ Elasticsearch，基于Lucene，隐藏复杂性，提供简单易用的RestfulAPI
 
 "mappings": { （"mappings"可以理解为建表语句create table关键字）
 
-"\_doc":{ （"\_doc"相当于MySQL中表名）
+"_doc":{ （"_doc"相当于MySQL中表名）
 
 "properties":{ （"properties"相当于建表语句中要指定字段及字段类型的关键字）"id":{ （" id "相当于具体某个字段）
 
@@ -137,16 +137,16 @@ Elasticsearch，基于Lucene，隐藏复杂性，提供简单易用的RestfulAPI
 
 }语法命令帮助理解
 
-​  
+  
 
 #### IK分词器
 
 词器主要应用在中文上，在ES中字符串类型有keyword和text两种。keyword默认不进行分词，而text是将每一个汉字拆开称为独立的词
 
-​  
+  
 
 keyword类型不支持分词  
-GET \_analyze
+GET _analyze
 
 {
 
@@ -154,27 +154,27 @@ GET \_analyze
 
 }
 
-​  
+  
 
-IK分词器测试:ik\_smart (最少切分) ik\_max\_word (最细粒度划分)
+IK分词器测试:ik_smart (最少切分) ik_max_word (最细粒度划分)
 
-​  
+  
 
-2）最细切分ik\_max\_word
+2）最细切分ik_max_word
 
-GET \_analyze
+GET _analyze
 
 {
 
-"analyzer": "ik\_max\_word", "analyzer": "ik\_smart",
+"analyzer": "ik_max_word", "analyzer": "ik_smart",
 
 "text":"\*\*\*\*\*"
 
 }
 
-​  
+  
 
-​  
+  
 
 #### Kibana
 
@@ -182,17 +182,17 @@ GET \_analyze
 
 默认节点为5601
 
-GET \_cat/nodes 节点信息
+GET _cat/nodes 节点信息
 
-GET stu/\_search 全文档检索 \# 协议方法 索引/类型/\_search
+GET stu/_search 全文档检索 \# 协议方法 索引/类型/_search
 
 往相同索引中相同类型中相同id中插入不同数据会把之前老的数据替换调，只保留一份最新的，因此具有幂等性，可以用做去重。
 
-​  
+  
 
 字段全值匹配检索:
 
-GET 库名/\_search
+GET 库名/_search
 
 {
 
@@ -218,7 +218,7 @@ GET 库名/\_search
 
 字段分词匹配检索:
 
-GET 库名/\_search
+GET 库名/_search
 
 {
 
@@ -236,7 +236,7 @@ GET 库名/\_search
 
 全值匹配与分词匹配结合使用:
 
-GET index/\_search
+GET index/_search
 
 {
 
@@ -276,7 +276,7 @@ GET index/\_search
 
 字段模糊匹配查询
 
-GET index/\_search
+GET index/_search
 
 {
 
@@ -296,7 +296,7 @@ GET index/\_search
 
 1,单聚合检索
 
-GET index/\_search
+GET index/_search
 
 {
 
@@ -306,7 +306,7 @@ GET index/\_search
 
 "terms": {
 
-"field": "class\_id",
+"field": "class_id",
 
 "size": 10
 
@@ -320,7 +320,7 @@ GET index/\_search
 
 2,多聚合检索
 
-GET index/\_search
+GET index/_search
 
 {
 
@@ -330,7 +330,7 @@ GET index/\_search
 
 "terms": {
 
-"field": "class\_id",
+"field": "class_id",
 
 "size": 10
 
@@ -354,7 +354,7 @@ GET index/\_search
 
 3,聚合嵌套检索
 
-GET student/\_search
+GET student/_search
 
 {
 
@@ -364,7 +364,7 @@ GET student/\_search
 
 "terms": {
 
-"field": "class\_id",
+"field": "class_id",
 
 "size": 10
 
@@ -392,7 +392,7 @@ GET student/\_search
 
 4,分页检索
 
-GET index/\_search
+GET index/_search
 
 {
 
@@ -402,35 +402,35 @@ GET index/\_search
 
 }
 
-​  
+  
 
-#### 索引别名 \_aliases
+#### 索引别名 _aliases
 
 索引别名就像一个快捷方式或软连接，可以指向一个或多个索引，也可以给任何一个需要索引名的API来使用。别名带给我们极大的灵活性，允许我们做下面这些：
 
-1）给多个索引分组 (例如， last\_three\_months)
+1）给多个索引分组 (例如， last_three_months)
 
 2）给索引的一个子集创建视图
 
 3）在运行的集群中可以无缝的从一个索引切换到另一个索引
 
-​  
+  
 
 1)创建索引的时候直接声明
 
-PUT movie\_chn\_2020
+PUT movie_chn_2020
 
 {
 
-​ "aliases": {
+ "aliases": {
 
-"movie\_chn\_2020-query": {}
+"movie_chn_2020-query": {}
 
 },
 
 2)为已经存在的添加别名
 
-post \_\*\*\*\*
+post _\*\*\*\*
 
 {
 
@@ -454,7 +454,7 @@ post \_\*\*\*\*
 
 3)也可以通过加过滤条件缩小查询范围，建立一个子集视图
 
-POST \_aliases
+POST _aliases
 
 {
 
@@ -486,7 +486,7 @@ POST \_aliases
 
 }
 
-查询别名 get \*\*\*\*/\_search
+查询别名 get \*\*\*\*/_search
 
 删除别名
 
@@ -514,7 +514,7 @@ POST \*\*\*\*\*\*
 
 6,为某个别名进行无缝切换
 
-POST \_aliases
+POST _aliases
 
 {
 
@@ -550,9 +550,9 @@ POST \_aliases
 
 查询别名列表
 
-get \_cat/aliases?v
+get _cat/aliases?v
 
-​  
+  
 
 如果通过别名添加数据的时候，别名对应多个索引，那么会写到哪个索引中呀
 
@@ -566,27 +566,27 @@ get \_cat/aliases?v
 
 创建索引的模具，其中可以定义一系列规则来帮助我们构建符合特定业务需求的索引的mappings和 settings，通过使用 Index Template 可以让我们的索引具备可预知的一致性。
 
-​  
+  
 
 分割索引(结构变化灵活,查询范围优化):
 
-PUT \_template/template\_movie2020
+PUT _template/template_movie2020
 
 {
 
-"index\_patterns": ["movie\_test\*"],
+"index_patterns": ["movie_test\*"],
 
 "aliases" : {
 
 "{index}-query": {},
 
-"movie\_test-query":{}
+"movie_test-query":{}
 
 },
 
 "mappings": {
 
-"\_doc": {
+"_doc": {
 
 "properties": {
 
@@ -596,11 +596,11 @@ PUT \_template/template\_movie2020
 
 },
 
-"movie\_name": {
+"movie_name": {
 
 "type": "text",
 
-"analyzer": "ik\_smart"
+"analyzer": "ik_smart"
 
 }
 
@@ -612,21 +612,21 @@ PUT \_template/template\_movie2020
 
 }
 
-其中"index\_patterns": ["movie\_test\*"], 的含义就是凡是往movie\_test开头的索引写入数据时，如果索引不存在，那么es会根据此模板自动建立索引。
+其中"index_patterns": ["movie_test\*"], 的含义就是凡是往movie_test开头的索引写入数据时，如果索引不存在，那么es会根据此模板自动建立索引。
 
-​  
+  
 
-查看已有的模板索引:get \_cat/templates
+查看已有的模板索引:get _cat/templates
 
-查看某个索引详情:get \_templates/templates\_movies\*
+查看某个索引详情:get _templates/templates_movies\*
 
-删除某个模板: DELETE \_template/\*\*\*\*
+删除某个模板: DELETE _template/\*\*\*\*
 
-​  
+  
 
 API操作
 
-​  
+  
 
 #### 写数据
 

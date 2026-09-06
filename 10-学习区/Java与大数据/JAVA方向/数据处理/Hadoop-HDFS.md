@@ -7,7 +7,7 @@ source: 个人总结
 ---
 # Hadoop之HDFS
 
-​  
+  
 
 ## HDFS概述
 
@@ -17,11 +17,11 @@ HDFS只是分布式文件管理系统中的一种。
 
 hdfs(Hadoop Distributed File System)用于存储文件的系统,通过目录树来定位文件,分布式的,由很多服务器联合起来实现其功能，集群中的服务器有各自的角色
 
-​  
+  
 
 HDFS的使用场景：适合一次写入，多次读出的场景。一个文件经过创建、写入和关闭之后就不需要改变。
 
-​  
+  
 
 #### 优缺点
 
@@ -111,7 +111,7 @@ hfds的块文件的大小主要取决于磁盘的传输效率
 
 （1）官方说明
 
-[http://hadoop.apache.org/docs/r3.1.3/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html#Data\_Replication](#Data_Replication)
+[http://hadoop.apache.org/docs/r3.1.3/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html#Data_Replication](#Data_Replication)
 
 （2）源码说明
 
@@ -121,9 +121,9 @@ Crtl + n 查找BlockPlacementPolicyDefault，在该类中查找chooseTargetInOrd
 
 ![image.png](assets/Hadoop-7.png)
 
-​  
+  
 
-​  
+  
 
 ### 读流程
 
@@ -151,7 +151,7 @@ Crtl + n 查找BlockPlacementPolicyDefault，在该类中查找chooseTargetInOrd
 
 ![image.png](assets/Hadoop-9.png)
 
-**第一****阶段：****NameNode****启动**
+**第一** **阶段：** **NameNode** **启动**
 
 （1）第一次启动NameNode格式化后，创建Fsimage和Edits文件。如果不是第一次启动，直接加载编辑日志和镜像文件到内存。
 
@@ -161,7 +161,7 @@ Crtl + n 查找BlockPlacementPolicyDefault，在该类中查找chooseTargetInOrd
 
 （4）NameNode在内存中对元数据进行增删改。
 
-**2****）第二****阶段：****Secondary NameNode****工作**
+**2** **）第二** **阶段：** **Secondary NameNode** **工作**
 
 （1）Secondary NameNode询问NameNode是否需要CheckPoint。直接带回NameNode是否检查结果。
 
@@ -183,7 +183,7 @@ Crtl + n 查找BlockPlacementPolicyDefault，在该类中查找chooseTargetInOrd
 
 ![image.png](assets/Hadoop-10.png)
 
-**oiv****查看****Fsimage****文件**
+**oiv** **查看** **Fsimage** **文件**
 
 （1）查看oiv和oev命令
 
@@ -193,11 +193,11 @@ Crtl + n 查找BlockPlacementPolicyDefault，在该类中查找chooseTargetInOrd
 
 **oev** apply the offline edits viewer to an edits file
 
-​  
+  
 
 （2）基本语法
 
-hdfs oiv -p 文件类型 \-i镜像文件 \-o 转换后文件输出路径
+hdfs oiv -p 文件类型 -i镜像文件 -o 转换后文件输出路径
 
 （3）案例实操
 
@@ -205,57 +205,57 @@ hdfs oiv -p 文件类型 \-i镜像文件 \-o 转换后文件输出路径
 
 /opt/module/hadoop-3.1.3/data/dfs/name/current
 
-​  
+  
 
-[atguigu@hadoop102 current]$ hdfs oiv -p XML -i fsimage\_0000000000000000025 -o /opt/module/hadoop-3.1.3/fsimage.xml
+[atguigu@hadoop102 current]$ hdfs oiv -p XML -i fsimage_0000000000000000025 -o /opt/module/hadoop-3.1.3/fsimage.xml
 
-​  
+  
 
 [atguigu@hadoop102 current]$ cat /opt/module/hadoop-3.1.3/fsimage.xml
 
-**oev****查看****Edits****文件**
+**oev** **查看** **Edits** **文件**
 
 （1）基本语法
 
-hdfs oev -p 文件类型 \-i编辑日志 \-o 转换后文件输出路径
+hdfs oev -p 文件类型 -i编辑日志 -o 转换后文件输出路径
 
 （2）案例实操
 
-[atguigu@hadoop102 current]$ hdfs oev -p XML -i edits\_0000000000000000012-0000000000000000013 -o /opt/module/hadoop-3.1.3/edits.xml
+[atguigu@hadoop102 current]$ hdfs oev -p XML -i edits_0000000000000000012-0000000000000000013 -o /opt/module/hadoop-3.1.3/edits.xml
 
-​  
+  
 
 [atguigu@hadoop102 current]$ cat /opt/module/hadoop-3.1.3/edits.xml
 
-​  
+  
 
 #### checkpoint时间设置
 
 1）通常情况下，SecondaryNameNode每隔一小时执行一次
 
-**一分钟****检查一次操作次数，当操作次数达到****1****百万****时，****SecondaryNameNode****执行****一次。**
+**一分钟** **检查一次操作次数，当操作次数达到** **1** **百万** **时，** **SecondaryNameNode** **执行** **一次。**
 
-<property>
+\<property>
 
-​<name>dfs.namenode.checkpoint.txns</name>
+\<name>dfs.namenode.checkpoint.txns\</name>
 
-​<value>1000000</value>
+\<value>1000000\</value>
 
-<description>操作动作次数</description>
+\<description>操作动作次数\</description>
 
-</property>
+\</property>
 
-​  
+  
 
-<property>
+\<property>
 
-​<name>dfs.namenode.checkpoint.check.period</name>
+\<name>dfs.namenode.checkpoint.check.period\</name>
 
-​<value>60s</value>
+\<value>60s\</value>
 
-<description> 1分钟检查一次操作次数</description>
+\<description> 1分钟检查一次操作次数\</description>
 
-</property>
+\</property>
 
 ## DN
 

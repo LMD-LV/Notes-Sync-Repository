@@ -27,7 +27,7 @@ Class.forName("com.mysql.jdbc.Driver");
 
 Connection conn = DriverManager.getConnection(url,username,password);
 
-mysql的url：jdbc:mysql://localhost:3306/数据库名?参数名\=参数值
+mysql的url：jdbc:mysql://localhost:3306/数据库名?参数名=参数值
 
 #### 1.2.3执行sql并处理结果
 
@@ -47,7 +47,7 @@ mysql的url：jdbc:mysql://localhost:3306/数据库名?参数名\=参数值
 
 查询：返回ResultSet结果，需要使用next()和getXxx()结合进行遍历
 
-​  
+  
 
 相关的API：
 
@@ -71,17 +71,17 @@ mysql的url：jdbc:mysql://localhost:3306/数据库名?参数名\=参数值
 
 JDBC,DBCP,C3P0,Proxool,BoneCP,Druid
 
-​  
+  
 
-​  
+  
 
 ## JDBC概述
 
-​  
+  
 
 JDBC：Java Database Connectivity，它是代表一组独立于任何数据库管理系统（DBMS）的API，声明在java.sql与javax.sql包中，是SUN(现在Oracle)提供的一组接口规范。由各个数据库厂商来提供实现类，这些实现类的集合构成了数据库驱动jar。
 
-​  
+  
 
 #### JDBC使用步骤
 
@@ -105,7 +105,7 @@ Class.forName("com.mysql.jdbc.Driver");
 
 Connection conn = DriverManager.getConnection(url,username,password);
 
-mysql的url：jdbc:mysql://localhost:3306/数据库名?参数名\=参数值
+mysql的url：jdbc:mysql://localhost:3306/数据库名?参数名=参数值
 
 #### 1.2.3执行sql并处理结果
 
@@ -145,9 +145,9 @@ mysql的url：jdbc:mysql://localhost:3306/数据库名?参数名\=参数值
 
 （2）getString(字段名或序号),getInt(字段名或序号),getObject(字段名或序号)
 
-​  
+  
 
-​  
+  
 
 ### **1.2.5** **增，删，改 代码演示**
 
@@ -185,11 +185,11 @@ Connection conn = DriverManager.getConnection(url, user, password);
 
 //3、执行sql
 
-//添加一个部门到数据库的t\_department表中
+//添加一个部门到数据库的t_department表中
 
 //(1)编写sql
 
-String sql = "insert into t\_department values(null,'计算部2','计算钞票2')";
+String sql = "insert into t_department values(null,'计算部2','计算钞票2')";
 
 /\*
 
@@ -241,17 +241,17 @@ public static void main(String[] args) throws Exception{
 
 Class.forName("com.mysql.jdbc.Driver");
 
-​  
+  
 
 // 2、连接数据库
 
 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "123456");
 
-​  
+  
 
 // 3、执行sql
 
-String sql = "SELECT \* FROM t\_department";
+String sql = "SELECT \* FROM t_department";
 
 Statement st = conn.createStatement();
 
@@ -279,7 +279,7 @@ System.out.println(did +"\\t" + dname + "\\t"+ desc);
 
 }
 
-​  
+  
 
 // 4、关闭
 
@@ -291,23 +291,23 @@ conn.close();
 
 }
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
-# **使用****PreparedStatement****处理****CRUD**
+# **使用** **PreparedStatement** **处理** **CRUD**
 
-## **2****.1** **通过****PreparedStatement****来解决****Statement****的问题**
+## **2** **.1** **通过** **PreparedStatement** **来解决** **Statement** **的问题**
 
 Statement的问题：通过PreparedStatement来代替
 
 #### 2.2.1 sql拼接问题
 
-String sql = "insert into t\_employee(ename,tel,gender,salary) values('" + ename + "','" + tel + "','" + gender + "'," + salary +")";
+String sql = "insert into t_employee(ename,tel,gender,salary) values('" + ename + "','" + tel + "','" + gender + "'," + salary +")";
 
 Statement st = conn.createStatement();
 
@@ -317,7 +317,7 @@ int len = st.executeUpdate(sql);
 
 #### 2.2.2 sql注入问题
 
-String sql = "SELECT \* FROM t\_employee where ename='" + ename + "'";
+String sql = "SELECT \* FROM t_employee where ename='" + ename + "'";
 
 //如果我此时从键盘输入ename值的时候，输入：张三' or '1'= '1
 
@@ -331,7 +331,7 @@ PreparedStatement解决问题：
 
 #### 2.2.3避免sql拼接
 
-String sql = "insert into t\_employee(ename,tel,gender,salary) values(?,?,?,?)";
+String sql = "insert into t_employee(ename,tel,gender,salary) values(?,?,?,?)";
 
 PreparedStatement pst = conn.prepareStatement(sql);//这里要传带？的sql，然后mysql端就会对这个sql进行预编译
 
@@ -359,7 +359,7 @@ System.out.println(len);
 
 #### 2.2.4不会有sql注入
 
-String sql = "SELECT \* FROM t\_employee where ename=?";
+String sql = "SELECT \* FROM t_employee where ename=?";
 
 //即使输入'张三' or '1'= '1'也没问题
 
@@ -371,9 +371,9 @@ pst.setObject(1, ename);
 
 ResultSet rs = pst.executeQuery();
 
-​  
+  
 
-​  
+  
 
 #### 2.2 批处理
 
@@ -429,7 +429,7 @@ public static void main(String[] args) throws Exception{
 
 long start = System.currentTimeMillis();
 
-//例如：在部门表t\_department中添加1000条模拟数据
+//例如：在部门表t_department中添加1000条模拟数据
 
 //1、注册驱动
 
@@ -441,7 +441,7 @@ Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?
 
 //3、执行sql
 
-String sql = "insert into t\_department values(null,?,?)";
+String sql = "insert into t_department values(null,?,?)";
 
 PreparedStatement pst = conn.prepareStatement(sql);
 
@@ -485,11 +485,11 @@ System.out.println("耗时：" + (end - start));//耗时：821
 
 }
 
-​  
+  
 
-​  
+  
 
-## **​****事务**
+## ** ****事务**
 
 /\*
 
@@ -549,9 +549,9 @@ public static void main(String[] args) throws Exception{
 
 \* 用两条修改语句来模拟组成一个简单的事务。
 
-\* update t\_department set description = 'xx' where did = 2;
+\* update t_department set description = 'xx' where did = 2;
 
-\* update t\_department set description = 'yy' where did = 3;
+\* update t_department set description = 'yy' where did = 3;
 
 \*
 
@@ -581,9 +581,9 @@ conn.setAutoCommit(false);
 
 //3、执行sql
 
-String sql1 = "update t\_department set description = 'xx' where did = 2";
+String sql1 = "update t_department set description = 'xx' where did = 2";
 
-String sql2 = "update t\_department set description = 'yy' did = 3";//这是错的
+String sql2 = "update t_department set description = 'yy' did = 3";//这是错的
 
 //使用prepareStatement的sql也可以不带?
 
@@ -631,25 +631,25 @@ conn.close();
 
 }
 
-​  
+  
 
-​  
+  
 
 # 数据库连接池
 
   
 
-## **4.****1****什么是数据库连池**
+## **4.** **1** **什么是数据库连池**
 
 连接对象的缓冲区。负责申请，分配管理，释放连接的操作。
 
-## **4.2****为什么要使用数据库连接池**
+## **4.2** **为什么要使用数据库连接池**
 
 不使用数据库连接池，每次都通过DriverManager获取新连接，用完直接抛弃断开，连接的利用率太低，太浪费。 对于数据库服务器来说，压力太大了。我们数据库服务器和Java程序对连接数也无法控制，很容易导致数据库服务器崩溃。
 
 我们就希望能管理连接。我们可以建立一个连接池，这个池中可以容纳一定数量的连接对象，一开始，我们可以先替用户先创建好一些连接对象，等用户要拿连接对象时，就直接从池中拿，不用新建了，这样也可以节省时间。然后用户用完后，放回去，别人可以接着用。可以提高连接的使用率。当池中的现有的连接都用完了，那么连接池可以向服务器申请新的连接放到池中。直到池中的连接达到“最大连接数”，就不能在申请新的连接了，如果没有拿到连接的用户只能等待。
 
-## **4.****3****市面上有很多现成的数据库连接池技术**
+## **4.** **3** **市面上有很多现成的数据库连接池技术**
 
 JDBC 的数据库连接池使用 javax.sql.DataSource 来表示，DataSource 只是一个接口（通常被称为数据源），该接口通常由服务器(Weblogic, WebSphere, Tomcat)提供实现，也有一些开源组织提供实现：
 
@@ -663,7 +663,7 @@ BoneCP 是一个开源组织提供的数据库连接池，速度快
 
 Druid 是阿里提供的数据库连接池，据说是集DBCP 、C3P0 、Proxool 优点于一身的数据库连接池
 
-## **4.****4****阿里的德鲁伊连接池技术**
+## **4.** **4** **阿里的德鲁伊连接池技术**
 
 （1）加入jar包
 
@@ -721,8 +721,8 @@ System.out.println("第"+i+"个：" + conn);
 
 }
 
-​  
+  
 
-​  
+  
 
 封装JDBCTools和封装BasicDAOImpl的案例代码演示

@@ -13,7 +13,7 @@ source: 个人总结
 -   使用mybatis中的流式查询，相当于push，服务端向客户端的缓冲区推送
 -   使用mysql中的游标，客户端自己取相当于pull，类似于fetchSize
 
-​  
+  
 
   
 
@@ -25,37 +25,37 @@ mybatis的xml中定义具体的sql
 
 matis的配置文件中定义 pojo的位置，和xml的位置，一个pojo
 
-​  
+  
 
 对应一个xml
 
-​  
+  
 
 #{ } 本质是占位符，但是不能使用在 传递 表名，列名，关键字的场景下。
 
 ${}
 
-​  
+  
 
 resultType 按照规则自动映射
 
 resultMap自定义映射规则 ，可以根据配置 开启不同级别的映射，但是id得一致写，包括外部对象的id，需要指明。
 
-​  
+  
 
 返回list集合的时候，处理输出的类型，写范型即可，String就行了
 
-​  
+  
 
-​  
+  
 
 set标签要求至少满足一个条件，作用于 update语句中
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
 foreach 在update的时候 将每次的update 遍历生成语句，注意要修改数据库连接信息 同意执行多语句
 
@@ -63,19 +63,19 @@ foreach 在update的时候 将每次的update 遍历生成语句，注意要修�
 
 pojo和xml 路径要一致
 
-​  
+  
 
 插件类似拦截器，在提交sql后拦截
 
-​  
+  
 
 mybatis 配置文件中的配置顺序要注意
 
-​  
+  
 
 orm思维
 
-​  
+  
 
 mybatis也使用了代理的技术，执行sql的也是mybatis从mapper接口中实现的代理对象
 
@@ -94,7 +94,7 @@ mybatis也使用了代理的技术，执行sql的也是mybatis从mapper接口中
 -   导入properties的配置文件,properties ,获取数据库的连接信息
 -   mapUnderscoreToCamelCase,下划线自动转化驼峰
 -   延迟加载的配置参数 lazyLoadingEnabled，作用是 某个对象涉及到的其余对象值 是使用的时候加载，还是本对象使用的时候就加载， 与之相对的属性还有aggressiveLazyLoading，作用时任何调用都会加载涉及对象的全部属性
--   typeAliases 标签, alias 给类起别名, 如果不指定 ,即指定涉及范围内的类都使用默认别名 (对象名称忽视大小写) mybatis中对于常量类型设置了默认值 java.lang.Integer-->int|integer, int-->\_int|\_integer,Map-->map,List-->list
+-   typeAliases 标签, alias 给类起别名, 如果不指定 ,即指定涉及范围内的类都使用默认别名 (对象名称忽视大小写) mybatis中对于常量类型设置了默认值 java.lang.Integer-->int|integer, int-->_int|_integer,Map-->map,List-->list
 -   environments 设置多个数据库的连接信息, 也可以指定默认的数据库
 -   transactionManager 设置事务的管理方式 支持 JDBC (手动处理), MANAGED(托管)
 -   dataSource type 用于设置数据库连接池的使用方式
@@ -131,11 +131,11 @@ mybatis也使用了代理的技术，执行sql的也是mybatis从mapper接口中
 
 > <!--int insertUser(User user);-->
 > 
-> <insert id\="insertUser" useGeneratedKeys\="true" keyProperty\="id"\>
+> \<insert id="insertUser" useGeneratedKeys="true" keyProperty="id"\>
 > 
-> insert into t\_user values(null,#{username},#{password},#{age},#{sex})
+> insert into t_user values(null,#{username},#{password},#{age},#{sex})
 > 
-> </insert>
+> \</insert>
 
 ### mapper方法返回的数据类型
 
@@ -179,33 +179,33 @@ mybatis也使用了代理的技术，执行sql的也是mybatis从mapper接口中
 > 
 > column：设置映射关系中表中的字段名
 > 
-> \-->
+> -->
 > 
-> <resultMap id\="userMap" type\="User"\>
+> \<resultMap id="userMap" type="User"\>
 > 
-> <id property\="id" column\="id"\></id>
+> \<id property="id" column="id"\>\</id>
 > 
-> <result property\="userName" column\="user\_name"\></result>
+> \<result property="userName" column="user_name"\>\</result>
 > 
-> <result property\="password" column\="password"\></result>
+> \<result property="password" column="password"\>\</result>
 > 
-> <result property\="age" column\="age"\></result>
+> \<result property="age" column="age"\>\</result>
 > 
-> <result property\="sex" column\="sex"\></result>
+> \<result property="sex" column="sex"\>\</result>
 > 
-> </resultMap>
+> \</resultMap>
 > 
-> <!--List<User> testMohu(@Param("mohu") String mohu);-->
+> <!--List\<User> testMohu(@Param("mohu") String mohu);-->
 > 
-> <select id\="testMohu" resultMap\="userMap"\>
+> \<select id="testMohu" resultMap="userMap"\>
 > 
-> <!--select \* from t\_user where username like '%${mohu}%'-->
+> <!--select \* from t_user where username like '%${mohu}%'-->
 > 
-> select id,user\_name,password,age,sex from t\_user where user\_name like
+> select id,user_name,password,age,sex from t_user where user_name like
 > 
 > concat('%',#{mohu},'%')
 > 
-> </select>
+> \</select>
 
 -   resultmap处理 多对一 的场景，常见的是 对象中的属性是引入的别的对象的属性的情况下
 
@@ -218,7 +218,7 @@ mybatis也使用了代理的技术，执行sql的也是mybatis从mapper接口中
 
 -   使用的标签是 collection + offtYpe 来定于引入的多个其余对象 ，然后在sql中使用连接查询的方式 （这里对应引入外部对象还可以添加一个属性为 fetchType,作用是 延迟 lazy｜立刻 eager加载）![image.png](assets/mybatis基础知识点-3.png)
 -   通过分布查询的方式 ，操作的步骤和 多对一一样
--   ​  
+-     
     
 
 -   resulttype（返回的属性的名称一一对应，自动解析）
@@ -247,13 +247,13 @@ close：设置foreach标签中的内容的结束符
 -   ![image.png](assets/mybatis基础知识点-4.png)
 -   sql 标签，相当于一个写定了的sql语句，然后便捷引用
 
-> <sql id\="empColumns"\>
+> \<sql id="empColumns"\>
 > 
 > eid,ename,age,sex,did
 > 
-> </sql>
+> \</sql>
 > 
-> select <include refid\="empColumns"\></include> from t\_emp
+> select \<include refid="empColumns"\>\</include> from t_emp
 
 -   resultmap处理 多对一 的场景，对象中的属性是引入的别的对象的属性（出现这种情况是不是因为外间的原因），1，通过级联的方式 2，通过association （javatype）的方式 3，分步查询（可以开启延迟加载（根据需要的信息 执行相关的流程）），相当于按照一个join on 查询多个表
 

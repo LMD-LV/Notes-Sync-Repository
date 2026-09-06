@@ -19,7 +19,7 @@ RocksDB 是基于 LSM Tree 实现的（类似HBase），写数据都是先缓存
 
 Flink 1.13 中引入了 State 访问的性能监控，即 latency trackig state。此功能不局限于 State Backend 的类型，自定义实现的 State Backend 也可以复用此功能。
 
-​  
+  
 
 State 访问的性能监控会产生一定的性能影响，所以，默认每 100 次做一次取样 (sample)，对不同的 State Backend 性能损失影响不同：
 
@@ -39,25 +39,25 @@ state.backend.latency-track.state-name-as-variable: true #将状态名作为变�
 
 bin/flink run \\
 
-\-t yarn-per-job \\
+-t yarn-per-job \\
 
-\-d \\
+-d \\
 
-\-p 3 \\
+-p 3 \\
 
-\-Drest.flamegraph.enabled=true \\
+-Drest.flamegraph.enabled=true \\
 
-\-Dyarn.application.queue=default \\
+-Dyarn.application.queue=default \\
 
-\-Djobmanager.memory.process.size=1024mb \\
+-Djobmanager.memory.process.size=1024mb \\
 
-\-Dtaskmanager.memory.process.size=4096mb \\
+-Dtaskmanager.memory.process.size=4096mb \\
 
-\-Dtaskmanager.numberOfTaskSlots=2 \\
+-Dtaskmanager.numberOfTaskSlots=2 \\
 
-\-Dstate.backend.latency-track.keyed-state-enabled=true \\
+-Dstate.backend.latency-track.keyed-state-enabled=true \\
 
-\-c com.atguigu.flink.tuning.RocksdbTuning \\
+-c com.atguigu.flink.tuning.RocksdbTuning \\
 
 /opt/module/flink-1.13.1/myjar/flink-tuning-1.0-SNAPSHOT.jar
 
@@ -89,29 +89,29 @@ state.backend.rocksdb.localdir: /data1/flink/rocksdb,/data2/flink/rocksdb,/data3
 
 bin/flink run \\
 
-\-t yarn-per-job \\
+-t yarn-per-job \\
 
-\-d \\
+-d \\
 
-\-p 3 \\
+-p 3 \\
 
-\-Drest.flamegraph.enabled=true \\
+-Drest.flamegraph.enabled=true \\
 
-\-Dyarn.application.queue=default \\
+-Dyarn.application.queue=default \\
 
-\-Djobmanager.memory.process.size=1024mb \\
+-Djobmanager.memory.process.size=1024mb \\
 
-\-Dtaskmanager.memory.process.size=4096mb \\
+-Dtaskmanager.memory.process.size=4096mb \\
 
-\-Dtaskmanager.numberOfTaskSlots=2 \\
+-Dtaskmanager.numberOfTaskSlots=2 \\
 
-\-Dstate.backend.incremental=true \\
+-Dstate.backend.incremental=true \\
 
-\-Dstate.backend.local-recovery=true \\
+-Dstate.backend.local-recovery=true \\
 
-\-Dstate.backend.latency-track.keyed-state-enabled=true \\
+-Dstate.backend.latency-track.keyed-state-enabled=true \\
 
-\-c com.atguigu.flink.tuning.RocksdbTuning \\
+-c com.atguigu.flink.tuning.RocksdbTuning \\
 
 /opt/module/flink-1.13.1/myjar/flink-tuning-1.0-SNAPSHOT.jar
 
@@ -119,9 +119,9 @@ bin/flink run \\
 
 Flink针对不同的设置为RocksDB提供了一些预定义的选项集合,其中包含了后续提到的一些参数，如果调整预定义选项后还达不到预期，再去调整后面的block、writebuffer等参数。
 
-当前支持的预定义选项有DEFAULT、SPINNING\_DISK\_OPTIMIZED、SPINNING\_DISK\_OPTIMIZED\_HIGH\_MEM或FLASH\_SSD\_OPTIMIZED。有条件上SSD的，可以指定为FLASH\_SSD\_OPTIMIZED
+当前支持的预定义选项有DEFAULT、SPINNING_DISK_OPTIMIZED、SPINNING_DISK_OPTIMIZED_HIGH_MEM或FLASH_SSD_OPTIMIZED。有条件上SSD的，可以指定为FLASH_SSD_OPTIMIZED
 
-state.backend.rocksdb.predefined-options：SPINNING\_DISK\_OPTIMIZED\_HIGH\_MEM
+state.backend.rocksdb.predefined-options：SPINNING_DISK_OPTIMIZED_HIGH_MEM
 
 #设置为机械硬盘+内存模式
 
@@ -135,7 +135,7 @@ state.backend.rocksdb.block.cache-size: 64m #默认8m
 
 RocksDB 中，每个 State 使用一个 Column Family，每个 Column Family 使用独占的 write buffer，默认64MB，建议调大。
 
-调整这个参数通常要适当增加 L1 层的大小阈值max-size-level-base，默认256m。该值太小会造成能存放的SST文件过少，层级变多造成查找困难，太大会造成文件过多，合并困难。建议设为 target\_file\_size\_base（默认64MB） 的倍数，且不能太小，例如5~10倍，即320~640MB。
+调整这个参数通常要适当增加 L1 层的大小阈值max-size-level-base，默认256m。该值太小会造成能存放的SST文件过少，层级变多造成查找困难，太大会造成文件过多，合并困难。建议设为 target_file_size_base（默认64MB） 的倍数，且不能太小，例如5~10倍，即320~640MB。
 
 state.backend.rocksdb.writebuffer.size: 128m
 
@@ -171,55 +171,55 @@ state.backend.rocksdb.memory.partitioned-index-filters:true #默认false
 
 bin/flink run \\
 
-\-t yarn-per-job \\
+-t yarn-per-job \\
 
-\-d \\
+-d \\
 
-\-p 3 \\
+-p 3 \\
 
-\-Drest.flamegraph.enabled=true \\
+-Drest.flamegraph.enabled=true \\
 
-\-Dyarn.application.queue=default \\
+-Dyarn.application.queue=default \\
 
-\-Djobmanager.memory.process.size=1024mb \\
+-Djobmanager.memory.process.size=1024mb \\
 
-\-Dtaskmanager.memory.process.size=4096mb \\
+-Dtaskmanager.memory.process.size=4096mb \\
 
-\-Dtaskmanager.numberOfTaskSlots=2 \\
+-Dtaskmanager.numberOfTaskSlots=2 \\
 
-\-Dstate.backend.incremental=true \\
+-Dstate.backend.incremental=true \\
 
-\-Dstate.backend.local-recovery=true \\
+-Dstate.backend.local-recovery=true \\
 
-\-Dstate.backend.rocksdb.predefined-options=SPINNING\_DISK\_OPTIMIZED\_HIGH\_MEM \\
+-Dstate.backend.rocksdb.predefined-options=SPINNING_DISK_OPTIMIZED_HIGH_MEM \\
 
-\-Dstate.backend.rocksdb.block.cache-size=64m \\
+-Dstate.backend.rocksdb.block.cache-size=64m \\
 
-\-Dstate.backend.rocksdb.writebuffer.size=128m \\
+-Dstate.backend.rocksdb.writebuffer.size=128m \\
 
-\-Dstate.backend.rocksdb.compaction.level.max-size-level-base=320m \\
+-Dstate.backend.rocksdb.compaction.level.max-size-level-base=320m \\
 
-\-Dstate.backend.rocksdb.writebuffer.count=5 \\
+-Dstate.backend.rocksdb.writebuffer.count=5 \\
 
-\-Dstate.backend.rocksdb.thread.num=4 \\
+-Dstate.backend.rocksdb.thread.num=4 \\
 
-\-Dstate.backend.rocksdb.writebuffer.number-to-merge=3 \\
+-Dstate.backend.rocksdb.writebuffer.number-to-merge=3 \\
 
-\-Dstate.backend.rocksdb.memory.partitioned-index-filters=true \\
+-Dstate.backend.rocksdb.memory.partitioned-index-filters=true \\
 
-\-Dstate.backend.latency-track.keyed-state-enabled=true \\
+-Dstate.backend.latency-track.keyed-state-enabled=true \\
 
-\-c com.atguigu.flink.tuning.RocksdbTuning \\
+-c com.atguigu.flink.tuning.RocksdbTuning \\
 
 /opt/module/flink-1.13.1/myjar/flink-tuning-1.0-SNAPSHOT.jar
 
-​  
+  
 
 ### CheckPoint调优
 
   
 
-一般需求，我们的 Checkpoint 时间间隔可以设置为分钟级别（1 ~5 分钟）。对于状态很大的任务每次 Checkpoint 访问 HDFS 比较耗时，可以设置为 5~10 分钟一次Checkpoint，并且调大两次 Checkpoint 之间的暂停间隔，例如设置两次Checkpoint 之间至少暂停 4或8 分钟。同时，也需要考虑时效性的要求,需要在时效性和性能之间做一个平衡，如果时效性要求高，结合end\- to\-end时长，设置秒级或毫秒级。如果 Checkpoint 语义配置为 EXACTLY\_ONCE，那么在 Checkpoint 过程中还会存在 barrier 对齐的过程，可以通过 Flink Web UI 的 Checkpoint 选项卡来查看 Checkpoint 过程中各阶段的耗时情况，从而确定到底是哪个阶段导致 Checkpoint 时间过长然后针对性的解决问题。
+一般需求，我们的 Checkpoint 时间间隔可以设置为分钟级别（1 ~5 分钟）。对于状态很大的任务每次 Checkpoint 访问 HDFS 比较耗时，可以设置为 5~10 分钟一次Checkpoint，并且调大两次 Checkpoint 之间的暂停间隔，例如设置两次Checkpoint 之间至少暂停 4或8 分钟。同时，也需要考虑时效性的要求,需要在时效性和性能之间做一个平衡，如果时效性要求高，结合end- to-end时长，设置秒级或毫秒级。如果 Checkpoint 语义配置为 EXACTLY_ONCE，那么在 Checkpoint 过程中还会存在 barrier 对齐的过程，可以通过 Flink Web UI 的 Checkpoint 选项卡来查看 Checkpoint 过程中各阶段的耗时情况，从而确定到底是哪个阶段导致 Checkpoint 时间过长然后针对性的解决问题。
 
 RocksDB相关参数在前面已说明，可以在flink-conf.yaml指定，也可以在Job的代码中调用API单独指定，这里不再列出。
 
@@ -229,7 +229,7 @@ RocksDBStateBackend rocksDBStateBackend = new RocksDBStateBackend("hdfs://hadoop
 
 env.setStateBackend(rocksDBStateBackend);
 
-​  
+  
 
 // 开启Checkpoint，间隔为 3 分钟
 
@@ -239,7 +239,7 @@ env.enableCheckpointing(TimeUnit.MINUTES.toMillis(3));
 
 CheckpointConfig checkpointConf = env.getCheckpointConfig();
 
-checkpointConf.setCheckpointingMode(CheckpointingMode.EXACTLY\_ONCE)
+checkpointConf.setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE)
 
 // 最小间隔 4分钟
 
@@ -253,9 +253,9 @@ checkpointConf.setCheckpointTimeout(TimeUnit.MINUTES.toMillis(10));
 
 checkpointConf.enableExternalizedCheckpoints(
 
-CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN\_ON\_CANCELLATION);
+CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION);
 
-​  
+  
 
-​  
+  
 

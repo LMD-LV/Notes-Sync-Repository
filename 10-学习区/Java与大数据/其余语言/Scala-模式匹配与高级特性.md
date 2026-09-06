@@ -9,17 +9,17 @@ source: 个人总结
 
 Scala中的模式匹配类似于Java中的switch语法
 
-​  
+  
 
 #### 基本语法
 
-模式匹配语法中，采用match关键字声明，每个分支采用case关键字进行声明，当需要匹配时，会从第一个case分支开始，如果匹配成功，那么执行对应的逻辑代码，如果匹配不成功，继续执行下一个分支进行判断。如果所有case都不匹配，那么会执行case \_分支，类似于Java中default语句。
+模式匹配语法中，采用match关键字声明，每个分支采用case关键字进行声明，当需要匹配时，会从第一个case分支开始，如果匹配成功，那么执行对应的逻辑代码，如果匹配不成功，继续执行下一个分支进行判断。如果所有case都不匹配，那么会执行case _分支，类似于Java中default语句。
 
   
 
 说明
 
-（1）如果所有case都不匹配，那么会执行case \_ 分支，类似于Java中default语句，若此时没有case \_ 分支，那么会抛出MatchError。
+（1）如果所有case都不匹配，那么会执行case _ 分支，类似于Java中default语句，若此时没有case _ 分支，那么会抛出MatchError。
 
 （2）每个case中，不需要使用break语句，自动中断case。
 
@@ -27,7 +27,7 @@ Scala中的模式匹配类似于Java中的switch语法
 
 （4）=> 后面的代码块，直到下一个case语句之前的代码是**作为一个整体执行**，可以使用{}括起来，也可以不括。
 
-​  
+  
 
 ### 模式匹配常见用法
 
@@ -45,19 +45,19 @@ Scala中的模式匹配类似于Java中的switch语法
 
 小结
 
-Ø val user \= Person05("zhangsan",11)，该语句在执行时，实际调用的是Person05伴生对象中的**apply**方法，因此不用**new****关键字**就能构造出相应的对象。
+- val user = Person05("zhangsan",11)，该语句在执行时，实际调用的是Person05伴生对象中的**apply**方法，因此不用**new** **关键字**就能构造出相应的对象。
 
-Ø 当将Person05 **("zhangsan", 11)**写在case后时[case User("zhangsan", 11) => "yes"]，会默认调用**unapply**方法(对象提取器)，**user****作为****unapply****方法的参数**，unapply方法将user对象的name和age属性提取出来，与User("zhangsan", 11)中的属性值进行匹配
+- 当将Person05 **("zhangsan", 11)**写在case后时[case User("zhangsan", 11) => "yes"]，会默认调用**unapply**方法(对象提取器)，**user** **作为** **unapply** **方法的参数**，unapply方法将user对象的name和age属性提取出来，与User("zhangsan", 11)中的属性值进行匹配
 
-Ø case中对象的unapply方法(提取器)返回Some，且所有属性均一致，才算匹配成功,属性不一致，或返回None，则匹配失败。
+- case中对象的unapply方法(提取器)返回Some，且所有属性均一致，才算匹配成功,属性不一致，或返回None，则匹配失败。
 
-Ø 若只提取对象的一个属性，则提取器为**unapply**(obj:Obj):**Option[****T****]**
+- 若只提取对象的一个属性，则提取器为**unapply**(obj:Obj):**Option[** **T** **]**
 
-若提取对象的多个属性，则提取器为**un****apply**(obj:Obj):**Option[****(T1,T2,T3…)****]**
+若提取对象的多个属性，则提取器为**un** **apply**(obj:Obj):**Option[** **(T1,T2,T3…)** **]**
 
-若提取对象的可变个属性，则提取器为**un****applySeq**(obj:Obj):**Option[****Seq\[T]****\]**
+若提取对象的可变个属性，则提取器为**un** **applySeq**(obj:Obj):**Option[** **Seq\[T]** **\]**
 
-**2****）样例类**
+**2** **）样例类**
 
 （1）语法：
 
@@ -81,13 +81,13 @@ Scala中的模式匹配类似于Java中的switch语法
 
 偏函数也是函数的一种，通过偏函数我们可以方便的对输入参数做更精确的检查。例如该偏函数的输入类型为List[Int]，而我们需要的是第一个元素是0的集合，这就是通过模式匹配实现的。
 
-​  
+  
 
 **1）** **偏函数定义**
 
 val second: **PartialFunction**[List\[Int], Option[Int]\] = {
 
-case x :: y :: \_ => Some(y)
+case x :: y :: _ => Some(y)
 
 }
 
@@ -99,19 +99,19 @@ case x :: y :: \_ => Some(y)
 
 上述代码会被scala编译器翻译成以下代码，与普通函数相比，只是多了一个用于参数检查的函数——isDefinedAt，其返回值类型为Boolean。
 
-​  
+  
 
 **偏函数使用**
 
 偏函数不能像second(List(1,2,3))这样直接使用，因为这样会直接调用apply方法，而应该调用applyOrElse方法，如下
 
-second.applyOrElse(List(1,2,3), (\_: List[Int]) => None)
+second.applyOrElse(List(1,2,3), (_: List[Int]) => None)
 
-​  
+  
 
 applyOrElse方法的逻辑为 **if** (**ifDefinedAt(**list**)**) **apply(**list**)** else default。如果输入参数满足条件，即isDefinedAt返回true，则执行apply方法，否则执行defalut方法，default方法为参数不满足要求的处理逻辑。
 
-​  
+  
 
 #### 下划线的使用总结
 
@@ -129,7 +129,7 @@ applyOrElse方法的逻辑为 **if** (**ifDefinedAt(**list**)**) **apply(**list*
 
 （6）用于模式匹配表示任意数据。
 
-​  
+  
 
 # 异常
 
@@ -172,7 +172,7 @@ def f11()={
 "abc".toInt  
 }
 
-​  
+  
 
 # **隐式转换**
 
@@ -190,7 +190,7 @@ def f11()={
 
 需求：通过隐式转化为Int类型增加方法。
 
-​  
+  
 
 #### 隐式参数
 
@@ -210,7 +210,7 @@ def f11()={
 
 implicit val s: String = "lisi"
 
-​  
+  
 
 def sayHi(implicit name: String = "zhangsan"): Unit = {
 
@@ -218,27 +218,27 @@ println(s"hi $name")
 
 }
 
-​  
+  
 
-**​****//** **默认填写的参数变成****zhangsan**
+** ****//** **默认填写的参数变成** **zhangsan**
 
 sayHi("linhai")
 
-​  
+  
 
-**​****//** **参数默认值**
+** ****//** **参数默认值**
 
 sayHi()
 
-​  
+  
 
-**​****//** **不写括号 是隐式参数**
+** ****//** **不写括号 是隐式参数**
 
 sayHi
 
 }
 
-​  
+  
 
 # **第11章泛型**
 
@@ -252,7 +252,7 @@ class MyList[**+T**]{ //协变
 
 }
 
-class MyList[**\-T**]{ //逆变
+class MyList[**-T**]{ //逆变
 
 }
 
@@ -266,9 +266,9 @@ class MyList[**T**] //不变
 
 不变：Son是Father的子类，则MyList[Father]与MyList[Son]“无父子关系”。
 
-​  
+  
 
-​  
+  
 
 ### 11.2 泛型上下限
 
@@ -286,13 +286,13 @@ Class PersonList[**T >: Person**]{ //泛型下限
 
 泛型的上下限的作用是对传入的泛型进行限定。
 
-​  
+  
 
 ### 11.3 上下文限定
 
 1）语法
 
-**def** f\[**B: C**\](a: B) = println(a) //等同于**def** f\[**B**\](a:B)**(implicit arg:C[B])**\=println(a)
+**def** f\[**B: C**\](a: B) = println(a) //等同于**def** f\[**B**\](a:B)**(implicit arg:C[B])**=println(a)
 
 例如:
 
@@ -300,7 +300,7 @@ def sortBy\[B\](f: A => B)(implicit ord: Ordering[B]): Repr = sorted(ord on f)
 
 可以简写为:
 
-def sortBy\[B:Ordering\](f:A\=>B) : Repr = sorted(ord on f)
+def sortBy\[B:Ordering\](f:A=>B) : Repr = sorted(ord on f)
 
 2）说明
 

@@ -29,31 +29,31 @@ source: 个人总结
 
 bin/flink run \\
 
-\-t yarn-per-job \\
+-t yarn-per-job \\
 
-\-d \\
+-d \\
 
-\-p 3 \\
+-p 3 \\
 
-\-Drest.flamegraph.enabled=true \\
+-Drest.flamegraph.enabled=true \\
 
-\-Dyarn.application.queue=default \\
+-Dyarn.application.queue=default \\
 
-\-Djobmanager.memory.process.size=1024mb \\
+-Djobmanager.memory.process.size=1024mb \\
 
-\-Dtaskmanager.memory.process.size=2048mb \\
+-Dtaskmanager.memory.process.size=2048mb \\
 
-\-Dtaskmanager.numberOfTaskSlots=2 \\
+-Dtaskmanager.numberOfTaskSlots=2 \\
 
-\-c com.atguigu.flink.tuning.SkewDemo1 \\
+-c com.atguigu.flink.tuning.SkewDemo1 \\
 
 /opt/module/flink-1.13.1/myjar/flink-tuning-1.0-SNAPSHOT.jar \\
 
-\--local-keyby false
+--local-keyby false
 
 ![image.png](assets/Flink优化-11.png)
 
-​  
+  
 
 **为什么不能直接用二次聚合来处理**
 
@@ -61,19 +61,19 @@ Flink是实时流处理，如果keyby之后的聚合操作存在数据倾斜，�
 
 ![image.png](assets/Flink优化-12.png)
 
-​  
+  
 
-**2****）使用****LocalKeyBy****的思想**
+**2** **）使用** **LocalKeyBy** **的思想**
 
 在 keyBy 上游算子数据发送之前，首先在上游算子的本地对数据进行聚合后，再发送到下游，使下游接收到的数据量大大减少，从而使得 keyBy 之后的聚合操作不再是任务的瓶颈。类似MapReduce 中 Combiner 的思想，但是这要求聚合操作必须是多条数据或者一批数据才能聚合，单条数据没有办法通过聚合来减少数据量。从Flink LocalKeyBy 实现原理来讲，必然会存在一个积攒批次的过程，在上游算子中必须攒够一定的数据量，对这些数据聚合后再发送到下游。
 
 **实现方式：**
 
-Ø DataStreamAPI需要自己写代码实现
+- DataStreamAPI需要自己写代码实现
 
-Ø SQL可以指定参数，开启miniBatch和LocalGlobal功能（推荐，后续介绍）
+- SQL可以指定参数，开启miniBatch和LocalGlobal功能（推荐，后续介绍）
 
-​  
+  
 
 ### keyby之后窗口聚合引起的数据倾斜
 
@@ -81,13 +81,13 @@ Flink是实时流处理，如果keyby之后的聚合操作存在数据倾斜，�
 
 **1）实现思路：**
 
-Ø 第一阶段聚合：key拼接随机数前缀或后缀，进行keyby、开窗、聚合
+- 第一阶段聚合：key拼接随机数前缀或后缀，进行keyby、开窗、聚合
 
 *注意：**聚合完不再是**WindowedStream，要获取WindowEnd作为窗口标记作为第二阶段分组依据，避免不同窗口的结果聚合到一起）*
 
-Ø 第二阶段聚合：按照原来的key及windowEnd作keyby、聚合
+- 第二阶段聚合：按照原来的key及windowEnd作keyby、聚合
 
-​  
+  
 
 随机数范围，需要自己去测，因为keyby的分区器是（两次hash\*下游并行度/最大并行度）
 
@@ -103,7 +103,7 @@ Flink从1.11开始提供了一个内置的DataGen 连接器，主要是用于生
 
 ### DataStream的DataGenerator
 
-### ​**SQL的DataGenerator**
+### **SQL的DataGenerator**
 
 ## 1.1 **算子指定UUID**
 
@@ -113,7 +113,7 @@ Flink从1.11开始提供了一个内置的DataGen 连接器，主要是用于生
 
 Flink 算子的 UUID 可以通过 uid(String uid) 方法指定，通常也建议指定name
 
-​  
+  
 
 #算子.uid("指定uid")
 
@@ -129,11 +129,11 @@ metrics.latency.interval: 30000 #默认0，表示禁用，单位毫秒
 
 监控的粒度，分为以下3档：
 
-Ø single：每个算子单独统计延迟；
+- single：每个算子单独统计延迟；
 
-Ø operator（默认值）：每个下游算子都统计自己与Source算子之间的延迟；
+- operator（默认值）：每个下游算子都统计自己与Source算子之间的延迟；
 
-Ø subtask：每个下游算子的sub-task都统计自己与Source算子的sub-task之间的延迟。
+- subtask：每个下游算子的sub-task都统计自己与Source算子的sub-task之间的延迟。
 
 metrics.latency.granularity: operator #默认operator
 
@@ -141,11 +141,11 @@ metrics.latency.granularity: operator #默认operator
 
 LatencyMarker不会参与到数据流的用户逻辑中的，而是直接被各算子转发并统计。为了让它尽量精确，有两点特别需要注意：
 
-Ø 保证Flink集群内所有节点的时区、时间是同步的：ProcessingTimeService产生时间戳最终是靠System.currentTimeMillis()方法，可以用ntp等工具来配置。
+- 保证Flink集群内所有节点的时区、时间是同步的：ProcessingTimeService产生时间戳最终是靠System.currentTimeMillis()方法，可以用ntp等工具来配置。
 
-Ø metrics.latency.interval的时间间隔宜大不宜小：一般配置成30000（30秒）左右。一是因为延迟监控的频率可以不用太频繁，二是因为LatencyMarker的处理也要消耗一定性能。
+- metrics.latency.interval的时间间隔宜大不宜小：一般配置成30000（30秒）左右。一是因为延迟监控的频率可以不用太频繁，二是因为LatencyMarker的处理也要消耗一定性能。
 
-​  
+  
 
 端到端延迟的tag只有murmur hash过的算子ID（用uid()方法设定的），并没有算子名称，（[https://issues.apache.org/jira/browse/FLINK-8592](https://issues.apache.org/jira/browse/FLINK-8592)）并且官方暂时不打算解决这个问题，所以我们要么用最大值来表示，要么将作业中Sink算子的ID统一化。比如使用了Prometheus和Grafana来监控，效果如下：
 
@@ -167,19 +167,19 @@ LatencyMarker不会参与到数据流的用户逻辑中的，而是直接被各�
 
 我们经常会碰到这种需求：以3分钟的频率实时计算App内各个子模块近24小时的PV和UV。我们需要用粒度为1440 / 3 = 480的滑动窗口来实现它，但是细粒度的滑动窗口会带来性能问题，有两点：
 
-Ø 状态
+- 状态
 
 对于一个元素，会将其写入对应的(key, window)二元组所圈定的windowState状态中。如果粒度为480，那么每个元素到来，更新windowState时都要遍历480个窗口并写入，开销是非常大的。在采用RocksDB作为状态后端时，checkpoint的瓶颈也尤其明显。
 
-Ø 定时器
+- 定时器
 
 每一个(key, window)二元组都需要注册两个定时器：一是触发器注册的定时器，用于决定窗口数据何时输出；二是registerCleanupTimer()方法注册的清理定时器，用于在窗口彻底过期（如allowedLateness过期）之后及时清理掉窗口的内部状态。细粒度滑动窗口会造成维护的定时器增多，内存负担加重。
 
-**2****）解决思路**
+**2** **）解决思路**
 
 DataStreamAPI中，自己解决（[https://issues.apache.org/jira/browse/FLINK-7001](https://issues.apache.org/jira/browse/FLINK-7001)）。
 
-我们一般使用**滚动窗口****+在线存储+读时聚合**的思路作为解决方案：
+我们一般使用**滚动窗口** **+在线存储+读时聚合**的思路作为解决方案：
 
 （1）从业务的视角来看，往往窗口的长度是可以被步长所整除的，可以找到窗口长度和窗口步长的最小公约数作为时间分片（一个滚动窗口的长度）；
 

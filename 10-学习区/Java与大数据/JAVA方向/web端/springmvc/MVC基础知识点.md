@@ -13,15 +13,15 @@ param参数和 json参数
 
 前后端分离
 
-​  
+  
 
 thymeleaf
 
-​  
+  
 
 responseBody
 
-​  
+  
 
 web中讲到，重定向中不能访问web-inf下的资源，但是为什么使用springmvc提哦的重定向就可以？静态不行？
 
@@ -29,19 +29,19 @@ web中讲到，重定向中不能访问web-inf下的资源，但是为什么使�
 
 delete，get没有请求体
 
-​  
+  
 
 filter在sprnigmvc之外拦截，handleerInterceptor在内部，可以作用于handle之前之后，及视图解析器之后
 
-​  
+  
 
 spring中的两个ioc容器是什么
 
-​  
+  
 
 sql中的limit的后两个参数的使用。limit 2，3；
 
-​  
+  
 
 完成mvc的接口的测试，尤其是对象和json接受返回部分，
 
@@ -49,11 +49,11 @@ sql中的limit的后两个参数的使用。limit 2，3；
 
 ssm整合的代码注释
 
-​  
+  
 
 在配置类中声明bean，和别的类中有什么区别吗
 
-​  
+  
 
 ### 简介
 
@@ -139,7 +139,7 @@ public String testRest(@PathVariable("id") String id, @PathVariable("username") 
 1.  转发视图，以forward作为前缀，为转发视图，默认解析器为 internalResourceView，例如forward:/testHello
 2.  重定向视图，以redirect作为前缀，为重定向视图，默认解析器为RedirectView，例如 redirect:/testHello
 
-4.  当配置文件中定义了<mvc:view-controller> 来修饰控制器方法，此时可以实现页面跳转，但是其余所有的请求映射将全部失效，除非配置 开启mvc注解驱动的标签，<mvc:annotation-driven>
+4.  当配置文件中定义了\<mvc:view-controller> 来修饰控制器方法，此时可以实现页面跳转，但是其余所有的请求映射将全部失效，除非配置 开启mvc注解驱动的标签，\<mvc:annotation-driven>
 
 ### springmvc中的HttpMessageConverter
 
@@ -152,7 +152,7 @@ public String testRest(@PathVariable("id") String id, @PathVariable("username") 
 4.  requestEntity，一种封装报文的类型，在控制器方法中设置为形参的类型，会自动获取请求报文的值，然后可以通过形参的 getHeaders()，getBody() 获取具体的值
 5.  responseEntity，用于定义响应数据的类型
 
-3.  springmvc中导入jackjson的依赖，配置<mvc:annotation-driven />，HandlerAdaptor中会自动装配一个消息转换器：MappingJackson2HttpMessageConverter，可以将响应到浏览器的Java对象转换为Json格式的字符串，在处理器方法上使用@ResponseBody注解进行标识，就可以实现 java对象返回到浏览器后自动转化为json格式的数据
+3.  springmvc中导入jackjson的依赖，配置\<mvc:annotation-driven />，HandlerAdaptor中会自动装配一个消息转换器：MappingJackson2HttpMessageConverter，可以将响应到浏览器的Java对象转换为Json格式的字符串，在处理器方法上使用@ResponseBody注解进行标识，就可以实现 java对象返回到浏览器后自动转化为json格式的数据
 
 ### springMVC中的拦截器，异常处理器
 

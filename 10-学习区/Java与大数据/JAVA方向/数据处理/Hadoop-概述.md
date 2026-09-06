@@ -6,7 +6,7 @@ domain: Java与大数据
 source: 个人总结
 ---
 
-​  
+  
 
 # Hadoop概述
 
@@ -16,7 +16,7 @@ Hadoop是一个分布式系统基础架构
 
 是一个生态圈
 
-​  
+  
 
 #### Hadoop发行版本
 
@@ -38,7 +38,7 @@ MapReduce(计算) ,Yarn(资源调度),HDFS(数据存储),Common(辅助工具)
 
 2.x新增的Yarn
 
-​  
+  
 
 #### HDFS概述:
 
@@ -50,7 +50,7 @@ Hadoop Distributed File System简称HDFS,分布式文件系统
 
 2NN(Secondary NameNode):每隔一段时间堆Namenode元数据备份
 
-​  
+  
 
 #### Yarn构架概述
 
@@ -60,7 +60,7 @@ Yet Another Resource Negotiator简称YARN,资源协调者,是Hadoop的资源管�
 
   
 
-​  
+  
 
 #### Mapreduce架构概述
 
@@ -70,17 +70,17 @@ map阶段进行并行处理输出数据
 
 redece阶段对Map结果进行汇总
 
-​  
+  
 
 #### 三者的关系
 
 ![image.png](assets/Hadoop-2.png)
 
-​  
+  
 
 ![image.png](assets/Hadoop-3.png)
 
-​  
+  
 
 图中涉及的技术名词解释如下：
 
@@ -102,7 +102,7 @@ redece阶段对Map结果进行汇总
 
 （9）ZooKeeper：它是一个针对大型分布式系统的可靠协调系统，提供的功能包括：配置维护、名字服务、分布式同步、组服务等。
 
-​  
+  
 
 ### Hadoop序列化
 
@@ -114,25 +114,25 @@ redece阶段对Map结果进行汇总
 
 序列化作用于保存数据,发送数据
 
-**为什么不用****Java****的序列化**
+**为什么不用** **Java** **的序列化**
 
 Java的序列化是一个重量级序列化框架（Serializable），一个对象被序列化后，会附带很多额外的信息（各种校验信息，Header，继承体系等），不便于在网络中高效传输。所以，Hadoop自己开发了一套序列化机制（Writable）
 
-**Hadoop****序列化特点**
+**Hadoop** **序列化特点**
 
-**Ø** **紧凑****：**高效使用存储空间。
+**Ø** **紧凑** **：**高效使用存储空间。
 
 **Ø** **快速：**读写数据的额外开销小。
 
 **Ø 互操作：**支持多语言的交互
 
-​  
+  
 
 #### 自定义bean对象实现序列化接口(writable)
 
 在企业开发中往往常用的基本序列化类型不能满足所有需求，比如在Hadoop框架内部传递一个bean对象，那么该对象就需要实现序列化接口。
 
-​  
+  
 
 具体实现bean对象序列化步骤如下7步。
 
@@ -150,13 +150,13 @@ Java的序列化是一个重量级序列化框架（Serializable），一个对�
 
 （7）如果需要将自定义的bean放在key中传输，则还需要实现Comparable接口，因为MapReduce框中的Shuffle过程要求对key必须能排序。
 
-​  
+  
 
   
 
 #### 案例实操
 
-​  
+  
 
 ### Hadoop数据压缩
 
@@ -194,11 +194,11 @@ Java的序列化是一个重量级序列化框架（Serializable），一个对�
 
 Snappy is a compression/decompression library. It does not aim for maximum compression, or compatibility with any other compression library; instead, it aims for very high speeds and reasonable compression. For instance, compared to the fastest mode of zlib, Snappy is an order of magnitude faster for most inputs, but the resulting compressed files are anywhere from 20% to 100% bigger.On a single core of a Core i7 processor in 64-bit mode, Snappy compresses at about 250 MB/sec or more and decompresses at about 500 MB/sec or more.
 
-​  
+  
 
 压缩方式选择时重点考虑：压缩/解压缩速度、压缩率（压缩后存储大小）、压缩后是否可以支持切片。
 
-​  
+  
 
 Gzip压缩
 

@@ -23,7 +23,7 @@ mapper接口的地址需要在applicaitonContext配置文件中配置，用于�
 
 添加扫描组件的配置，扫描不同层的组件
 
-​  
+  
 
 #### 默认的功能
 
@@ -31,7 +31,7 @@ BaseMapper 范型为要操作的实体类型，包含了各种CRUD方法，可�
 
 驼峰转下划线已经被设置为默认配置了
 
-​  
+  
 
 #### 常见注释
 
@@ -43,7 +43,7 @@ BaseMapper 范型为要操作的实体类型，包含了各种CRUD方法，可�
 
 @TableLogic 指定逻辑字段
 
-​  
+  
 
 #### wrapper的使用
 
@@ -51,9 +51,9 @@ Wrapper条件构造器，常见的有 queryWrapper ，UpdateWrapper，LambdaQuer
 
 BaseMapper中的多数方法都支持Wrapper类型的形参
 
-​  
+  
 
-​  
+  
 
 #### 常见插件
 
@@ -67,10 +67,9 @@ BaseMapper中的多数方法都支持Wrapper类型的形参
 
 通过读取表，快速生成mapper接口，或者反过来
 
-​  
+  
 
-​  
+  
 
-​  
+  
 
-​

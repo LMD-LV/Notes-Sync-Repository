@@ -16,13 +16,13 @@ source: 个人总结
 ① 节点有性能瓶颈可能是**该节点所在的机器有故障（网络、磁盘等）、机器的网络延迟和磁盘不足、频繁GC、数据热点**等原因。  
 ② 大多数消息中间件，例如**kafka的consumer从broker把数据pull到本地，而producer把数据push到broker**。
 
-​  
+  
 
 简单来说，Flink 拓扑中每个节点（Task）间的数据都以阻塞队列的方式传输，下游来不及消费导致队列被占满后，上游的生产也会被阻塞，最终导致数据源的摄入被阻塞。
 
 反压（BackPressure）通常产生于这样的场景：短时间的负载高峰导致系统接收数据的速率远高于它处理数据的速率。许多日常问题都会导致反压，例如，垃圾回收停顿可能会导致流入的数据快速堆积，或遇到大促、秒杀活动导致流量陡增。
 
-​  
+  
 
 ### **反压的危害**
 
@@ -46,9 +46,9 @@ Flink Web UI 的反压监控提供了 SubTask 级别的反压监控，1.13版本
 
 Flink 1.13 优化了反压检测的逻辑（使用基于任务 Mailbox 计时，而不在再于堆栈采样），并且重新实现了作业图的 UI 展示：Flink 现在在 UI 上通过颜色和数值来展示繁忙和反压的程度。
 
-​  
+  
 
-​  
+  
 
 #### 分析瓶颈算子
 
@@ -79,25 +79,25 @@ Flink 1.13 优化了反压检测的逻辑（使用基于任务 Mailbox 计时，
 
 分析反压的大致思路是：如果一个 Subtask 的发送端 Buffer 占用率很高，则表明它被下游反压限速了；如果一个 Subtask 的接受端 Buffer 占用很高，则表明它将反压传导至上游。反压情况可以根据以下表格进行对号入座(1.9以上):
 
-| ​ | **outPoolUsage****低** | **outPoolUsage****高** |
+|  | **outPoolUsage** **低** | **outPoolUsage** **高** |
 | --- | --- | --- |
-| **inPoolUsage****低** | 正常 | 被下游反压，处于临时情况<br>（还没传递到上游） |
+| **inPoolUsage** **低** | 正常 | 被下游反压，处于临时情况<br>（还没传递到上游） |
 |  |  | 可能是反压的根源，一条输入多条输出的场景 |
-| **inPoolUsage****高** | 如果上游所有outPoolUsage都是低，有可能最终可能导致反压（还没传递到上游） | 被下游反压 |
+| **inPoolUsage** **高** | 如果上游所有outPoolUsage都是低，有可能最终可能导致反压（还没传递到上游） | 被下游反压 |
 |  | 如果上游的outPoolUsage是高，则为反压根源 |  |
 
 **2）可以进一步分析数据传输**
 
 Flink 1.9及以上版本，还可以根据 floatingBuffersUsage/exclusiveBuffersUsage 以及其上游 Task 的 outPoolUsage 来进行进一步的分析一个 Subtask 和其上游 Subtask 的数据传输。
 
-在流量较大时，Channel 的 Exclusive Buffer 可能会被写满，此时 Flink 会向 Buffer Pool 申请剩余的 Floating Buffer。这些 **Floating Buffer 属于备用 Buffer****。**
+在流量较大时，Channel 的 Exclusive Buffer 可能会被写满，此时 Flink 会向 Buffer Pool 申请剩余的 Floating Buffer。这些 **Floating Buffer 属于备用 Buffer** **。**
 
-| ​ | **exclusiveBuffersUsage****低** | **exclusiveBuffersUsage****高** |
+|  | **exclusiveBuffersUsage** **低** | **exclusiveBuffersUsage** **高** |
 | --- | --- | --- |
-| **floatingBuffersUsage ********低**<br>**所有上游****outPoolUsage ****低** | 正常 | ​ |
-| **floatingBuffersUsage ********低**<br>**上游某个****outPoolUsage ****高** | 潜在的网络瓶颈 | ​ |
-| **floatingBuffersUsage ********高**<br>**所有上游****outPoolUsage ****低** | 最终对部分inputChannel反压（正在传递） | 最终对大多数或所有inputChannel反压（正在传递） |
-| **floatingBuffersUsage ********高**<br>**上游某个****outPoolUsage ****高** | 只对部分inputChannel反压 | 对大多数或所有inputChannel反压 |
+| **floatingBuffersUsage ** **** **低**<br>**所有上游** **outPoolUsage ** **低** | 正常 |  |
+| **floatingBuffersUsage ** **** **低**<br>**上游某个** **outPoolUsage ** **高** | 潜在的网络瓶颈 |  |
+| **floatingBuffersUsage ** **** **高**<br>**所有上游** **outPoolUsage ** **低** | 最终对部分inputChannel反压（正在传递） | 最终对大多数或所有inputChannel反压（正在传递） |
+| **floatingBuffersUsage ** **** **高**<br>**上游某个** **outPoolUsage ** **高** | 只对部分inputChannel反压 | 对大多数或所有inputChannel反压 |
 
 总结：
 
@@ -117,7 +117,7 @@ Flink 1.9及以上版本，还可以根据 floatingBuffersUsage/exclusiveBuffers
 
 在实践中，很多情况下的反压是由于数据倾斜造成的，这点我们可以通过 Web UI 各个 SubTask 的 Records Sent 和 Record Received 来确认，另外 Checkpoint detail 里不同 SubTask 的 State size 也是一个分析数据倾斜的有用指标。
 
-​  
+  
 
 #### 外部组件的交互
 
@@ -151,7 +151,7 @@ ClickHouse并发能力较弱，是否达到瓶颈
 
 最有用的办法就是对 TaskManager 进行 CPU profile，从中我们可以分析到 Task Thread 是否跑满一个 CPU 核：如果是的话要分析 CPU 主要花费在哪些函数里面；如果不是的话要看 Task Thread 阻塞在哪里，可能是用户函数本身有些同步的调用，可能是 checkpoint 或者 GC 等系统活动导致的暂时系统暂停。
 
-​  
+  
 
 **1）开启火焰图功能**
 
@@ -163,25 +163,25 @@ rest.flamegraph.enabled: true #默认false
 
 bin/flink run \\
 
-\-t yarn-per-job \\
+-t yarn-per-job \\
 
-\-d \\
+-d \\
 
-\-p 3 \\
+-p 3 \\
 
-\-Drest.flamegraph.enabled=true \\
+-Drest.flamegraph.enabled=true \\
 
-\-Dyarn.application.queue=default \\
+-Dyarn.application.queue=default \\
 
-\-Drest.flamegraph.enabled=true \\
+-Drest.flamegraph.enabled=true \\
 
-\-Djobmanager.memory.process.size=1024mb \\
+-Djobmanager.memory.process.size=1024mb \\
 
-\-Dtaskmanager.memory.process.size=2048mb \\
+-Dtaskmanager.memory.process.size=2048mb \\
 
-\-Dtaskmanager.numberOfTaskSlots=2 \\
+-Dtaskmanager.numberOfTaskSlots=2 \\
 
-\-c com.atguigu.flink.tuning.UvDemo \\
+-c com.atguigu.flink.tuning.UvDemo \\
 
 /opt/module/flink-1.13.1/myjar/flink-tuning-1.0-SNAPSHOT.jar
 
@@ -191,67 +191,67 @@ bin/flink run \\
 
 火焰图是通过对堆栈跟踪进行多次采样来构建的。每个方法调用都由一个条形表示，其中条形的长度与其在样本中出现的次数成正比。
 
-Ø On-CPU: 处于 [RUNNABLE, NEW]状态的线程
+- On-CPU: 处于 [RUNNABLE, NEW]状态的线程
 
-Ø Off-CPU: 处于 [TIMED\_WAITING, WAITING, BLOCKED]的线程，用于查看在样本中发现的阻塞调用。
+- Off-CPU: 处于 [TIMED_WAITING, WAITING, BLOCKED]的线程，用于查看在样本中发现的阻塞调用。
 
 **3）分析火焰图**
 
 颜色没有特殊含义，具体查看：
 
-Ø 纵向是调用链，从下往上，顶部就是正在执行的函数
+- 纵向是调用链，从下往上，顶部就是正在执行的函数
 
-Ø 横向是样本出现次数，可以理解为执行时长。
+- 横向是样本出现次数，可以理解为执行时长。
 
-**看顶层的哪个函数占据的宽度最大。只要有****"平顶"（plateaus），就表示该函数可能存在性能问题。**
+**看顶层的哪个函数占据的宽度最大。只要有** **"平顶"（plateaus），就表示该函数可能存在性能问题。**
 
 如果是Flink 1.13以前的版本，可以手动做火焰图：
 
 如何生成火焰图：[http://www.54tianzhisheng.cn/2020/10/05/flink-jvm-profiler/](http://www.54tianzhisheng.cn/2020/10/05/flink-jvm-profiler/)
 
-**​**  
+** **  
 
 #### 分析GC情况
 
-### 1.1.1 **分析****GC情况**
+### 1.1.1 **分析** **GC情况**
 
 TaskManager 的内存以及 GC 问题也可能会导致反压，包括 TaskManager JVM 各区内存不合理导致的频繁 Full GC 甚至失联。通常建议使用默认的G1垃圾回收器。
 
 可以通过打印GC日志（-XX:+PrintGCDetails），使用GC 分析器（GCViewer工具）来验证是否处于这种情况。
 
-Ø 在Flink提交脚本中,设置JVM参数，打印GC日志：
+- 在Flink提交脚本中,设置JVM参数，打印GC日志：
 
 bin/flink run \\
 
-\-t yarn-per-job \\
+-t yarn-per-job \\
 
-\-d \\
+-d \\
 
-\-p 3 \\
+-p 3 \\
 
-\-Drest.flamegraph.enabled=true \\
+-Drest.flamegraph.enabled=true \\
 
-\-Denv.java.opts="-XX:+PrintGCDetails -XX:+PrintGCDateStamps" \\
+-Denv.java.opts="-XX:+PrintGCDetails -XX:+PrintGCDateStamps" \\
 
-\-Dyarn.application.queue=default \\
+-Dyarn.application.queue=default \\
 
-\-Djobmanager.memory.process.size=1024mb \\
+-Djobmanager.memory.process.size=1024mb \\
 
-\-Dtaskmanager.memory.process.size=2048mb \\
+-Dtaskmanager.memory.process.size=2048mb \\
 
-\-Dtaskmanager.numberOfTaskSlots=2 \\
+-Dtaskmanager.numberOfTaskSlots=2 \\
 
-\-c com.atguigu.flink.tuning.UvDemo \\
+-c com.atguigu.flink.tuning.UvDemo \\
 
 /opt/module/flink-1.13.1/myjar/flink-tuning-1.0-SNAPSHOT.jar
 
-Ø 下载GC日志的方式：
+- 下载GC日志的方式：
 
 因为是on yarn模式，运行的节点一个一个找比较麻烦。可以打开WebUI，选择JobManager或者TaskManager，点击Stdout，即可看到GC日志，点击下载按钮即可将GC日志通过HTTP的方式下载下来。
 
-​  
+  
 
-Ø 分析GC日志：
+- 分析GC日志：
 
 通过 GC 日志分析出单个 Flink Taskmanager 堆总大小、年轻代、老年代分配的内存空间、Full GC 后老年代剩余大小等，相关指标定义可以去 Github 具体查看。
 
@@ -259,11 +259,11 @@ GCViewer地址：[https://github.com/chewiebug/GCViewer](https://github.com/chew
 
 Linux下分析：
 
-java -jar gcviewer\_1.3.4.jar gc.log
+java -jar gcviewer_1.3.4.jar gc.log
 
 Windows下分析：
 
-直接双击gcviewer\_1.3.4.jar，打开GUI界面，选择gc的log打开
+直接双击gcviewer_1.3.4.jar，打开GUI界面，选择gc的log打开
 
 *扩展：最重要的指标是**Full GC 后，老年代剩余大小**这个指标，按照《Java 性能优化权威指南》这本书 Java 堆大小计算法则，设 Full GC 后老年代剩余大小空间为 M，那么堆的大小建议 3 ~ 4倍 M，新生代为 1 ~ 1.5 倍 M，老年代应为 2 ~ 3 倍 M。*
 

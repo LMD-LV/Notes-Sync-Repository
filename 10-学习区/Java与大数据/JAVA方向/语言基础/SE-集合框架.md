@@ -56,7 +56,7 @@ Collection接口:
 
 * Properties类
 
-​  
+  
 
 Collection接口
 
@@ -86,7 +86,7 @@ Collection接口
 
 * 如果此 collection 不包含元素，则返回 true。
 
-* Iterator<E> iterator()
+* Iterator\<E> iterator()
 
 * 返回在此 collection 的元素上进行迭代的迭代器。
 
@@ -106,7 +106,7 @@ Collection集合的面试题:
 
 程序中所有的接口都隐式包含Object类中方法的抽象形式
 
-​  
+  
 
 Collection集合第一种遍历方式:Iterator迭代器
 
@@ -144,13 +144,13 @@ Iterator迭代器的注意事项:
 
 2.在使用迭代器针对集合迭代的过程中,不能针对集合做任何元素的修改,否则会发ConcurrentModificationException(并发修改异常)
 
-​  
+  
 
 Iterator接口是针对Collection接口进行迭代的迭代器工具接口
 
 boolean hasNext() E next() void remove()
 
-​  
+  
 
 #### 增强for
 
@@ -166,19 +166,19 @@ Collection集合第二种遍历方式:增强for(JDK5.0新特性)
 
 * }
 
-​  
+  
 
 1.在使用增强for针对集合迭代的过程中,不能针对集合做任何元素的修改,否则会发生ConcurrentModificationException(并发修改异常)
 
 2.增强for除了可以遍历集合外,还可以遍历数组,将数组转换为集合再进行迭代,不推荐使用增强for遍历数组
 
-​  
+  
 
 Collection集合第三种遍历方式:forEach()
 
 Collection集合第四种遍历方式:Stream流
 
-​  
+  
 
 #### 泛型
 
@@ -186,53 +186,53 @@ Collection集合第四种遍历方式:Stream流
 
 前提条件: 如果需要使用泛型,需要进行声明
 
-格式 <未知类型>
+格式 \<未知类型>
 
 注意事项:如果使用含有泛型的类,接口,方法,必须给其确认泛型,如果不进行确认,JVM自动帮助我们进行确认为Object类型
 
-​  
+  
 
 泛型的使用 基础应用 高级应用 含有泛型的类,接口,方法
 
-​  
+  
 
 含有泛型的接口:
 
-格式: public interface 接口名<泛型> {}
+格式: public interface 接口名\<泛型> {}
 
 确认时机: 创建该接口的实现类对象
 
-确认格式: 接口名<泛型类型> 对象名 = new 实现类类名();
+确认格式: 接口名\<泛型类型> 对象名 = new 实现类类名();
 
 含有泛型的类:
 
-格式: public class 类名<泛型> {}
+格式: public class 类名\<泛型> {}
 
 确认时机: 创建该类对象时
 
-确认格式:优化前:类名<泛型类型> 对象名 = new 类名<泛型类型>();
+确认格式:优化前:类名\<泛型类型> 对象名 = new 类名\<泛型类型>();
 
-父类名<泛型类型> 对象名 = new 类名<泛型类型>();
+父类名\<泛型类型> 对象名 = new 类名\<泛型类型>();
 
 优化后(JDK7.0):
 
-类名<泛型类型> 对象名 = new 类名<>();
+类名\<泛型类型> 对象名 = new 类名<>();
 
-父类名<泛型类型> 对象名 = new 类名<>();
+父类名\<泛型类型> 对象名 = new 类名<>();
 
 含有泛型的方法:
 
-格式: 修饰符 <泛型> 返回类型 方法名 () {}
+格式: 修饰符 \<泛型> 返回类型 方法名 () {}
 
 确认时机: 调用方法并进行传参时
 
 确认格式: 方法名(泛型类型);
 
-​  
+  
 
 泛型的高级应用:通配符
 
-格式: 优化前: 修饰符 <泛型>返回类型 方法名 (类名或接口<泛型> 对象名) {}
+格式: 优化前: 修饰符 \<泛型>返回类型 方法名 (类名或接口\<泛型> 对象名) {}
 
 优化后: 修饰符 返回类型 方法名 (类名或接口<?> 对象名) {}
 
@@ -246,7 +246,7 @@ Collection集合第四种遍历方式:Stream流
 
 特点: 泛型的类型是该类型本身,也可以是该类型的父类类型
 
-​  
+  
 
 #### List接口
 
@@ -296,7 +296,7 @@ Collection集合第四种遍历方式:Stream流
 
 * 返回此列表中最后出现的指定元素的索引；如果列表不包含此元素，则返回 -1。
 
-* ListIterator<E> listIterator()
+* ListIterator\<E> listIterator()
 
 * 返回此列表元素的列表迭代器（按适当顺序）。
 
@@ -308,23 +308,23 @@ Collection集合第四种遍历方式:Stream流
 
 * 用指定元素替换列表中指定位置的元素（可选操作）。
 
-* List<E> subList(int fromIndex,int toIndex)
+* List\<E> subList(int fromIndex,int toIndex)
 
 * 返回列表中指定的 fromIndex（包括 ）和 toIndex（不包括）之间的部分视图。
 
 * /
 
-​  
+  
 
 List集合的6种遍历方式:1.迭代器 2.增强for 3.forEach() 4.Stream流 5.特有迭代器 6.普通for
 
-​  
+  
 
 集合删除时的小问题:每次成功删除,集合的长度都会改变
 
 解决方案:1.每次成功删除,将索引往前移动一位 2.倒序遍历进行删除 3 . 迭代器中remove()
 
-​  
+  
 
 #### ArryList与Vetor
 
@@ -356,7 +356,7 @@ ArrayList类
 
 * 详见Collection集合和List集合的常用方法
 
-​  
+  
 
 ArrayList集合的源码分析:
 
@@ -402,7 +402,7 @@ ArrayList集合的源码分析:
 
 * 
 
-​  
+  
 
 Vector类
 
@@ -426,7 +426,7 @@ Vector类
 
 * 详见Collection集合和List集合的常用方法
 
-​  
+  
 
 ArrayList集合和Vector集合的区别:
 
@@ -480,7 +480,7 @@ ArrayList集合和Vector集合的区别:
 
 * 原来数组长度 + 增量变量
 
-​  
+  
 
 #### Collections类
 
@@ -498,7 +498,7 @@ ArrayList集合和Vector集合的区别:
 
 * 类的方法
 
-* public static <T> boolean addAll(Collection<? super T> c,T... elements)
+* public static \<T> boolean addAll(Collection<? super T> c,T... elements)
 
 * 将所有指定元素添加到指定 collection 中
 
@@ -510,17 +510,17 @@ ArrayList集合和Vector集合的区别:
 
 * 使用默认随机源对指定列表进行置换。
 
-* public static <T extends Comparable<? super T>> void sort(List<T> list)
+* public static \<T extends Comparable<? super T>> void sort(List\<T> list)
 
 * 根据元素的自然顺序 对指定列表按升序进行排序
 
-* public static <T> void sort(List<T> list,Comparator<? super T> c)
+* public static \<T> void sort(List\<T> list,Comparator<? super T> c)
 
 * 根据指定比较器产生的顺序对指定列表进行排序。
 
 * /
 
-​  
+  
 
 #### 链接列表(链表):
 
@@ -606,7 +606,7 @@ ArrayList集合和Vector集合的区别:
 
 * 移除并返回此列表的最后一个元素。
 
-​  
+  
 
 #### Map接口
 
@@ -662,15 +662,15 @@ ArrayList集合和Vector集合的区别:
 
 * 返回此映射中的键-值映射关系数
 
-* Set<K> keySet()
+* Set\<K> keySet()
 
 * 返回此映射中包含的键的 Set 视图。
 
-* Collection<V> values()
+* Collection\<V> values()
 
 * 返回此映射中包含的值的 Collection 视图。
 
-* Set<Map.Entry<K,V>> entrySet()
+* Set\<Map.Entry\<K,V>> entrySet()
 
 * 返回此映射中包含的映射关系的 Set 视图。
 
@@ -680,7 +680,7 @@ Map集合通用的遍历方式
 
 2:键值对对象的方式
 
-​  
+  
 
 * Map.Entry接口
 
@@ -702,7 +702,7 @@ Map集合通用的遍历方式
 
 * 返回与此项对应的值
 
-​  
+  
 
 #### Set接口:
 
@@ -734,7 +734,7 @@ Map集合通用的遍历方式
 
 * 详见Collection集合常用方法
 
-​  
+  
 
 #### HashSet类
 
@@ -766,9 +766,9 @@ Map集合通用的遍历方式
 
 * 详见Collection集合常用方法
 
-​  
+  
 
-​  
+  
 
 HashSet集合过滤重复元素原理
 
@@ -800,7 +800,7 @@ HashSet集合过滤重复元素原理
 
 * 
 
-​  
+  
 
 LinkedHashSet类
 
@@ -832,7 +832,7 @@ LinkedHashSet类
 
 * 详见Collection集合常用方法
 
-​  
+  
 
 #### 红黑树数据结构:
 
@@ -896,7 +896,7 @@ LinkedHashSet类
 
 * 详见Collection集合常用方法
 
-​  
+  
 
 TreeSet集合的排序特点:
 
@@ -922,7 +922,7 @@ TreeSet集合的排序特点:
 
 * 
 
-​  
+  
 
 自然顺序比较器:
 
@@ -932,14 +932,14 @@ TreeSet集合的排序特点:
 
 * 3.在重写方法时,需要确认比较的规则,使用规则进行减法计算
 
-​  
+  
 
 定制顺序的比较器
 
-* 1.使用匿名内部类创建Comparator<T>接口的实现类对象
+* 1.使用匿名内部类创建Comparator\<T>接口的实现类对象
 
 * 2.确认比较规则,在匿名内部类中重写compare(Student o1, Student o2)
 
-* 3.将Comparator<T>接口的实现类对象作为实参,创建TreeSet集合对象
+* 3.将Comparator\<T>接口的实现类对象作为实参,创建TreeSet集合对象
 
 * 4.添加元素即可完成排序
