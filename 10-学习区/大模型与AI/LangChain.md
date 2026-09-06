@@ -5,6 +5,9 @@ domain: 大模型与AI
 source: 个人总结
 ---
 
+> [!note] 边界声明
+> 本文讲 LangChain/LangGraph 框架;Agent 通用架构(MCP Host/Client/Server)见 [[Agent实现]]。
+
 
 LangChain(核心作用是什么)
 模型包装器,数据增强,记忆,Agent,链,回调处理器

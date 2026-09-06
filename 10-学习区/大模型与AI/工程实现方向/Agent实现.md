@@ -5,6 +5,9 @@ domain: 大模型与AI
 source: 个人总结
 ---
 
+> [!note] 边界声明
+> 本文讲 Agent 组成与协作模式;LangChain/LangGraph 框架接入见 [[LangChain]](含 MCP 传输层)。
+
 
 #### Agent组成
 

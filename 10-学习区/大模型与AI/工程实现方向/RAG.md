@@ -5,6 +5,9 @@ domain: 大模型与AI
 source: 个人总结
 ---
 
+> [!note] 边界声明
+> 本文讲 RAG 方法论与通用链路;企业知识系统落地(Query 改写/评测/GraphRAG 选型)见 [[Agent和知识系统建设]]。
+
 
 
 存储的核心

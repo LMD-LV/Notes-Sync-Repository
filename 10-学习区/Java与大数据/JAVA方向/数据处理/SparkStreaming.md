@@ -5,6 +5,9 @@ domain: Java与大数据
 source: 个人总结
 ---
 
+> [!note] 边界声明
+> 本文讲 Spark Streaming 的背压等机制;Flink 反压见 [[Flink优化-反压机制]](同名概念,不同引擎实现)。
+
 SparkStreaming用于流式处理数据
 
 ![image.png](assets/SparkStreaming-1.png)

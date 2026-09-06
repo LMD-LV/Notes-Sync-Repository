@@ -5,6 +5,9 @@ status: 整理中
 domain: Java与大数据
 source: 个人总结
 ---
+
+> [!note] 边界声明
+> 本文讲 HashMap/TreeMap 底层实现(2022 深挖版);集合体系 API 用法见 [[SE-集合框架]]。
 #### Map接口
 
 **  

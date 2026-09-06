@@ -5,6 +5,9 @@ status: 整理中
 domain: Java与大数据
 source: 个人总结
 ---
+
+> [!note] 边界声明
+> 本文讲 Flink 反压;Spark Streaming 背压见 [[SparkStreaming]](同名概念,不同引擎实现)。
 # 反压机制
 
 ![image.png](assets/Flink优化-8.png)

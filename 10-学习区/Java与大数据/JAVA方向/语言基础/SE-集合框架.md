@@ -6,6 +6,9 @@ domain: Java与大数据
 source: 个人总结
 ---
 
+> [!note] 边界声明
+> 本文讲集合体系 API 用法与红黑树等结构;HashMap/TreeMap 底层实现细节见 [[JAVA复习2022-Map与Set体系]]。
+
 #### 集合,
 
 集合: 存储同一数据类型多个元素对象的容器
