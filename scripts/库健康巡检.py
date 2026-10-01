@@ -6,7 +6,7 @@
     PYTHONIOENCODING=utf-8 python scripts/库健康巡检.py --save    # 同时写入 00-收件箱/库健康巡检报告.md
 
 检查项(对应《笔记库规范》的治理不变量):
-    1. 断链:指向不存在文件的 [[wikilink]](90 区只读例外与设计内例外单列)
+    1. 断链:指向不存在文件的 [[wikilink]](模板/规范示例等设计内例外单列)
     2. frontmatter:10/20/30 区无 YAML 头的笔记
     3. 超大文件:10/20/30 区 >50KB(规范要求列入拆分计划)
     4. 未登记碎片:10/20/30 区 <500B 且 status 不是 种子/快照 的笔记
@@ -23,7 +23,7 @@ VAULT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ZONES = ["10-学习区", "20-项目与工作", "30-个人区"]
 EXCLUDE_DIRS = {".git", ".obsidian", ".claude", "scripts", "Templates"}
 
-# 设计内例外:模板占位符 / 规范文档代码示例 / 90 区只读文件,不计入断链
+# 设计内例外:模板占位符 / 规范文档代码示例,不计入断链
 KNOWN_EXCEPTIONS = {
     ("Templates", "相关技术概念1"), ("Templates", "相关技术概念2"),
     ("笔记库规范.md", "wiki链接"),
@@ -32,8 +32,7 @@ def is_known_exception(rel, target):
     for prefix, tgt in KNOWN_EXCEPTIONS:
         if tgt == target and (prefix in rel or rel.startswith(prefix)):
             return True
-    # 90 区只读:悬空链接只登记不告警
-    return rel.startswith("90-外部资料")
+    return False
 
 WIKILINK = re.compile(r"\[\[([^\]|#]+?)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]")
 
@@ -100,7 +99,7 @@ def main():
     for rel, tgt in broken:
         report.append(f"- ⚠️ {rel} → {tgt}")
     if exceptions:
-        report.append(f"\n(设计内例外 {len(exceptions)} 处,不处理:模板占位符/规范示例/90 区只读)")
+        report.append(f"\n(设计内例外 {len(exceptions)} 处,不处理:模板占位符/规范示例)")
 
     zone_mds = check_zone_mds(mds)
     no_fm = [(rel, p) for p, rel in zone_mds if not has_frontmatter(read(p))]
