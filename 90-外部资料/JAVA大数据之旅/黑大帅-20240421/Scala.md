@@ -1,1 +1,0 @@
-![白板 1](assets/Scala-白板-1.svg)
